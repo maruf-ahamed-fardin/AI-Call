@@ -10,15 +10,12 @@ interface Step {
 
 const steps: Step[] = [
   { id: "hero", num: "01", label: "Hero" },
-  { id: "capabilities", num: "02", label: "Capabilities" },
-  { id: "features", num: "03", label: "Features" },
-  { id: "how-it-works", num: "04", label: "Action Engine" },
-  { id: "voice-matrix", num: "05", label: "Voice Matrix" },
-  { id: "roi-calculator", num: "06", label: "ROI Calc" },
-  { id: "live-call", num: "07", label: "Live Call" },
-  { id: "use-cases", num: "08", label: "Use Cases" },
-  { id: "testimonials", num: "09", label: "Reviews" },
-  { id: "cta", num: "10", label: "Get Started" },
+  { id: "features", num: "02", label: "Features" },
+  { id: "how-it-works", num: "03", label: "How It Works" },
+  { id: "live-call", num: "04", label: "Live Demo" },
+  { id: "use-cases", num: "05", label: "Use Cases" },
+  { id: "testimonials", num: "06", label: "Reviews" },
+  { id: "cta", num: "07", label: "Get Started" },
 ];
 
 export default function ScrollJourneyIndicator() {
@@ -96,7 +93,7 @@ export default function ScrollJourneyIndicator() {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          gap: "10px",
+          gap: "12px",
           pointerEvents: "auto",
         }}
       >

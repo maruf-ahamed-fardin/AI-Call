@@ -1,103 +1,106 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface AIWaveformProps {
   active?: boolean;
-  barCount?: number;
-  color?: "blue" | "orange" | "cyan" | "mixed";
+  colorTheme?: "blue" | "orange" | "mixed";
   height?: number;
+  barCount?: number;
   className?: string;
-  speed?: "slow" | "normal" | "fast";
+  speed?: number;
 }
 
 export default function AIWaveform({
   active = true,
-  barCount = 28,
-  color = "blue",
+  colorTheme = "blue",
   height = 36,
+  barCount = 30,
   className = "",
-  speed = "normal",
+  speed = 1,
 }: AIWaveformProps) {
-  // Pre-generate balanced initial heights
-  const [bars] = useState<number[]>(() => {
-    const arr: number[] = [];
-    for (let i = 0; i < barCount; i++) {
-      // Natural bell-curve or voice-like distribution
-      const centerFactor = 1 - Math.abs((i - barCount / 2) / (barCount / 2));
-      const val = 0.25 + centerFactor * 0.7 + (Math.sin(i * 1.5) * 0.15);
-      arr.push(Math.max(0.15, Math.min(1, val)));
-    }
-    return arr;
-  });
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const getColor = (index: number) => {
-    if (color === "orange") return "#F97316";
-    if (color === "cyan") return "#06B6D4";
-    if (color === "mixed") {
-      return index % 3 === 0 ? "#F97316" : index % 2 === 0 ? "#2563EB" : "#06B6D4";
-    }
-    return "#2563EB";
-  };
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-  const getAnimDuration = (index: number) => {
-    const base = speed === "fast" ? 0.6 : speed === "slow" ? 1.4 : 0.9;
-    const offset = (index % 5) * 0.12;
-    return `${base + offset}s`;
-  };
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-  return (
-    <div
-      className={`inline-flex items-center gap-[3px] select-none ${className}`}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "3px",
-        height: `${height}px`,
-      }}
-      aria-label="Audio Waveform Visualization"
-    >
-      {bars.map((initialScale, i) => {
-        const barColor = getColor(i);
-        const animDuration = getAnimDuration(i);
-        const animDelay = `${(i * 0.04) % 0.8}s`;
+    let animId: number;
+    let step = 0;
 
-        return (
-          <span
-            key={i}
-            style={{
-              width: "3px",
-              height: "100%",
-              backgroundColor: barColor,
-              borderRadius: "9999px",
-              display: "inline-block",
-              transformOrigin: "center",
-              transform: active ? `scaleY(${initialScale})` : "scaleY(0.15)",
-              animation: active
-                ? `wavePulse ${animDuration} ease-in-out infinite alternate`
-                : "none",
-              animationDelay: animDelay,
-              opacity: active ? 0.9 : 0.4,
-              transition: "transform 0.3s ease, opacity 0.3s ease",
-            }}
-          />
-        );
-      })}
+    const barWidth = 3;
+    const gap = 3;
+    const totalWidth = barCount * (barWidth + gap);
 
-      <style jsx>{`
-        @keyframes wavePulse {
-          0% {
-            transform: scaleY(0.18);
-          }
-          50% {
-            transform: scaleY(0.95);
-          }
-          100% {
-            transform: scaleY(0.35);
+    canvas.width = totalWidth;
+    canvas.height = height;
+
+    const render = () => {
+      ctx.clearRect(0, 0, totalWidth, height);
+
+      step += 0.08 * speed;
+
+      for (let i = 0; i < barCount; i++) {
+        // Natural speech bell curve
+        const centerDist = Math.abs(i - barCount / 2) / (barCount / 2);
+        const envelope = 1 - Math.pow(centerDist, 1.6);
+
+        let h = 4;
+        if (active) {
+          const wave1 = Math.sin(step + i * 0.35) * 0.5 + 0.5;
+          const wave2 = Math.cos(step * 0.7 + i * 0.22) * 0.5 + 0.5;
+          const wave3 = Math.sin(step * 1.3 + i * 0.45) * 0.3 + 0.3;
+          h = Math.max(4, (wave1 * 0.55 + wave2 * 0.3 + wave3 * 0.15) * (height - 4) * envelope + 4);
+        }
+
+        const x = i * (barWidth + gap);
+        const y = (height - h) / 2;
+
+        const gradient = ctx.createLinearGradient(0, y, 0, y + h);
+        if (colorTheme === "blue") {
+          gradient.addColorStop(0, "#60A5FA");
+          gradient.addColorStop(1, "#2563EB");
+        } else if (colorTheme === "orange") {
+          gradient.addColorStop(0, "#FB923C");
+          gradient.addColorStop(1, "#EA580C");
+        } else {
+          if (i % 2 === 0) {
+            gradient.addColorStop(0, "#60A5FA");
+            gradient.addColorStop(1, "#2563EB");
+          } else {
+            gradient.addColorStop(0, "#FB923C");
+            gradient.addColorStop(1, "#EA580C");
           }
         }
-      `}</style>
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.roundRect(x, y, barWidth, h, 2);
+        ctx.fill();
+      }
+
+      animId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animId);
+    };
+  }, [active, colorTheme, height, barCount, speed]);
+
+  return (
+    <div className={`inline-flex items-center select-none ${className}`} style={{ height: `${height}px` }}>
+      <canvas
+        ref={canvasRef}
+        style={{
+          display: "block",
+          filter: "drop-shadow(0 2px 6px rgba(37, 99, 235, 0.25))",
+        }}
+      />
     </div>
   );
 }

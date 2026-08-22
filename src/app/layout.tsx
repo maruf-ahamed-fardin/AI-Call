@@ -6,23 +6,24 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#FAFAF9",
+  themeColor: "#FFFFFF",
 };
 
 export const metadata: Metadata = {
-  title: "Selorax AI — AI that talks to your customers and gets the work done",
+  title: "SeloraX AI — AI Calling That Actually Talks Like a Human",
   description:
-    "Selorax AI answers incoming phone calls, conducts outbound calls, provides live voice support, and handles customer messaging — verifying orders, booking appointments, processing payments, and executing end-to-end business workflows automatically 24/7.",
+    "Build AI voice agents that engage, qualify, and convert 24/7 — just like your best human. Automated inbound & outbound phone calls with live transcriptions and real-time CRM execution.",
   keywords: [
     "AI voice agent",
     "AI phone calls",
-    "Selorax AI",
+    "SeloraX AI",
     "Automated customer frontline",
     "Voice AI",
     "Outbound call automation",
     "COD verification AI",
+    "AI calling",
   ],
-  authors: [{ name: "Selorax AI" }],
+  authors: [{ name: "SeloraX AI" }],
   icons: {
     icon: "/favicon.ico",
   },
@@ -38,10 +39,9 @@ export default function RootLayout({
       <body>
         {/* Ambient Warm Luxury Background Lighting */}
         <div className="ambient-light-background" aria-hidden="true">
-          <div className="ambient-light-orb-1" />
-          <div className="ambient-light-orb-2" />
-          <div className="ambient-light-orb-3" />
-          <div className="ambient-light-grid" />
+          <div className="ambient-orb-blue" />
+          <div className="ambient-orb-orange" />
+          <div className="ambient-orb-cyan" />
         </div>
 
         {/* Lenis 120fps Smooth Scroll Engine */}

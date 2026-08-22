@@ -17,21 +17,15 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Product", href: "#features" },
-    { label: "Capabilities", href: "#capabilities" },
-    { label: "Voice Matrix", href: "#voice-matrix" },
-    { label: "ROI Calc", href: "#roi-calculator" },
+    { label: "Features", href: "#features" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Use Cases", href: "#use-cases" },
     { label: "Live Demo", href: "#live-call" },
-    { label: "Case Studies", href: "#testimonials" },
+    { label: "Testimonials", href: "#testimonials" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/85 backdrop-blur-md border-b border-slate-200/60 shadow-sm py-3"
-          : "bg-transparent py-5"
-      }`}
       style={{
         position: "fixed",
         top: 0,
@@ -39,11 +33,11 @@ export default function Navbar() {
         right: 0,
         zIndex: 50,
         transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.88)" : "transparent",
+        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "transparent",
         backdropFilter: scrolled ? "blur(16px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
         borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.06)" : "1px solid transparent",
-        boxShadow: scrolled ? "0 4px 20px -2px rgba(15, 23, 42, 0.04)" : "none",
+        boxShadow: scrolled ? "0 4px 20px -2px rgba(15, 23, 42, 0.03)" : "none",
         padding: scrolled ? "12px 0" : "20px 0",
       }}
     >
@@ -53,7 +47,7 @@ export default function Navbar() {
           <SeloraxLogo size="md" />
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <nav
           style={{
             display: "none",
@@ -81,33 +75,32 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Action CTAs */}
-        <div style={{ display: "none", alignItems: "center", gap: "12px" }} className="desktop-actions">
+        {/* Action Buttons: Login + Get Started */}
+        <div style={{ display: "none", alignItems: "center", gap: "14px" }} className="desktop-actions">
           <a
-            href="https://wa.me/8801993213030?text=Hi%2C%20I%20want%20to%20book%20a%20demo%20for%20Selorax%20AI"
+            href="https://wa.me/8801993213030?text=Hi%2C%20I%20want%20to%20login%20to%20SeloraX"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-secondary"
             style={{
-              padding: "9px 18px",
               fontSize: "14px",
               fontWeight: 600,
+              color: "#0F172A",
+              textDecoration: "none",
             }}
           >
-            Book a demo
+            Login
           </a>
 
           <a
             href="#live-call"
             className="btn btn-primary"
             style={{
-              padding: "9px 20px",
+              padding: "10px 22px",
               fontSize: "14px",
-              fontWeight: 600,
+              fontWeight: 700,
             }}
           >
-            <span>Talk to the AI</span>
-            <ArrowRight size={15} />
+            <span>Get Started</span>
           </a>
         </div>
 
@@ -176,17 +169,7 @@ export default function Navbar() {
               className="btn btn-primary"
               style={{ width: "100%", textAlign: "center" }}
             >
-              Talk to the AI →
-            </a>
-            <a
-              href="https://wa.me/8801993213030?text=Hi%2C%20I%20want%20to%20book%20a%20demo%20for%20Selorax%20AI"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="btn btn-secondary"
-              style={{ width: "100%", textAlign: "center" }}
-            >
-              Book a demo
+              Get Started
             </a>
           </div>
         </div>

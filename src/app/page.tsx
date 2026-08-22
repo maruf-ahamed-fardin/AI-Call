@@ -3,13 +3,9 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import ScrollJourneyIndicator from "@/components/ScrollJourneyIndicator";
-import FloatingCallWidget from "@/components/FloatingCallWidget";
 import HeroScene from "@/components/scenes/HeroScene";
-import CapabilitiesScene from "@/components/scenes/CapabilitiesScene";
 import FeaturesScene from "@/components/scenes/FeaturesScene";
-import ActionEngineScene from "@/components/scenes/ActionEngineScene";
-import VoiceMatrixScene from "@/components/scenes/VoiceMatrixScene";
-import ROICalculatorScene from "@/components/scenes/ROICalculatorScene";
+import ProcessScene from "@/components/scenes/ProcessScene";
 import LiveCallScene from "@/components/scenes/LiveCallScene";
 import UseCasesScene from "@/components/scenes/UseCasesScene";
 import TestimonialsScene from "@/components/scenes/TestimonialsScene";
@@ -25,47 +21,35 @@ export default function HomePage() {
         backgroundColor: "var(--bg-primary)",
       }}
     >
-      {/* Top Glassmorphic Cyber Navigation */}
+      {/* Top Glassmorphic Navigation */}
       <Navbar />
 
       {/* Interactive Right-side Scroll Journey Rail */}
       <ScrollJourneyIndicator />
 
-      {/* Pinned Scene 1: Cinematic 3D Hero with Zero-Lag Parallax & Interactive Prompt Console */}
+      {/* 01 — Hero / AI Calling Introduction (Pinned Cinematic 3D Scene) */}
       <HeroScene />
 
-      {/* Scene 2: Omnichannel Neural Matrix & Capabilities (Talks Like People) */}
-      <CapabilitiesScene />
-
-      {/* Pinned Scene 3: Interactive Product Showcase & State Mutator */}
+      {/* 02 — Features (Scroll Driven 3D Pinned Orbit) */}
       <FeaturesScene />
 
-      {/* Scene 4: Action Engine Pipeline & Node Graph (It doesn't just answer...) */}
-      <ActionEngineScene />
+      {/* 03 — How It Works (4-Step Connected Process & 3D Cascade) */}
+      <ProcessScene />
 
-      {/* Scene 5: Global Voice & Multi-Dialect Interactive Studio Sandbox */}
-      <VoiceMatrixScene />
-
-      {/* Scene 6: Dynamic Enterprise ROI & Monthly Cost-Savings Calculator */}
-      <ROICalculatorScene />
-
-      {/* Pinned Scene 7: Real-time Live AI Call Simulator Lab */}
+      {/* 04 — Live Call Experience (Scroll-Controlled Real AI Voice Demo) */}
       <LiveCallScene />
 
-      {/* Scene 8: Tailored Industry Solutions Matrix */}
+      {/* 05 — Real-World Use Cases (Interactive Solution Switcher) */}
       <UseCasesScene />
 
-      {/* Scene 9: Verified Customer Case Studies & Metrics */}
+      {/* 06 — Testimonials / Social Proof (Editorial 5-Star Reviews) */}
       <TestimonialsScene />
 
-      {/* Scene 10: Final Cinematic 3D Call to Action */}
+      {/* 07 — Final CTA (Cinematic Conclusion) */}
       <FinalCTAScene />
 
       {/* Footer */}
       <Footer />
-
-      {/* Interactive Floating AI Voice Assistant Widget */}
-      <FloatingCallWidget />
     </main>
   );
 }
