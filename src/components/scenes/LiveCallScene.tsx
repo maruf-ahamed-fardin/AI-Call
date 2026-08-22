@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AIWaveform from "@/components/ui/AIWaveform";
 import AvatarVisual from "@/components/ui/AvatarVisual";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
   Sparkles,
   Phone,
@@ -20,10 +21,26 @@ export default function LiveCallScene() {
   const [callActive, setCallActive] = useState(true);
   const [activeTab, setActiveTab] = useState<"transcript" | "summary">("transcript");
   const [isMuted, setIsMuted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Materializes right as the Hero's whip-flash clears — reinforces the
+  // Hero-to-LiveCall camera handoff instead of a hard section cut.
+  useScrollReveal(sectionRef, {
+    targets: ".livecall-left-col > *",
+    start: "top 88%",
+    stagger: 0.1,
+  });
+  useScrollReveal(sectionRef, {
+    targets: ".livecall-console",
+    start: "top 88%",
+    delay: 0.15,
+    scale: 0.94,
+  });
 
   return (
     <section
       id="live-call"
+      ref={sectionRef}
       style={{
         position: "relative",
         padding: "120px 0 100px 0",
@@ -43,7 +60,7 @@ export default function LiveCallScene() {
           className="live-call-grid"
         >
           {/* Left Column: Headline & Action */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }} className="gpu-layer">
+          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }} className="gpu-layer livecall-left-col">
             <div>
               <span className="badge-eyebrow">
                 <span className="badge-dot" />
@@ -103,7 +120,7 @@ export default function LiveCallScene() {
 
           {/* Right Column: Live Call Studio Console Matching Reference */}
           <div
-            className="glass-panel gpu-layer live-call-console-grid"
+            className="glass-panel gpu-layer live-call-console-grid livecall-console"
             style={{
               padding: "32px 28px",
               borderRadius: "32px",

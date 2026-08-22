@@ -33,6 +33,28 @@ export default function AIPhoneVisual({
   const [isMuted, setIsMuted] = useState(false);
   const [activeCall, setActiveCall] = useState(isCalling);
 
+  // FeaturesScene already surrounds the phone with its own annotation cards —
+  // hide these duplicate floating bubbles/cards for that stage instead of stacking both.
+  const showFloatingAnnotations = stage !== "features";
+
+  const featureSubtitles = [
+    "Understanding your customer...",
+    "Automating the follow-up...",
+    "Transcribing in real-time...",
+    "Syncing to your CRM...",
+  ];
+
+  const statusLine =
+    stage === "cta"
+      ? "Ready When You Are"
+      : stage === "livecall"
+      ? "Live on This Page"
+      : stage === "features"
+      ? featureSubtitles[activeFeatureIndex % featureSubtitles.length]
+      : activeCall
+      ? "AI Calling..."
+      : "Call Ready";
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (activeCall) {
@@ -94,6 +116,8 @@ export default function AIPhoneVisual({
         }}
       />
 
+      {showFloatingAnnotations && (
+        <>
       {/* Floating Speech Bubble 1 - Top Left */}
       <div
         className="floating-bubble-top-left gpu-layer"
@@ -329,6 +353,8 @@ export default function AIPhoneVisual({
           </div>
         </div>
       </div>
+        </>
+      )}
 
       {/* Central 3D iPhone Frame (White / Silver Luxury Bezel) */}
       <div
@@ -413,7 +439,7 @@ export default function AIPhoneVisual({
           </h4>
 
           <div style={{ fontSize: "11px", color: "#64748B", fontWeight: 600, marginBottom: "8px" }}>
-            {activeCall ? "AI Calling..." : "Call Ready"}
+            {statusLine}
           </div>
 
           <div

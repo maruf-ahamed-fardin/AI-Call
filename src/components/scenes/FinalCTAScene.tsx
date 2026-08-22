@@ -1,13 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { ArrowRight, MessageSquare, TrendingUp, Clock } from "lucide-react";
 import AIPhoneVisual from "@/components/ui/AIPhoneVisual";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function FinalCTAScene() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useScrollReveal(sectionRef, {
+    targets: ".cta-left-col > *",
+    start: "top 80%",
+    stagger: 0.08,
+  });
+  useScrollReveal(sectionRef, {
+    targets: ".cta-phone-visual",
+    start: "top 78%",
+    scale: 0.85,
+    delay: 0.15,
+  });
+
   return (
     <section
       id="cta"
+      ref={sectionRef}
       style={{
         position: "relative",
         padding: "140px 0 120px 0",
@@ -34,7 +50,7 @@ export default function FinalCTAScene() {
           className="cta-grid gpu-layer"
         >
           {/* Left Column: Headlines & Actions */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }} className="cta-left-col">
             <div>
               <span className="badge-eyebrow">
                 <span className="badge-dot" />
@@ -101,6 +117,7 @@ export default function FinalCTAScene() {
           >
             {/* Phone Visual with forward perspective tilt */}
             <div
+              className="cta-phone-visual"
               style={{
                 transform: "scale(0.88) rotateX(8deg)",
                 transformOrigin: "center",

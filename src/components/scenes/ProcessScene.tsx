@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   UserCheck,
   CloudUpload,
@@ -14,6 +16,8 @@ import {
 } from "lucide-react";
 import AIWaveform from "@/components/ui/AIWaveform";
 import AvatarVisual from "@/components/ui/AvatarVisual";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { prefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface ProcessStep {
   num: string;
@@ -56,10 +60,55 @@ const steps: ProcessStep[] = [
 
 export default function ProcessScene() {
   const [activeStep, setActiveStep] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cascadeRef = useRef<HTMLDivElement>(null);
+
+  useScrollReveal(sectionRef, {
+    targets: ".process-step-card",
+    start: "top 80%",
+    stagger: 0.08,
+    once: true,
+  });
+
+  // Cascade cards settle into their resting rotateY tilt as the row enters view
+  useEffect(() => {
+    const cascade = cascadeRef.current;
+    if (!cascade || prefersReducedMotion()) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const cards = cascade.querySelectorAll<HTMLElement>(".process-cascade-card");
+      cards.forEach((card, idx) => {
+        const restRotation = [14, 7, 0, -12][idx] ?? 0;
+        gsap.fromTo(
+          card,
+          { y: 46, opacity: 0, scale: 0.85, rotateY: restRotation * 2 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: idx === 2 ? 1 : [0.94, 0.97, 1, 0.95][idx],
+            rotateY: restRotation,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: idx * 0.1,
+            scrollTrigger: {
+              trigger: cascade,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      });
+    }, cascade);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="how-it-works"
+      ref={sectionRef}
       style={{
         position: "relative",
         padding: "120px 0 100px 0",
@@ -132,7 +181,7 @@ export default function ProcessScene() {
                 <div
                   key={step.num}
                   onClick={() => setActiveStep(idx)}
-                  className="glass-panel-card gpu-layer"
+                  className="glass-panel-card gpu-layer process-step-card"
                   style={{
                     padding: "26px 20px",
                     borderRadius: "22px",
@@ -197,6 +246,7 @@ export default function ProcessScene() {
 
         {/* 3D 4-Card Cascade Showcase Matching Reference Image */}
         <div
+          ref={cascadeRef}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -211,7 +261,7 @@ export default function ProcessScene() {
         >
           {/* Cascade Card 1: Create Your Agent */}
           <div
-            className="glass-panel gpu-layer"
+            className="glass-panel gpu-layer process-cascade-card"
             style={{
               width: "240px",
               minWidth: "240px",
@@ -220,8 +270,6 @@ export default function ProcessScene() {
               background: "#FFFFFF",
               border: "1px solid rgba(15, 23, 42, 0.08)",
               boxShadow: "0 18px 45px -10px rgba(15, 23, 42, 0.08)",
-              transform: "rotateY(14deg) scale(0.94)",
-              transition: "transform 0.3s ease",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
@@ -247,7 +295,7 @@ export default function ProcessScene() {
 
           {/* Cascade Card 2: Upload Knowledge */}
           <div
-            className="glass-panel gpu-layer"
+            className="glass-panel gpu-layer process-cascade-card"
             style={{
               width: "240px",
               minWidth: "240px",
@@ -256,8 +304,6 @@ export default function ProcessScene() {
               background: "#FFFFFF",
               border: "1px solid rgba(15, 23, 42, 0.08)",
               boxShadow: "0 18px 45px -10px rgba(15, 23, 42, 0.08)",
-              transform: "rotateY(7deg) scale(0.97)",
-              transition: "transform 0.3s ease",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
@@ -279,7 +325,7 @@ export default function ProcessScene() {
 
           {/* Cascade Card 3: Start Calling (Phone UI) */}
           <div
-            className="glass-panel gpu-layer"
+            className="glass-panel gpu-layer process-cascade-card"
             style={{
               width: "260px",
               minWidth: "260px",
@@ -310,7 +356,7 @@ export default function ProcessScene() {
 
           {/* Cascade Card 4: Get Results */}
           <div
-            className="glass-panel gpu-layer"
+            className="glass-panel gpu-layer process-cascade-card"
             style={{
               width: "240px",
               minWidth: "240px",
@@ -319,8 +365,6 @@ export default function ProcessScene() {
               background: "#FFFFFF",
               border: "1px solid rgba(15, 23, 42, 0.08)",
               boxShadow: "0 18px 45px -10px rgba(15, 23, 42, 0.08)",
-              transform: "rotateY(-12deg) scale(0.95)",
-              transition: "transform 0.3s ease",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>

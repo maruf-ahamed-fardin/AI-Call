@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AIWaveform from "@/components/ui/AIWaveform";
+import { prefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import {
   Brain,
   Zap,
@@ -35,17 +36,21 @@ export default function AudioTunnelScene() {
 
     if (!section || !tunnel || !l1 || !l2 || !l3 || !crm) return;
 
+    const reduced = prefersReducedMotion();
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: tunnel,
           start: "top top",
           end: "+=180%",
-          pin: true,
-          scrub: 0.6,
+          pin: !reduced,
+          scrub: reduced ? false : 0.6,
           anticipatePin: 1,
         },
       });
+
+      const crmFields = crm.querySelectorAll<HTMLElement>(".crm-field");
 
       // Virtual Camera Traveling Through 3D Audio Landscape & Assembling Structured CRM Data
       tl.fromTo(
@@ -68,10 +73,33 @@ export default function AudioTunnelScene() {
         )
         .fromTo(
           crm,
-          { y: 80, opacity: 0, scale: 0.85, rotateX: 12 },
-          { y: 0, opacity: 1, scale: 1, rotateX: 0, ease: "power2.out" },
-          0.5
+          { y: 80, opacity: 0, scale: 0.9 },
+          { y: 0, opacity: 1, scale: 1, ease: "power2.out" },
+          0.48
+        )
+        // Structured intelligence assembling — each field settles in individually
+        .fromTo(
+          crmFields,
+          { y: 40, opacity: 0, scale: 0.85, rotateX: 14, filter: "blur(4px)" },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            filter: "blur(0px)",
+            ease: "back.out(1.6)",
+            stagger: 0.12,
+          },
+          0.55
         );
+
+      // Idle depth float so the tunnel feels alive at rest, tuned to not
+      // fight the scrub-driven translateZ tweens above
+      if (!reduced) {
+        gsap.to(l1, { y: "+=6", duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+        gsap.to(l2, { y: "+=6", duration: 3.8, delay: 0.3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+        gsap.to(l3, { y: "+=6", duration: 4.4, delay: 0.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -234,22 +262,22 @@ export default function AudioTunnelScene() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }} className="crm-assembly-grid">
-            <div style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
+            <div className="crm-field" style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
               <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>CUSTOMER</div>
               <div style={{ fontSize: "13px", fontWeight: 800, color: "#0F172A" }}>Tanvir Ahmed</div>
             </div>
 
-            <div style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
+            <div className="crm-field" style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
               <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>RESOLVED INTENT</div>
               <div style={{ fontSize: "13px", fontWeight: 800, color: "#2563EB" }}>COD Order #4829</div>
             </div>
 
-            <div style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
+            <div className="crm-field" style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
               <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>SENTIMENT</div>
               <div style={{ fontSize: "13px", fontWeight: 800, color: "#16A34A" }}>99% Confident</div>
             </div>
 
-            <div style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
+            <div className="crm-field" style={{ padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
               <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>DISPATCH ACTION</div>
               <div style={{ fontSize: "13px", fontWeight: 800, color: "#EA580C" }}>Steadfast Courier</div>
             </div>

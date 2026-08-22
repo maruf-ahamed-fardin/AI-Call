@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   TrendingUp,
   Headphones,
@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import AIWaveform from "@/components/ui/AIWaveform";
 import AvatarVisual from "@/components/ui/AvatarVisual";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface UseCaseItem {
   id: string;
@@ -80,10 +81,26 @@ const useCases: UseCaseItem[] = [
 export default function UseCasesScene() {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const current = useCases[selectedIdx];
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useScrollReveal(sectionRef, {
+    targets: ".use-case-card",
+    start: "top 80%",
+    stagger: 0.07,
+    once: true,
+  });
+  useScrollReveal(sectionRef, {
+    targets: ".use-case-lead-preview-card",
+    start: "top 78%",
+    scale: 0.94,
+    delay: 0.2,
+    once: true,
+  });
 
   return (
     <section
       id="use-cases"
+      ref={sectionRef}
       style={{
         position: "relative",
         padding: "120px 0 100px 0",
@@ -135,7 +152,7 @@ export default function UseCasesScene() {
               <div
                 key={item.id}
                 onClick={() => setSelectedIdx(idx)}
-                className="glass-panel-card gpu-layer"
+                className="glass-panel-card gpu-layer use-case-card"
                 style={{
                   padding: "22px 18px",
                   borderRadius: "20px",

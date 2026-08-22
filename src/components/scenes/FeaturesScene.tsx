@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AIPhoneVisual from "@/components/ui/AIPhoneVisual";
+import { prefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import {
   MessageSquare,
   Bot,
@@ -64,6 +65,8 @@ export default function FeaturesScene() {
     const section = sectionRef.current;
     const pinContainer = pinContainerRef.current;
     if (!section || !pinContainer) return;
+
+    if (prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({

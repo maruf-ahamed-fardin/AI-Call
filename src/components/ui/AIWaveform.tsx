@@ -20,25 +20,33 @@ export default function AIWaveform({
   speed = 1,
 }: AIWaveformProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const wrap = wrapRef.current;
+    if (!canvas || !wrap) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animId: number;
+    let animId: number | null = null;
     let step = 0;
+    let visible = true;
 
     const barWidth = 3;
     const gap = 3;
     const totalWidth = barCount * (barWidth + gap);
 
-    canvas.width = totalWidth;
-    canvas.height = height;
+    const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+    canvas.width = totalWidth * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${totalWidth}px`;
+    canvas.style.height = `${height}px`;
+    ctx.scale(dpr, dpr);
 
     const render = () => {
+      if (!visible) return;
       ctx.clearRect(0, 0, totalWidth, height);
 
       step += 0.08 * speed;
@@ -85,15 +93,41 @@ export default function AIWaveform({
       animId = requestAnimationFrame(render);
     };
 
-    render();
+    const startRender = () => {
+      if (animId === null) render();
+    };
+
+    const stopRender = () => {
+      if (animId !== null) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0]?.isIntersecting ?? true;
+        if (visible) startRender();
+        else stopRender();
+      },
+      { threshold: 0 }
+    );
+    observer.observe(wrap);
+
+    startRender();
 
     return () => {
-      cancelAnimationFrame(animId);
+      observer.disconnect();
+      stopRender();
     };
   }, [active, colorTheme, height, barCount, speed]);
 
   return (
-    <div className={`inline-flex items-center select-none ${className}`} style={{ height: `${height}px` }}>
+    <div
+      ref={wrapRef}
+      className={`inline-flex items-center select-none ${className}`}
+      style={{ height: `${height}px` }}
+    >
       <canvas
         ref={canvasRef}
         style={{

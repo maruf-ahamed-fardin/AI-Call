@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { Star } from "lucide-react";
 import AvatarVisual from "@/components/ui/AvatarVisual";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface TestimonialItem {
   id: string;
@@ -58,9 +59,19 @@ const testimonials: TestimonialItem[] = [
 ];
 
 export default function TestimonialsScene() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useScrollReveal(sectionRef, {
+    targets: ".testimonial-card",
+    start: "top 80%",
+    stagger: 0.08,
+    once: true,
+  });
+
   return (
     <section
       id="testimonials"
+      ref={sectionRef}
       style={{
         position: "relative",
         padding: "120px 0 100px 0",
@@ -102,7 +113,7 @@ export default function TestimonialsScene() {
           {testimonials.map((item) => (
             <div
               key={item.id}
-              className="glass-panel-card gpu-layer"
+              className="glass-panel-card gpu-layer testimonial-card"
               style={{
                 padding: "32px 24px",
                 borderRadius: "24px",
