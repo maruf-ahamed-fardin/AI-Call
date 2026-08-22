@@ -7,11 +7,11 @@ import {
   UserCheck,
   CalendarCheck,
   PhoneForwarded,
-  Sparkles,
-  ArrowRight,
   ShieldCheck,
+  ArrowRight,
 } from "lucide-react";
 import AIWaveform from "@/components/ui/AIWaveform";
+import AvatarVisual from "@/components/ui/AvatarVisual";
 
 interface UseCaseItem {
   id: string;
@@ -21,6 +21,7 @@ interface UseCaseItem {
   leadName: string;
   leadTag: string;
   leadScore: number;
+  avatarVariant: "john" | "sarah" | "rahul" | "fahmida" | "mohammad";
 }
 
 const useCases: UseCaseItem[] = [
@@ -32,42 +33,47 @@ const useCases: UseCaseItem[] = [
     leadName: "John Carter",
     leadTag: "Interested in Premium Plan",
     leadScore: 92,
+    avatarVariant: "john",
   },
   {
     id: "support",
     icon: <Headphones size={20} />,
     title: "Customer Support",
     desc: "Handle common inquiries and support calls instantly.",
-    leadName: "Emily Watson",
+    leadName: "Sarah Ahmed",
     leadTag: "Order Tracking Query Resolved",
     leadScore: 98,
+    avatarVariant: "sarah",
   },
   {
     id: "qualification",
     icon: <UserCheck size={20} />,
     title: "Lead Qualification",
-    desc: "Engage leads and route to your team seamlessly.",
-    leadName: "Michael Chang",
+    desc: "Engage leads and route to your team.",
+    leadName: "Rahul Islam",
     leadTag: "High-Budget Enterprise Prospect",
     leadScore: 95,
+    avatarVariant: "rahul",
   },
   {
     id: "appointments",
     icon: <CalendarCheck size={20} />,
     title: "Appointment Booking",
     desc: "Book, reschedule and confirm appointments seamlessly.",
-    leadName: "Sophia Martinez",
+    leadName: "Fahmida Rahman",
     leadTag: "Demo Booked for Tomorrow 3 PM",
     leadScore: 90,
+    avatarVariant: "fahmida",
   },
   {
     id: "followup",
     icon: <PhoneForwarded size={20} />,
     title: "Follow-up Calls",
     desc: "Nurture leads & follow ups and keep your pipeline alive.",
-    leadName: "David Miller",
+    leadName: "Mohammad Hasan",
     leadTag: "Follow-up Call Completed",
     leadScore: 88,
+    avatarVariant: "mohammad",
   },
 ];
 
@@ -173,86 +179,88 @@ export default function UseCasesScene() {
           })}
         </div>
 
-        {/* 3D Dynamic Preview Card */}
+        {/* Central 3D Lead Action Card Matching Reference Mockup */}
         <div
           style={{
             maxWidth: "680px",
             margin: "0 auto",
             perspective: "1200px",
+            position: "relative",
           }}
           className="gpu-layer"
         >
+          {/* Floating Pill Above Card */}
           <div
-            className="glass-panel"
             style={{
-              padding: "32px",
-              borderRadius: "28px",
-              background: "linear-gradient(175deg, #FFFFFF 0%, #F8FAFC 100%)",
-              border: "1px solid rgba(37, 99, 235, 0.2)",
-              boxShadow: "0 25px 60px -15px rgba(15, 23, 42, 0.08)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
+              position: "absolute",
+              top: "-14px",
+              left: "24px",
+              zIndex: 5,
+              backgroundColor: "#2563EB",
+              color: "#FFFFFF",
+              padding: "4px 14px",
+              borderRadius: "9999px",
+              fontSize: "11px",
+              fontWeight: 700,
+              boxShadow: "0 4px 12px rgba(37, 99, 235, 0.3)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span className="badge-eyebrow">
-                <span className="badge-dot" />
-                {current.title}
-              </span>
+            {current.title}
+          </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", backgroundColor: "#EFF6FF", padding: "4px 10px", borderRadius: "8px", fontSize: "12px", color: "#2563EB", fontWeight: 700 }}>
-                <ShieldCheck size={14} />
-                <span>Lead Score: {current.leadScore}</span>
-              </div>
-            </div>
+          {/* Lead Score Pill Top Right */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-14px",
+              right: "24px",
+              zIndex: 5,
+              backgroundColor: "#FFFFFF",
+              border: "1px solid rgba(16, 185, 129, 0.3)",
+              color: "#10B981",
+              padding: "4px 12px",
+              borderRadius: "9999px",
+              fontSize: "11px",
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+            }}
+          >
+            <ShieldCheck size={14} color="#10B981" />
+            <span>Lead Score: {current.leadScore}</span>
+          </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", padding: "16px", backgroundColor: "#FFFFFF", borderRadius: "18px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 2px 10px rgba(0,0,0,0.02)" }}>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "50%",
-                  backgroundColor: "#2563EB",
-                  color: "#FFFFFF",
-                  fontWeight: 800,
-                  fontSize: "18px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {current.leadName.charAt(0)}
-              </div>
+          <div
+            className="glass-panel use-case-lead-preview-card"
+            style={{
+              padding: "36px 32px",
+              borderRadius: "28px",
+              background: "linear-gradient(175deg, #FFFFFF 0%, #F8FAFC 100%)",
+              border: "1.5px solid rgba(37, 99, 235, 0.2)",
+              boxShadow: "0 25px 60px -15px rgba(15, 23, 42, 0.08)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "24px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <AvatarVisual variant={current.avatarVariant} size={54} />
 
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: "16px", fontWeight: 800, color: "#0F172A" }}>
+              <div>
+                <div style={{ fontSize: "17px", fontWeight: 800, color: "#0F172A" }}>
                   {current.leadName}
                 </div>
                 <div style={{ fontSize: "13px", color: "#64748B" }}>
                   {current.leadTag}
                 </div>
               </div>
-
-              <AIWaveform active={true} barCount={16} colorTheme="blue" height={24} />
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "12px", color: "#64748B", borderTop: "1px solid rgba(15, 23, 42, 0.06)", paddingTop: "14px" }}>
-              <span>✓ Automated dial & qualification triggered</span>
-              <a
-                href="#live-call"
-                style={{
-                  color: "#2563EB",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                }}
-              >
-                <span>Deploy for {current.title}</span>
-                <ArrowRight size={14} />
-              </a>
+            <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+              <AIWaveform active={true} barCount={18} colorTheme="blue" height={26} />
             </div>
           </div>
         </div>
@@ -262,6 +270,10 @@ export default function UseCasesScene() {
         @media (max-width: 960px) {
           .use-case-cards-grid {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .use-case-lead-preview-card {
+            flex-direction: column !important;
+            align-items: flex-start !important;
           }
         }
         @media (max-width: 580px) {

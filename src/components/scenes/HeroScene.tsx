@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LiveVoiceConsole from "@/components/ui/LiveVoiceConsole";
 import AIPhoneVisual from "@/components/ui/AIPhoneVisual";
 import {
   ArrowRight,
   Play,
   CheckCircle2,
   Zap,
-  ShieldCheck,
+  Mic,
+  Sparkles,
+  PhoneCall,
 } from "lucide-react";
 
 export default function HeroScene() {
@@ -17,6 +20,7 @@ export default function HeroScene() {
   const leftContentRef = useRef<HTMLDivElement>(null);
   const rightVisualRef = useRef<HTMLDivElement>(null);
   const metricsBarRef = useRef<HTMLDivElement>(null);
+  const [useInteractiveConsole, setUseInteractiveConsole] = useState(true);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -28,13 +32,13 @@ export default function HeroScene() {
 
     if (!section || !leftContent || !rightVisual) return;
 
-    // Cinematic Scroll Timeline for Hero
+    // Cinematic Virtual Camera Dolly Timeline for Hero
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=100%",
+          end: "+=110%",
           pin: true,
           scrub: 0.8,
           anticipatePin: 1,
@@ -44,9 +48,9 @@ export default function HeroScene() {
       tl.to(
         leftContent,
         {
-          y: -50,
-          opacity: 0.2,
-          scale: 0.96,
+          y: -60,
+          opacity: 0.15,
+          scale: 0.95,
           ease: "power2.out",
         },
         0
@@ -63,8 +67,8 @@ export default function HeroScene() {
         .to(
           rightVisual,
           {
-            x: "-18%",
-            scale: 1.08,
+            x: "-15%",
+            scale: 1.12,
             rotationY: -6,
             rotationX: 4,
             ease: "power2.out",
@@ -74,7 +78,7 @@ export default function HeroScene() {
         .to(
           rightVisual,
           {
-            scale: 1.15,
+            scale: 1.25,
             rotationY: 0,
             rotationX: 0,
             x: "0%",
@@ -85,16 +89,16 @@ export default function HeroScene() {
         );
     }, sectionRef);
 
-    // 120fps Hardware-Accelerated Mouse Parallax (Zero React Re-renders!)
-    const targetPhone = rightVisual.querySelector("#hero-phone-body");
-    if (targetPhone) {
-      const setX = gsap.quickTo(targetPhone, "rotationY", { duration: 0.5, ease: "power2.out" });
-      const setY = gsap.quickTo(targetPhone, "rotationX", { duration: 0.5, ease: "power2.out" });
+    // 120fps Hardware-Accelerated Mouse Parallax with zero React re-renders
+    const targetElement = rightVisual.querySelector(".gpu-layer");
+    if (targetElement) {
+      const setX = gsap.quickTo(targetElement, "rotationY", { duration: 0.5, ease: "power2.out" });
+      const setY = gsap.quickTo(targetElement, "rotationX", { duration: 0.5, ease: "power2.out" });
 
       const handleMouseMove = (e: MouseEvent) => {
         const { innerWidth, innerHeight } = window;
-        const normX = (e.clientX / innerWidth - 0.5) * 12;
-        const normY = (e.clientY / innerHeight - 0.5) * -12;
+        const normX = (e.clientX / innerWidth - 0.5) * 10;
+        const normY = (e.clientY / innerHeight - 0.5) * -10;
         setX(normX);
         setY(normY);
       };
@@ -139,7 +143,7 @@ export default function HeroScene() {
           style={{
             display: "grid",
             gridTemplateColumns: "1.15fr 0.95fr",
-            gap: "54px",
+            gap: "50px",
             alignItems: "center",
             width: "100%",
           }}
@@ -181,8 +185,28 @@ export default function HeroScene() {
                 maxWidth: "520px",
               }}
             >
-              Build AI voice agents that engage, qualify, and convert 24/7 — just like your best human.
+              Build AI voice agents that engage, qualify, and convert 24/7 — just like your best human. Speak with our live assistant directly on this page.
             </p>
+
+            {/* In-Hero Voice Feature Callout Pill */}
+            <div
+              style={{
+                padding: "8px 16px",
+                borderRadius: "14px",
+                backgroundColor: "rgba(249, 115, 22, 0.08)",
+                border: "1px solid rgba(249, 115, 22, 0.25)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                fontSize: "12px",
+                fontWeight: 700,
+                color: "#EA580C",
+                maxWidth: "fit-content",
+              }}
+            >
+              <Mic size={16} color="#F97316" />
+              <span>🎙️ Live AI Voice Call active on the right — Try talking now!</span>
+            </div>
 
             {/* Action CTAs */}
             <div
@@ -191,7 +215,7 @@ export default function HeroScene() {
                 alignItems: "center",
                 flexWrap: "wrap",
                 gap: "14px",
-                paddingTop: "4px",
+                paddingTop: "2px",
               }}
             >
               <a
@@ -248,7 +272,7 @@ export default function HeroScene() {
             </div>
           </div>
 
-          {/* Right Column: 3D Smartphone with Live AI Calling Interface */}
+          {/* Right Column: In-Hero Live Voice Console with Live AI Calling & Speech Recognition */}
           <div
             ref={rightVisualRef}
             style={{
@@ -256,10 +280,16 @@ export default function HeroScene() {
               justifyContent: "center",
               alignItems: "center",
               transformStyle: "preserve-3d",
+              maxWidth: "460px",
+              margin: "0 auto",
             }}
             className="gpu-layer"
           >
-            <AIPhoneVisual stage="hero" callerName="Sarah Ahmed" callTimerSecs={24} isCalling={true} />
+            {useInteractiveConsole ? (
+              <LiveVoiceConsole />
+            ) : (
+              <AIPhoneVisual stage="hero" callerName="Sarah Ahmed" callTimerSecs={24} isCalling={true} />
+            )}
           </div>
         </div>
 
@@ -267,7 +297,7 @@ export default function HeroScene() {
         <div
           ref={metricsBarRef}
           style={{
-            marginTop: "56px",
+            marginTop: "52px",
             paddingTop: "24px",
             borderTop: "1px solid rgba(15, 23, 42, 0.08)",
             display: "grid",

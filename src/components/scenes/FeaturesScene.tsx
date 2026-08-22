@@ -10,8 +10,8 @@ import {
   Zap,
   FileText,
   Database,
-  ArrowRight,
-  Sparkles,
+  TrendingUp,
+  CheckCircle2,
 } from "lucide-react";
 
 interface FeatureCardData {
@@ -20,7 +20,6 @@ interface FeatureCardData {
   title: string;
   desc: string;
   icon: React.ReactNode;
-  position: "top-left" | "bottom-left" | "top-right" | "bottom-right";
 }
 
 const features: FeatureCardData[] = [
@@ -30,7 +29,6 @@ const features: FeatureCardData[] = [
     title: "Human-like Conversations",
     desc: "AI speaks naturally & understands real human intent.",
     icon: <Bot size={20} color="#2563EB" />,
-    position: "top-left",
   },
   {
     id: "f2",
@@ -38,7 +36,6 @@ const features: FeatureCardData[] = [
     title: "Smart Call Automation",
     desc: "Auto-dial, follow-ups & schedule calls.",
     icon: <Zap size={20} color="#F97316" />,
-    position: "bottom-left",
   },
   {
     id: "f3",
@@ -46,7 +43,6 @@ const features: FeatureCardData[] = [
     title: "Real-time Transcription",
     desc: "Live call transcription & summaries.",
     icon: <FileText size={20} color="#2563EB" />,
-    position: "top-right",
   },
   {
     id: "f4",
@@ -54,7 +50,6 @@ const features: FeatureCardData[] = [
     title: "CRM & API Integration",
     desc: "Sync with your favorite tools seamlessly.",
     icon: <Database size={20} color="#F97316" />,
-    position: "bottom-right",
   },
 ];
 
@@ -136,7 +131,7 @@ export default function FeaturesScene() {
             </p>
           </div>
 
-          {/* Desktop 3-Column Features Orbit Layout */}
+          {/* Connected 3-Column Orbit Layout */}
           <div
             style={{
               display: "grid",
@@ -147,8 +142,63 @@ export default function FeaturesScene() {
             }}
             className="features-orbit-grid"
           >
+            {/* SVG Connecting Lines Overlay (Desktop Only) */}
+            <svg
+              className="connecting-lines-svg"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                pointerEvents: "none",
+                zIndex: 2,
+              }}
+              viewBox="0 0 1000 600"
+              preserveAspectRatio="none"
+            >
+              {/* Line 1: Top Left to Center */}
+              <path
+                d="M 280 180 Q 400 180, 440 260"
+                fill="none"
+                stroke="rgba(37, 99, 235, 0.25)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <circle cx="440" cy="260" r="4" fill="#2563EB" />
+
+              {/* Line 2: Bottom Left to Center */}
+              <path
+                d="M 280 420 Q 400 420, 440 340"
+                fill="none"
+                stroke="rgba(249, 115, 22, 0.25)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <circle cx="440" cy="340" r="4" fill="#F97316" />
+
+              {/* Line 3: Top Right to Center */}
+              <path
+                d="M 720 180 Q 600 180, 560 260"
+                fill="none"
+                stroke="rgba(37, 99, 235, 0.25)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <circle cx="560" cy="260" r="4" fill="#2563EB" />
+
+              {/* Line 4: Bottom Right to Center */}
+              <path
+                d="M 720 420 Q 600 420, 560 340"
+                fill="none"
+                stroke="rgba(249, 115, 22, 0.25)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <circle cx="560" cy="340" r="4" fill="#F97316" />
+            </svg>
+
             {/* Left 2 Feature Cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "28px" }} className="features-col-left">
+            <div style={{ display: "flex", flexDirection: "column", gap: "28px", zIndex: 3 }} className="features-col-left">
               {features.slice(0, 2).map((item, idx) => {
                 const isActive = activeFeature === idx;
 
@@ -170,6 +220,7 @@ export default function FeaturesScene() {
                       transform: isActive ? "scale(1.03) translateX(6px)" : "scale(1)",
                       transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                       cursor: "pointer",
+                      position: "relative",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
@@ -214,18 +265,69 @@ export default function FeaturesScene() {
               })}
             </div>
 
-            {/* Central Pinned 3D Phone Visual */}
-            <div style={{ display: "flex", justifyContent: "center" }} className="gpu-layer">
+            {/* Central Pinned 3D Phone with Floating Features Annotations */}
+            <div style={{ display: "flex", justifyContent: "center", position: "relative", zIndex: 4 }} className="gpu-layer">
               <AIPhoneVisual
                 stage="features"
                 callerName="Sarah Ahmed"
                 callTimerSecs={24 + activeFeature * 12}
                 activeFeatureIndex={activeFeature}
               />
+
+              {/* Floating Badge: Closed Deals: +182% */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "28%",
+                  right: "-20px",
+                  zIndex: 8,
+                  backgroundColor: "rgba(255, 255, 255, 0.96)",
+                  backdropFilter: "blur(12px)",
+                  padding: "8px 14px",
+                  borderRadius: "14px",
+                  border: "1px solid rgba(34, 197, 94, 0.3)",
+                  boxShadow: "0 10px 25px -4px rgba(34, 197, 94, 0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#166534",
+                }}
+                className="features-floating-closed-deals"
+              >
+                <CheckCircle2 size={14} color="#16A34A" />
+                <span>Closed Deals: +182%</span>
+              </div>
+
+              {/* Floating Pill: Call in Progress */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "-15px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  zIndex: 8,
+                  backgroundColor: "#FFFFFF",
+                  padding: "6px 14px",
+                  borderRadius: "9999px",
+                  border: "1px solid rgba(37, 99, 235, 0.2)",
+                  boxShadow: "0 8px 20px -4px rgba(37, 99, 235, 0.15)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#2563EB",
+                }}
+              >
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#22C55E" }} />
+                <span>Call in Progress</span>
+              </div>
             </div>
 
             {/* Right 2 Feature Cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "28px" }} className="features-col-right">
+            <div style={{ display: "flex", flexDirection: "column", gap: "28px", zIndex: 3 }} className="features-col-right">
               {features.slice(2, 4).map((item, idx) => {
                 const actualIdx = idx + 2;
                 const isActive = activeFeature === actualIdx;
@@ -248,6 +350,7 @@ export default function FeaturesScene() {
                       transform: isActive ? "scale(1.03) translateX(-6px)" : "scale(1)",
                       transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                       cursor: "pointer",
+                      position: "relative",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
@@ -297,6 +400,9 @@ export default function FeaturesScene() {
 
       <style jsx>{`
         @media (max-width: 960px) {
+          .connecting-lines-svg {
+            display: none !important;
+          }
           .features-orbit-grid {
             grid-template-columns: 1fr !important;
             gap: 32px !important;

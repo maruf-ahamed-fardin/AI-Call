@@ -11,13 +11,13 @@ export default function SeloraxLogo({
   size = "md",
   withText = true,
 }: SeloraxLogoProps) {
-  const iconHeight = size === "sm" ? 24 : size === "lg" ? 34 : 28;
+  const iconHeight = size === "sm" ? 22 : size === "lg" ? 32 : 26;
   const textSize = size === "sm" ? "18px" : size === "lg" ? "24px" : "21px";
 
   return (
     <div
-      className={`inline-flex items-center gap-2.5 select-none ${className}`}
-      style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}
+      className={`inline-flex items-center select-none ${className}`}
+      style={{ display: "inline-flex", alignItems: "center", gap: "9px" }}
     >
       <div
         style={{
@@ -29,44 +29,16 @@ export default function SeloraxLogo({
       >
         <svg
           height={iconHeight}
-          viewBox="0 0 36 36"
+          viewBox="0 0 32 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{ overflow: "visible", flexShrink: 0 }}
         >
           {/* Brand Wave Bars */}
-          <rect
-            x="4"
-            y="9"
-            width="5"
-            height="18"
-            rx="2.5"
-            fill="#F97316"
-          />
-          <rect
-            x="12"
-            y="4"
-            width="5"
-            height="28"
-            rx="2.5"
-            fill="#EA580C"
-          />
-          <rect
-            x="20"
-            y="8"
-            width="5"
-            height="20"
-            rx="2.5"
-            fill="#2563EB"
-          />
-          <rect
-            x="28"
-            y="13"
-            width="4"
-            height="10"
-            rx="2"
-            fill="#3B82F6"
-          />
+          <rect x="2" y="8" width="4.5" height="16" rx="2.25" fill="#F97316" />
+          <rect x="10" y="3" width="4.5" height="26" rx="2.25" fill="#EA580C" />
+          <rect x="18" y="7" width="4.5" height="18" rx="2.25" fill="#2563EB" />
+          <rect x="26" y="12" width="4" height="9" rx="2" fill="#3B82F6" />
         </svg>
       </div>
 
@@ -81,17 +53,16 @@ export default function SeloraxLogo({
             lineHeight: 1,
             display: "flex",
             alignItems: "center",
-            gap: "3px",
           }}
         >
-          <span>Selorax</span>
+          <span>Selora</span>
           <span
             style={{
-              color: "#2563EB",
-              fontWeight: 800,
+              color: "#F97316",
+              fontWeight: 900,
             }}
           >
-            AI
+            X
           </span>
         </span>
       )}

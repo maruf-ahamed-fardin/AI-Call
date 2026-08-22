@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Sparkles, CheckCircle2, TrendingUp, MessageSquare, Clock } from "lucide-react";
+import { ArrowRight, MessageSquare, TrendingUp, Clock } from "lucide-react";
 import AIPhoneVisual from "@/components/ui/AIPhoneVisual";
 
 export default function FinalCTAScene() {
@@ -16,7 +16,7 @@ export default function FinalCTAScene() {
       }}
     >
       <div className="container" style={{ position: "relative", zIndex: 5 }}>
-        {/* Main CTA Grid */}
+        {/* Main CTA Grid matching reference */}
         <div
           style={{
             display: "grid",
@@ -25,7 +25,7 @@ export default function FinalCTAScene() {
             alignItems: "center",
             maxWidth: "1080px",
             margin: "0 auto",
-            backgroundColor: "rgba(248, 250, 252, 0.7)",
+            backgroundColor: "rgba(248, 250, 252, 0.75)",
             borderRadius: "36px",
             border: "1px solid rgba(15, 23, 42, 0.08)",
             padding: "60px 48px",
@@ -90,43 +90,55 @@ export default function FinalCTAScene() {
             </div>
           </div>
 
-          {/* Right Column: 3D Phone & Metrics matching reference */}
+          {/* Right Column: 3D Forward-Tilted Phone & 3 Metric Pills */}
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "16px",
+              gap: "18px",
               alignItems: "center",
             }}
           >
-            {/* Minimal Phone Visual */}
-            <div style={{ transform: "scale(0.88)", transformOrigin: "center" }}>
+            {/* Phone Visual with forward perspective tilt */}
+            <div
+              style={{
+                transform: "scale(0.88) rotateX(8deg)",
+                transformOrigin: "center",
+                perspective: "1000px",
+              }}
+            >
               <AIPhoneVisual stage="cta" callerName="Sarah Ahmed" callTimerSecs={42} isCalling={true} />
             </div>
 
-            {/* Metrics Pills List */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%", maxWidth: "280px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "14px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-                <MessageSquare size={16} color="#2563EB" />
+            {/* 3 Metric Pills List matching mockup */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%", maxWidth: "290px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "11px 16px", backgroundColor: "#FFFFFF", borderRadius: "16px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 4px 12px rgba(0,0,0,0.02)" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "rgba(37, 99, 235, 0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <MessageSquare size={16} color="#2563EB" />
+                </div>
                 <div>
                   <div style={{ fontSize: "12px", fontWeight: 700, color: "#0F172A" }}>More Conversations</div>
-                  <div style={{ fontSize: "10px", color: "#64748B" }}>More Opportunities</div>
+                  <div style={{ fontSize: "11px", color: "#64748B" }}>More Opportunities</div>
                 </div>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "14px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-                <TrendingUp size={16} color="#EA580C" />
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "11px 16px", backgroundColor: "#FFFFFF", borderRadius: "16px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 4px 12px rgba(0,0,0,0.02)" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "rgba(249, 115, 22, 0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TrendingUp size={16} color="#EA580C" />
+                </div>
                 <div>
                   <div style={{ fontSize: "12px", fontWeight: 700, color: "#0F172A" }}>Higher Conversions</div>
-                  <div style={{ fontSize: "10px", color: "#64748B" }}>Better Results</div>
+                  <div style={{ fontSize: "11px", color: "#64748B" }}>Better Results</div>
                 </div>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 14px", backgroundColor: "#FFFFFF", borderRadius: "14px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
-                <Clock size={16} color="#10B981" />
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "11px 16px", backgroundColor: "#FFFFFF", borderRadius: "16px", border: "1px solid rgba(15, 23, 42, 0.06)", boxShadow: "0 4px 12px rgba(0,0,0,0.02)" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Clock size={16} color="#10B981" />
+                </div>
                 <div>
                   <div style={{ fontSize: "12px", fontWeight: 700, color: "#0F172A" }}>24/7 Availability</div>
-                  <div style={{ fontSize: "10px", color: "#64748B" }}>Never Miss a Lead</div>
+                  <div style={{ fontSize: "11px", color: "#64748B" }}>Never Miss a Lead</div>
                 </div>
               </div>
             </div>

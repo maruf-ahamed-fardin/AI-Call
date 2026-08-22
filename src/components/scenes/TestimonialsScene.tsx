@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react";
+import AvatarVisual from "@/components/ui/AvatarVisual";
 
 interface TestimonialItem {
   id: string;
@@ -10,6 +11,7 @@ interface TestimonialItem {
   role: string;
   company: string;
   logoText: string;
+  avatarVariant: "rahul" | "fahmida" | "mohammad" | "nusrat";
 }
 
 const testimonials: TestimonialItem[] = [
@@ -21,6 +23,7 @@ const testimonials: TestimonialItem[] = [
     role: "COO",
     company: "Urban",
     logoText: "urban",
+    avatarVariant: "rahul",
   },
   {
     id: "t2",
@@ -30,6 +33,7 @@ const testimonials: TestimonialItem[] = [
     role: "Marketing Head",
     company: "Aven",
     logoText: "aven.",
+    avatarVariant: "fahmida",
   },
   {
     id: "t3",
@@ -39,6 +43,7 @@ const testimonials: TestimonialItem[] = [
     role: "Founder",
     company: "Lumina",
     logoText: "lumina",
+    avatarVariant: "mohammad",
   },
   {
     id: "t4",
@@ -48,6 +53,7 @@ const testimonials: TestimonialItem[] = [
     role: "Operations",
     company: "Kanba",
     logoText: "kanba",
+    avatarVariant: "nusrat",
   },
 ];
 
@@ -129,7 +135,7 @@ export default function TestimonialsScene() {
                 </p>
               </div>
 
-              {/* Author Footer */}
+              {/* Author Footer with AvatarVisual & Company Logo */}
               <div
                 style={{
                   display: "flex",
@@ -139,12 +145,15 @@ export default function TestimonialsScene() {
                   borderTop: "1px solid rgba(15, 23, 42, 0.06)",
                 }}
               >
-                <div>
-                  <div style={{ fontSize: "14px", fontWeight: 800, color: "#0F172A" }}>
-                    {item.author}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#64748B" }}>
-                    {item.role}, {item.company}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <AvatarVisual variant={item.avatarVariant} size={42} />
+                  <div>
+                    <div style={{ fontSize: "14px", fontWeight: 800, color: "#0F172A" }}>
+                      {item.author}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "#64748B" }}>
+                      {item.role}, {item.company}
+                    </div>
                   </div>
                 </div>
 

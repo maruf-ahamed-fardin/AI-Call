@@ -2,17 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import AIWaveform from "@/components/ui/AIWaveform";
+import AvatarVisual from "@/components/ui/AvatarVisual";
 import {
   Mic,
   MicOff,
   PhoneOff,
   Volume2,
-  Sparkles,
   TrendingUp,
-  CheckCircle2,
-  MessageSquare,
-  Shield,
-  Activity,
   Play,
 } from "lucide-react";
 
@@ -71,8 +67,8 @@ export default function AIPhoneVisual({
         style={{
           width: "36px",
           height: "36px",
-          top: "-20px",
-          right: "-15px",
+          top: "-18px",
+          right: "-12px",
         }}
       />
 
@@ -80,10 +76,10 @@ export default function AIPhoneVisual({
       <div
         className="glass-sphere glass-sphere-orange"
         style={{
-          width: "24px",
-          height: "24px",
-          bottom: "35%",
-          left: "-35px",
+          width: "26px",
+          height: "26px",
+          bottom: "32%",
+          left: "-38px",
         }}
       />
 
@@ -91,10 +87,10 @@ export default function AIPhoneVisual({
       <div
         className="glass-sphere"
         style={{
-          width: "48px",
-          height: "48px",
-          bottom: "-25px",
-          right: "-20px",
+          width: "44px",
+          height: "44px",
+          bottom: "-22px",
+          right: "-18px",
         }}
       />
 
@@ -103,28 +99,43 @@ export default function AIPhoneVisual({
         className="floating-bubble-top-left gpu-layer"
         style={{
           position: "absolute",
-          top: "12%",
-          left: "-55px",
+          top: "14%",
+          left: "-52px",
           zIndex: 6,
-          maxWidth: "180px",
+          maxWidth: "185px",
         }}
       >
         <div
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            padding: "8px 14px",
+            backgroundColor: "rgba(255, 255, 255, 0.96)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            padding: "9px 14px",
             borderRadius: "16px",
-            border: "1px solid rgba(37, 99, 235, 0.15)",
-            boxShadow: "0 10px 25px -4px rgba(15, 23, 42, 0.08)",
+            border: "1px solid rgba(37, 99, 235, 0.16)",
+            boxShadow: "0 12px 28px -4px rgba(15, 23, 42, 0.08)",
             fontSize: "12px",
             fontWeight: 600,
             color: "#0F172A",
             lineHeight: 1.35,
+            position: "relative",
           }}
         >
           <span>Hello! I&apos;m your AI calling assistant.</span>
+          {/* Subtle Speech Arrow pointing right */}
+          <div
+            style={{
+              position: "absolute",
+              right: "-6px",
+              top: "50%",
+              transform: "translateY(-50%) rotate(45deg)",
+              width: "12px",
+              height: "12px",
+              backgroundColor: "rgba(255, 255, 255, 0.96)",
+              borderRight: "1px solid rgba(37, 99, 235, 0.16)",
+              borderTop: "1px solid rgba(37, 99, 235, 0.16)",
+            }}
+          />
         </div>
       </div>
 
@@ -133,32 +144,46 @@ export default function AIPhoneVisual({
         className="floating-bubble-mid-left gpu-layer"
         style={{
           position: "absolute",
-          top: "34%",
-          left: "-40px",
+          top: "35%",
+          left: "-42px",
           zIndex: 6,
-          maxWidth: "160px",
+          maxWidth: "165px",
         }}
       >
         <div
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            padding: "8px 14px",
+            backgroundColor: "rgba(255, 255, 255, 0.96)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            padding: "9px 14px",
             borderRadius: "16px",
-            border: "1px solid rgba(249, 115, 22, 0.2)",
-            boxShadow: "0 10px 25px -4px rgba(249, 115, 22, 0.1)",
+            border: "1px solid rgba(37, 99, 235, 0.2)",
+            boxShadow: "0 12px 28px -4px rgba(37, 99, 235, 0.12)",
             fontSize: "12px",
             fontWeight: 600,
             color: "#2563EB",
             lineHeight: 1.35,
+            position: "relative",
           }}
         >
           <span>How can I help you today?</span>
+          <div
+            style={{
+              position: "absolute",
+              right: "-6px",
+              top: "50%",
+              transform: "translateY(-50%) rotate(45deg)",
+              width: "12px",
+              height: "12px",
+              backgroundColor: "rgba(255, 255, 255, 0.96)",
+              borderRight: "1px solid rgba(37, 99, 235, 0.2)",
+              borderTop: "1px solid rgba(37, 99, 235, 0.2)",
+            }}
+          />
         </div>
       </div>
 
-      {/* Floating Card 1 - Top Right (Live Call Status) */}
+      {/* Floating Card 1 - Top Right (Live Call Status Pill) */}
       <div
         className="floating-card-top-right gpu-layer"
         style={{
@@ -170,13 +195,13 @@ export default function AIPhoneVisual({
       >
         <div
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+            backgroundColor: "rgba(255, 255, 255, 0.96)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
             padding: "10px 16px",
             borderRadius: "18px",
-            border: "1px solid rgba(37, 99, 235, 0.18)",
-            boxShadow: "0 14px 30px -6px rgba(37, 99, 235, 0.15)",
+            border: "1px solid rgba(37, 99, 235, 0.2)",
+            boxShadow: "0 14px 32px -6px rgba(37, 99, 235, 0.14)",
             display: "flex",
             flexDirection: "column",
             gap: "2px",
@@ -196,10 +221,10 @@ export default function AIPhoneVisual({
               Live Call
             </span>
           </div>
-          <div style={{ fontSize: "14px", fontFamily: "var(--font-mono)", fontWeight: 800, color: "#2563EB" }}>
+          <div style={{ fontSize: "15px", fontFamily: "var(--font-mono)", fontWeight: 800, color: "#2563EB" }}>
             {formatTimer(timer)}
           </div>
-          <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 500 }}>
+          <div style={{ fontSize: "11px", color: "#64748B", fontWeight: 500 }}>
             {activeCall ? "Speaking..." : "Paused"}
           </div>
         </div>
@@ -213,36 +238,36 @@ export default function AIPhoneVisual({
           top: "32%",
           right: "-65px",
           zIndex: 6,
-          width: "175px",
+          width: "180px",
         }}
       >
         <div
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+            backgroundColor: "rgba(255, 255, 255, 0.96)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
             padding: "12px 14px",
             borderRadius: "18px",
             border: "1px solid rgba(15, 23, 42, 0.08)",
-            boxShadow: "0 16px 35px -8px rgba(15, 23, 42, 0.08)",
+            boxShadow: "0 16px 36px -8px rgba(15, 23, 42, 0.08)",
           }}
         >
           <div style={{ fontSize: "10px", fontWeight: 700, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "8px" }}>
             Call Insights
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "5px", fontSize: "11px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "11px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ color: "#64748B" }}>Contact:</span>
               <strong style={{ color: "#0F172A" }}>{callerName}</strong>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ color: "#64748B" }}>Status:</span>
               <span style={{ color: "#16A34A", fontWeight: 700, backgroundColor: "rgba(34, 197, 94, 0.1)", padding: "1px 6px", borderRadius: "4px" }}>
                 Qualified
               </span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ color: "#64748B" }}>Intent:</span>
               <strong style={{ color: "#2563EB" }}>Pricing</strong>
             </div>
@@ -250,21 +275,21 @@ export default function AIPhoneVisual({
         </div>
       </div>
 
-      {/* Floating Card 3 - Bottom Right (Conversation Quality) */}
+      {/* Floating Card 3 - Bottom Right (Conversation Quality 98% with mini green chart) */}
       <div
         className="floating-card-bottom-right gpu-layer"
         style={{
           position: "absolute",
-          bottom: "12%",
+          bottom: "10%",
           right: "-50px",
           zIndex: 6,
         }}
       >
         <div
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+            backgroundColor: "rgba(255, 255, 255, 0.96)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
             padding: "10px 14px",
             borderRadius: "18px",
             border: "1px solid rgba(16, 185, 129, 0.25)",
@@ -276,8 +301,8 @@ export default function AIPhoneVisual({
         >
           <div
             style={{
-              width: "32px",
-              height: "32px",
+              width: "34px",
+              height: "34px",
               borderRadius: "10px",
               backgroundColor: "rgba(16, 185, 129, 0.12)",
               color: "#10B981",
@@ -291,7 +316,16 @@ export default function AIPhoneVisual({
 
           <div>
             <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>Conversation Quality</div>
-            <div style={{ fontSize: "15px", fontWeight: 900, color: "#0F172A" }}>98%</div>
+            <div style={{ fontSize: "16px", fontWeight: 900, color: "#0F172A", display: "flex", alignItems: "center", gap: "6px" }}>
+              <span>98%</span>
+              {/* Mini Sparkline Bar Chart */}
+              <div style={{ display: "flex", alignItems: "flex-end", gap: "2px", height: "14px" }}>
+                <div style={{ width: "3px", height: "40%", backgroundColor: "#34D399", borderRadius: "1px" }} />
+                <div style={{ width: "3px", height: "60%", backgroundColor: "#34D399", borderRadius: "1px" }} />
+                <div style={{ width: "3px", height: "80%", backgroundColor: "#10B981", borderRadius: "1px" }} />
+                <div style={{ width: "3px", height: "100%", backgroundColor: "#059669", borderRadius: "1px" }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -304,7 +338,7 @@ export default function AIPhoneVisual({
           position: "relative",
           zIndex: 4,
           margin: "0 auto",
-          width: "280px",
+          width: "285px",
           minHeight: "540px",
           background: "#FFFFFF",
           borderRadius: "44px",
@@ -357,48 +391,20 @@ export default function AIPhoneVisual({
 
         {/* Central Calling Body */}
         <div style={{ textAlign: "center", padding: "16px 0", flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          {/* Avatar Ring */}
+          {/* Avatar Ring with Realistic Illustrated Portrait */}
           <div
             style={{
               position: "relative",
               width: "88px",
               height: "88px",
-              margin: "0 auto 14px auto",
+              margin: "0 auto 12px auto",
               borderRadius: "50%",
-              padding: "4px",
+              padding: "3px",
               background: "linear-gradient(135deg, #F97316 0%, #2563EB 100%)",
               boxShadow: "0 10px 25px -4px rgba(37, 99, 235, 0.25)",
             }}
           >
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                backgroundColor: "#FFFFFF",
-                overflow: "hidden",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {/* Illustrated Persona Avatar */}
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  background: "radial-gradient(circle at 35% 35%, #93C5FD 0%, #3B82F6 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#FFFFFF",
-                  fontWeight: 800,
-                  fontSize: "26px",
-                }}
-              >
-                SA
-              </div>
-            </div>
+            <AvatarVisual variant="sarah" size={82} />
           </div>
 
           {/* Caller Details */}
