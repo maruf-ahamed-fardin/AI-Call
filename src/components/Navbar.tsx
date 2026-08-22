@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import SeloraxLogo from "@/components/ui/SeloraxLogo";
+import NexusLogo from "@/components/ui/NexusLogo";
 import { Menu, X, ArrowRight } from "lucide-react";
 
 export default function Navbar() {
@@ -17,11 +17,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Features", href: "#features" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Use Cases", href: "#use-cases" },
-    { label: "Live Demo", href: "#live-call" },
-    { label: "Testimonials", href: "#testimonials" },
+    { label: "Home", href: "#hero" },
+    { label: "Product", href: "#how-it-works" },
+    { label: "Solutions", href: "#voice-intelligence" },
+    { label: "Resources", href: "#industries" },
+    { label: "Pricing", href: "#analytics" },
+    { label: "Company", href: "#contact" },
   ];
 
   return (
@@ -31,20 +32,20 @@ export default function Navbar() {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 50,
+        zIndex: 100,
         transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.06)" : "1px solid transparent",
-        boxShadow: scrolled ? "0 4px 20px -2px rgba(15, 23, 42, 0.03)" : "none",
-        padding: scrolled ? "12px 0" : "20px 0",
+        backgroundColor: scrolled ? "rgba(2, 6, 23, 0.85)" : "rgba(2, 6, 23, 0.4)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: scrolled ? "1px solid rgba(56, 189, 248, 0.15)" : "1px solid rgba(255, 255, 255, 0.05)",
+        boxShadow: scrolled ? "0 10px 30px rgba(0, 0, 0, 0.5)" : "none",
+        padding: scrolled ? "14px 0" : "22px 0",
       }}
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Brand Logo */}
-        <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
-          <SeloraxLogo size="md" />
+        <a href="#hero" style={{ textDecoration: "none" }}>
+          <NexusLogo size="md" />
         </a>
 
         {/* Desktop Navigation Links */}
@@ -52,7 +53,7 @@ export default function Navbar() {
           style={{
             display: "none",
             alignItems: "center",
-            gap: "28px",
+            gap: "32px",
           }}
           className="desktop-nav"
         >
@@ -62,45 +63,55 @@ export default function Navbar() {
               href={link.href}
               style={{
                 fontSize: "14px",
-                fontWeight: 600,
-                color: "#475569",
+                fontWeight: 500,
+                color: "#94A3B8",
                 textDecoration: "none",
-                transition: "color 0.2s ease",
+                transition: "all 0.2s ease",
+                letterSpacing: "0.01em",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#0F172A")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#38BDF8";
+                e.currentTarget.style.textShadow = "0 0 10px rgba(56, 189, 248, 0.5)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "#94A3B8";
+                e.currentTarget.style.textShadow = "none";
+              }}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Action Buttons: Login + Get Started */}
-        <div style={{ display: "none", alignItems: "center", gap: "14px" }} className="desktop-actions">
+        {/* Action Buttons: Log In + Book Demo */}
+        <div style={{ display: "none", alignItems: "center", gap: "18px" }} className="desktop-actions">
           <a
-            href="https://wa.me/8801993213030?text=Hi%2C%20I%20want%20to%20login%20to%20SeloraX"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contact"
             style={{
               fontSize: "14px",
               fontWeight: 600,
-              color: "#0F172A",
+              color: "#F8FAFC",
               textDecoration: "none",
+              transition: "color 0.2s ease",
+              padding: "8px 12px",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#38BDF8")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#F8FAFC")}
           >
-            Login
+            Log In
           </a>
 
           <a
-            href="#live-call"
+            href="#contact"
             className="btn btn-primary"
             style={{
               padding: "10px 22px",
               fontSize: "14px",
-              fontWeight: 700,
+              fontWeight: 600,
+              borderRadius: "9999px",
             }}
           >
-            <span>Get Started</span>
+            <span>Book Demo</span>
           </a>
         </div>
 
@@ -113,11 +124,11 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "none",
-            border: "1px solid var(--border-subtle)",
+            background: "rgba(15, 23, 42, 0.6)",
+            border: "1px solid rgba(56, 189, 248, 0.25)",
             borderRadius: "10px",
             padding: "8px",
-            color: "#0F172A",
+            color: "#38BDF8",
             cursor: "pointer",
           }}
         >
@@ -133,15 +144,15 @@ export default function Navbar() {
             top: "100%",
             left: 0,
             right: 0,
-            backgroundColor: "rgba(255, 255, 255, 0.98)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            borderBottom: "1px solid var(--border-subtle)",
+            backgroundColor: "rgba(2, 6, 23, 0.98)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            borderBottom: "1px solid rgba(56, 189, 248, 0.2)",
             padding: "24px",
             display: "flex",
             flexDirection: "column",
             gap: "18px",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
+            boxShadow: "0 20px 40px rgba(0,0,0,0.8)",
           }}
         >
           {navLinks.map((link) => (
@@ -152,31 +163,44 @@ export default function Navbar() {
               style={{
                 fontSize: "16px",
                 fontWeight: 600,
-                color: "#0F172A",
+                color: "#F8FAFC",
                 textDecoration: "none",
-                padding: "8px 0",
-                borderBottom: "1px solid rgba(0,0,0,0.04)",
+                padding: "10px 0",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
               }}
             >
               {link.label}
             </a>
           ))}
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "8px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "10px" }}>
             <a
-              href="#live-call"
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                textAlign: "center",
+                color: "#94A3B8",
+                fontSize: "15px",
+                padding: "8px",
+                textDecoration: "none",
+              }}
+            >
+              Log In
+            </a>
+            <a
+              href="#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="btn btn-primary"
               style={{ width: "100%", textAlign: "center" }}
             >
-              Get Started
+              Book Demo
             </a>
           </div>
         </div>
       )}
 
       <style jsx>{`
-        @media (min-width: 860px) {
+        @media (min-width: 900px) {
           .desktop-nav {
             display: flex !important;
           }

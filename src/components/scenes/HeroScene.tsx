@@ -1,188 +1,103 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import HeroCanvas3D from "@/components/ui/HeroCanvas3D";
+import { ArrowRight, Star, Mic, Activity, Zap, PhoneCall } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import LiveVoiceConsole from "@/components/ui/LiveVoiceConsole";
-import AIPhoneVisual from "@/components/ui/AIPhoneVisual";
-import { prefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import {
-  ArrowRight,
-  Play,
-  CheckCircle2,
-  Zap,
-  Mic,
-  Sparkles,
-  PhoneCall,
-} from "lucide-react";
 
 export default function HeroScene() {
   const sectionRef = useRef<HTMLElement>(null);
-  const leftContentRef = useRef<HTMLDivElement>(null);
-  const rightVisualRef = useRef<HTMLDivElement>(null);
-  const consoleWrapRef = useRef<HTMLDivElement>(null);
-  const metricsBarRef = useRef<HTMLDivElement>(null);
-  const flashRef = useRef<HTMLDivElement>(null);
-  const [useInteractiveConsole, setUseInteractiveConsole] = useState(true);
-
-  // On-load cinematic entrance — headline/CTAs cascade in, console pops in with
-  // its decorative spheres. Targets inner children only, never the outer
-  // leftContent/rightVisual/metricsBar refs that the scroll-dolly timeline below owns.
-  useEffect(() => {
-    const root = sectionRef.current;
-    if (!root || prefersReducedMotion()) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.7 } });
-
-      tl.from(".hero-badge", { y: -14, opacity: 0, duration: 0.5 })
-        .from(".hero-headline", { y: 30, opacity: 0, filter: "blur(8px)" }, "-=0.25")
-        .from(".hero-subtitle", { y: 20, opacity: 0 }, "-=0.4")
-        .from(".hero-pill", { y: 14, opacity: 0 }, "-=0.35")
-        .from(".hero-cta-row > *", { y: 16, opacity: 0, stagger: 0.08 }, "-=0.3")
-        .from(".hero-guarantees > *", { y: 10, opacity: 0, stagger: 0.06 }, "-=0.3")
-        .from(
-          consoleWrapRef.current,
-          { scale: 0.88, opacity: 0, rotateY: -8, duration: 0.9, ease: "back.out(1.4)" },
-          "-=0.75"
-        )
-        .from(".hero-glass-sphere", { scale: 0, opacity: 0, stagger: 0.08, duration: 0.6, ease: "back.out(2)" }, "-=0.5")
-        .from(".hero-metric-item", { y: 16, opacity: 0, stagger: 0.06 }, "-=0.3");
-
-      // Calm ambient idle motion once settled — subtle float, never stops
-      gsap.to(consoleWrapRef.current, { y: "+=10", duration: 3.4, ease: "sine.inOut", yoyo: true, repeat: -1 });
-      const spheres = root.querySelectorAll<HTMLElement>(".hero-glass-sphere");
-      spheres.forEach((sphere, idx) => {
-        gsap.to(sphere, {
-          y: idx % 2 === 0 ? "+=12" : "-=12",
-          duration: 3 + idx * 0.6,
-          delay: idx * 0.2,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-        });
-      });
-    }, root);
-
-    return () => ctx.revert();
-  }, []);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const hudTopLeftRef = useRef<HTMLDivElement>(null);
+  const hudMidLeftRef = useRef<HTMLDivElement>(null);
+  const hudTopRightRef = useRef<HTMLDivElement>(null);
+  const hudBottomRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const section = sectionRef.current;
-    const leftContent = leftContentRef.current;
-    const rightVisual = rightVisualRef.current;
-    const metricsBar = metricsBarRef.current;
-    const flash = flashRef.current;
+    if (!section) return;
 
-    if (!section || !leftContent || !rightVisual) return;
-
-    if (prefersReducedMotion()) return;
-
-    // Cinematic Virtual Camera Dolly Timeline for Hero — ends with the phone
-    // ballooning past frame + a whip-flash, handing off into the Live Call scene
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
+      // Intro entrance cascade
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(".hero-badge", { y: -20, opacity: 0, duration: 0.6 })
+        .from(".hero-headline", { y: 30, opacity: 0, duration: 0.8 }, "-=0.3")
+        .from(".hero-subheadline", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
+        .from(".hero-cta-group", { y: 20, opacity: 0, duration: 0.6 }, "-=0.3")
+        .from(".hero-social-proof", { y: 15, opacity: 0, duration: 0.6 }, "-=0.3")
+        .from(".hud-card", { scale: 0.7, opacity: 0, stagger: 0.1, duration: 0.8, ease: "back.out(1.7)" }, "-=0.6");
+
+      // Scroll-Driven Parallax 3D Depth Dispersal
+      gsap.to(hudTopLeftRef.current, {
+        x: -40,
+        y: -60,
+        opacity: 0.4,
+        scale: 0.9,
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=160%",
-          pin: true,
-          scrub: 0.8,
-          anticipatePin: 1,
+          end: "bottom top",
+          scrub: 1,
         },
       });
 
-      tl.to(
-        leftContent,
-        {
-          y: -60,
-          opacity: 0.15,
-          scale: 0.95,
-          ease: "power2.out",
+      gsap.to(hudMidLeftRef.current, {
+        x: -70,
+        y: 40,
+        opacity: 0.4,
+        scale: 0.9,
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.2,
         },
-        0
-      )
-        .to(
-          metricsBar,
-          {
-            y: 30,
-            opacity: 0,
-            ease: "power1.out",
-          },
-          0
-        )
-        .to(
-          rightVisual,
-          {
-            x: "-15%",
-            scale: 1.12,
-            rotationY: -6,
-            rotationX: 4,
-            ease: "power2.out",
-          },
-          0
-        )
-        .to(
-          rightVisual,
-          {
-            scale: 1.25,
-            rotationY: 0,
-            rotationX: 0,
-            x: "0%",
-            y: -10,
-            ease: "power1.inOut",
-          },
-          0.5
-        )
-        // Phase 3 — camera pushes through the phone: it balloons past frame and fades
-        .to(
-          rightVisual,
-          {
-            scale: 2.4,
-            y: -40,
-            opacity: 0,
-            ease: "power2.in",
-          },
-          0.75
-        )
-        // Whip-flash whitewash masks the hard cut into the Live Call scene
-        .to(flash, { opacity: 1, ease: "power1.in", duration: 0.4 }, 0.82)
-        .to(flash, { opacity: 0, ease: "power1.out", duration: 0.4 }, 0.95);
-    }, sectionRef);
+      });
 
-    // 120fps Hardware-Accelerated Mouse Parallax with zero React re-renders
-    const targetElement = rightVisual.querySelector(".gpu-layer");
-    if (targetElement) {
-      const setX = gsap.quickTo(targetElement, "rotationY", { duration: 0.5, ease: "power2.out" });
-      const setY = gsap.quickTo(targetElement, "rotationX", { duration: 0.5, ease: "power2.out" });
+      gsap.to(hudTopRightRef.current, {
+        x: 50,
+        y: -50,
+        opacity: 0.4,
+        scale: 0.9,
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      });
 
-      const handleMouseMove = (e: MouseEvent) => {
-        const { innerWidth, innerHeight } = window;
-        const normX = (e.clientX / innerWidth - 0.5) * 10;
-        const normY = (e.clientY / innerHeight - 0.5) * -10;
-        setX(normX);
-        setY(normY);
-      };
+      gsap.to(hudBottomRightRef.current, {
+        x: 60,
+        y: 60,
+        opacity: 0.4,
+        scale: 0.9,
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.3,
+        },
+      });
 
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
-
-      return () => {
-        ctx.revert();
-        window.removeEventListener("mousemove", handleMouseMove);
-      };
-    }
+      // Left Column parallax fade
+      gsap.to(leftColRef.current, {
+        y: -60,
+        opacity: 0.25,
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    }, section);
 
     return () => ctx.revert();
   }, []);
-
-  const metrics = [
-    { value: "10K+", label: "Businesses" },
-    { value: "1M+", label: "Calls Made" },
-    { value: "99.5%", label: "Success Rate" },
-    { value: "24/7", label: "Availability" },
-  ];
 
   return (
     <section
@@ -194,276 +109,409 @@ export default function HeroScene() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        paddingTop: "96px",
-        paddingBottom: "40px",
-        backgroundColor: "#FFFFFF",
+        paddingTop: "120px",
+        paddingBottom: "60px",
         overflow: "hidden",
       }}
     >
-      {/* Whip-flash overlay — masks the Hero-to-LiveCall hard cut, never intercepts clicks */}
-      <div
-        ref={flashRef}
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 20,
-          pointerEvents: "none",
-          opacity: 0,
-          background: "#FFFFFF",
-        }}
-      />
-
-      {/* Ambient premium background — soft brand-color light + faint dot texture, clipped to hero bounds */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-        <div
-          style={{
-            position: "absolute",
-            top: "-15vw",
-            right: "-10vw",
-            width: "50vw",
-            height: "50vw",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(37, 99, 235, 0.09) 0%, rgba(37, 99, 235, 0) 70%)",
-            filter: "blur(60px)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-20vh",
-            left: "-12vw",
-            width: "45vw",
-            height: "45vw",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0) 70%)",
-            filter: "blur(70px)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: "radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-            maskImage: "radial-gradient(ellipse 60% 50% at 50% 30%, #000 0%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse 60% 50% at 50% 30%, #000 0%, transparent 75%)",
-          }}
-        />
-      </div>
-
-      <div className="container" style={{ position: "relative", zIndex: 10, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        {/* 2-Column Hero Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.15fr 0.95fr",
-            gap: "50px",
-            alignItems: "center",
-            width: "100%",
-          }}
-          className="hero-grid"
-        >
-          {/* Left Column: Headline, Copy & CTAs */}
-          <div ref={leftContentRef} style={{ display: "flex", flexDirection: "column", gap: "22px" }} className="gpu-layer">
-            {/* Eyebrow Badge */}
-            <div className="hero-badge">
-              <span className="badge-eyebrow">
-                <span className="badge-dot" />
-                AI VOICE AGENTS FOR REAL BUSINESS
-              </span>
-            </div>
-
-            {/* Main Headline */}
-            <h1
-              className="hero-headline"
-              style={{
-                fontSize: "clamp(40px, 4.8vw, 62px)",
-                fontWeight: 900,
-                lineHeight: 1.08,
-                letterSpacing: "-0.035em",
-                color: "#0F172A",
-              }}
-            >
-              AI Calling That{" "}
-              <span className="text-orange">
-                Actually Talks
-              </span>{" "}
-              Like a Human
-            </h1>
-
-            {/* Subtitle */}
-            <p
-              className="hero-subtitle"
-              style={{
-                fontSize: "clamp(16px, 1.2vw, 18px)",
-                color: "#475569",
-                lineHeight: 1.6,
-                maxWidth: "520px",
-              }}
-            >
-              Build AI voice agents that engage, qualify, and convert 24/7 — just like your best human. Speak with our live assistant directly on this page.
-            </p>
-
-            {/* In-Hero Voice Feature Callout Pill */}
-            <div
-              className="hero-pill"
-              style={{
-                padding: "8px 16px",
-                borderRadius: "14px",
-                backgroundColor: "rgba(249, 115, 22, 0.08)",
-                border: "1px solid rgba(249, 115, 22, 0.25)",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                fontSize: "12px",
-                fontWeight: 700,
-                color: "#EA580C",
-                maxWidth: "fit-content",
-              }}
-            >
-              <Mic size={16} color="#F97316" />
-              <span>🎙️ Live AI Voice Call active on the right — Try talking now!</span>
-            </div>
-
-            {/* Action CTAs */}
-            <div
-              className="hero-cta-row"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: "14px",
-                paddingTop: "2px",
-              }}
-            >
-              <a
-                href="#live-call"
-                className="btn btn-primary"
-                style={{
-                  padding: "14px 30px",
-                  fontSize: "16px",
-                  fontWeight: 700,
-                }}
-              >
-                <span>Start Free Trial</span>
-                <ArrowRight size={17} />
-              </a>
-
-              <a
-                href="#features"
-                className="btn btn-secondary"
-                style={{
-                  padding: "14px 26px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                }}
-              >
-                <Play size={16} fill="#2563EB" color="#2563EB" />
-                <span>Watch Demo</span>
-              </a>
-            </div>
-
-            {/* Micro Guarantees */}
-            <div
-              className="hero-guarantees"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: "20px",
-                fontSize: "13px",
-                color: "#64748B",
-                paddingTop: "4px",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <CheckCircle2 size={15} color="#22C55E" />
-                <span>No credit card required</span>
-              </div>
-
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Zap size={15} color="#F97316" />
-                <span>Setup in 2 minutes</span>
-              </div>
+      <div className="container hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px", alignItems: "center" }}>
+        {/* Left Column: Typography, Badges, CTAs, Social Proof */}
+        <div ref={leftColRef} style={{ zIndex: 10, maxWidth: "580px" }}>
+          {/* Eyebrow Badge */}
+          <div className="hero-badge" style={{ marginBottom: "20px" }}>
+            <div className="badge-eyebrow">
+              <span className="badge-dot" />
+              <span>AI Voice Automation Platform</span>
             </div>
           </div>
 
-          {/* Right Column: In-Hero Live Voice Console with Live AI Calling & Speech Recognition */}
-          <div
-            ref={rightVisualRef}
+          {/* Main Headline */}
+          <h1
+            className="hero-headline"
             style={{
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              transformStyle: "preserve-3d",
-              maxWidth: "460px",
-              margin: "0 auto",
+              fontSize: "clamp(38px, 5.2vw, 64px)",
+              lineHeight: 1.08,
+              fontWeight: 800,
+              marginBottom: "24px",
+              color: "#FFFFFF",
+              letterSpacing: "-0.03em",
             }}
-            className="gpu-layer"
           >
-            {/* Decorative depth spheres framing the console */}
-            <div className="glass-sphere hero-glass-sphere" style={{ width: "30px", height: "30px", top: "-6%", left: "-8%", zIndex: 1 }} />
-            <div className="glass-sphere glass-sphere-orange hero-glass-sphere" style={{ width: "22px", height: "22px", bottom: "12%", left: "-10%", zIndex: 1 }} />
-            <div className="glass-sphere hero-glass-sphere" style={{ width: "38px", height: "38px", bottom: "-8%", right: "-6%", zIndex: 1 }} />
+            AI Calls That Convert <br />
+            <span className="text-gradient-cyan">Every Conversation.</span>
+          </h1>
 
-            <div ref={consoleWrapRef} style={{ position: "relative", zIndex: 2, width: "100%" }}>
-              {useInteractiveConsole ? (
-                <LiveVoiceConsole />
-              ) : (
-                <AIPhoneVisual stage="hero" callerName="Sarah Ahmed" callTimerSecs={24} isCalling={true} />
-              )}
+          {/* Subheadline */}
+          <p
+            className="hero-subheadline"
+            style={{
+              fontSize: "clamp(16px, 1.4vw, 18px)",
+              lineHeight: 1.6,
+              color: "#94A3B8",
+              marginBottom: "36px",
+              maxWidth: "500px",
+              fontWeight: 400,
+            }}
+          >
+            Automate customer verification, lead qualification, appointment booking, and sales calls with human-like AI voices.
+          </p>
+
+          {/* CTA Buttons */}
+          <div
+            className="hero-cta-group"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              flexWrap: "wrap",
+              marginBottom: "44px",
+            }}
+          >
+            <a
+              href="#contact"
+              className="btn btn-primary"
+              style={{
+                padding: "14px 30px",
+                fontSize: "15px",
+                fontWeight: 700,
+              }}
+            >
+              <span>Start Free Trial</span>
+              <ArrowRight size={18} />
+            </a>
+
+            <a
+              href="#voice-intelligence"
+              className="btn btn-secondary"
+              style={{
+                padding: "14px 28px",
+                fontSize: "15px",
+                fontWeight: 600,
+              }}
+            >
+              <span>Book Demo</span>
+            </a>
+          </div>
+
+          {/* Social Proof Stack */}
+          <div
+            className="hero-social-proof"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {[
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces",
+                "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces",
+              ].map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt="Customer"
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    border: "2px solid #020617",
+                    marginLeft: i === 0 ? "0" : "-10px",
+                    objectFit: "cover",
+                  }}
+                />
+              ))}
+            </div>
+
+            <div>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: "#F8FAFC" }}>
+                Trusted by 10,000+ businesses
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "2px" }}>
+                <div style={{ display: "flex", color: "#F59E0B" }}>
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} fill="#F59E0B" stroke="none" />
+                  ))}
+                </div>
+                <span style={{ fontSize: "12px", color: "#94A3B8", fontWeight: 500 }}>
+                  4.9/5 from 1,240+ reviews
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Social Proof / Metrics Row */}
+        {/* Right Column: 3D Holographic AI Head + Floating HUD Cards */}
         <div
-          ref={metricsBarRef}
           style={{
-            marginTop: "52px",
-            paddingTop: "24px",
-            borderTop: "1px solid rgba(15, 23, 42, 0.08)",
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "20px",
-            width: "100%",
+            position: "relative",
+            minHeight: "540px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          className="hero-metrics-grid gpu-layer"
         >
-          {metrics.map((m) => (
-            <div key={m.label} className="hero-metric-item" style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontSize: "clamp(24px, 2.5vw, 32px)",
-                  fontWeight: 900,
-                  color: "#0F172A",
-                  letterSpacing: "-0.03em",
-                }}
-              >
-                {m.value}
+          {/* 3D WebGL Canvas */}
+          <div style={{ width: "100%", height: "100%", position: "relative" }}>
+            <HeroCanvas3D />
+          </div>
+
+          {/* Floating Holographic HUD Card 1: Voice AI (Top Left) */}
+          <div
+            ref={hudTopLeftRef}
+            className="hud-card hud-top-left"
+            style={{
+              position: "absolute",
+              top: "14%",
+              left: "4%",
+              background: "rgba(7, 13, 30, 0.75)",
+              border: "1px solid rgba(56, 189, 248, 0.35)",
+              borderRadius: "9999px",
+              padding: "8px 16px",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.25)",
+              zIndex: 20,
+              transition: "transform 0.1s ease-out",
+            }}
+          >
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                borderRadius: "50%",
+                background: "rgba(56, 189, 248, 0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#38BDF8",
+              }}
+            >
+              <Mic size={13} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, color: "#F8FAFC", letterSpacing: "0.04em" }}>
+                Voice AI
               </div>
-              <div style={{ fontSize: "13px", color: "#64748B", fontWeight: 500, marginTop: "2px" }}>
-                {m.label}
+              <div style={{ display: "flex", alignItems: "center", gap: "2px", height: "8px", marginTop: "2px" }}>
+                {[6, 12, 8, 14, 10, 5].map((h, idx) => (
+                  <span
+                    key={idx}
+                    style={{
+                      width: "2px",
+                      height: `${h}px`,
+                      backgroundColor: "#38BDF8",
+                      borderRadius: "1px",
+                      animation: `waveformBar 1.2s ease-in-out infinite ${idx * 0.15}s`,
+                    }}
+                  />
+                ))}
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Floating Holographic HUD Card 2: Real-time Analysis (Mid Left) */}
+          <div
+            ref={hudMidLeftRef}
+            className="hud-card hud-mid-left"
+            style={{
+              position: "absolute",
+              top: "46%",
+              left: "-4%",
+              background: "rgba(7, 13, 30, 0.8)",
+              border: "1px solid rgba(56, 189, 248, 0.3)",
+              borderRadius: "14px",
+              padding: "10px 16px",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.2)",
+              zIndex: 20,
+              transition: "transform 0.1s ease-out",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+              <Activity size={14} color="#38BDF8" />
+              <span style={{ fontSize: "11px", fontWeight: 700, color: "#F8FAFC", letterSpacing: "0.03em" }}>
+                Real-time Analysis
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: "3px", height: "18px" }}>
+              {[8, 14, 6, 18, 12, 16, 10, 15, 7].map((bar, i) => (
+                <span
+                  key={i}
+                  style={{
+                    width: "3px",
+                    height: `${bar}px`,
+                    backgroundColor: i % 2 === 0 ? "#38BDF8" : "#3B82F6",
+                    borderRadius: "1px",
+                    animation: `waveformBar 1.4s ease-in-out infinite ${i * 0.12}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Floating Holographic HUD Card 3: Smart Automation (Top Right) */}
+          <div
+            ref={hudTopRightRef}
+            className="hud-card hud-top-right"
+            style={{
+              position: "absolute",
+              top: "22%",
+              right: "4%",
+              background: "rgba(7, 13, 30, 0.75)",
+              border: "1px solid rgba(59, 130, 246, 0.35)",
+              borderRadius: "9999px",
+              padding: "8px 16px",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(59, 130, 246, 0.25)",
+              zIndex: 20,
+              transition: "transform 0.1s ease-out",
+            }}
+          >
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                borderRadius: "50%",
+                background: "rgba(59, 130, 246, 0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#60A5FA",
+              }}
+            >
+              <Zap size={13} />
+            </div>
+            <div style={{ fontSize: "11px", fontWeight: 700, color: "#F8FAFC", letterSpacing: "0.04em" }}>
+              Smart Automation
+            </div>
+          </div>
+
+          {/* Floating Holographic HUD Card 4: 24/7 AI Calling (Bottom Right) */}
+          <div
+            ref={hudBottomRightRef}
+            className="hud-card hud-bottom-right"
+            style={{
+              position: "absolute",
+              bottom: "16%",
+              right: "2%",
+              background: "rgba(7, 13, 30, 0.75)",
+              border: "1px solid rgba(56, 189, 248, 0.35)",
+              borderRadius: "9999px",
+              padding: "8px 16px",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.25)",
+              zIndex: 20,
+              transition: "transform 0.1s ease-out",
+            }}
+          >
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                borderRadius: "50%",
+                background: "rgba(16, 185, 129, 0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#10B981",
+              }}
+            >
+              <PhoneCall size={13} />
+            </div>
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, color: "#F8FAFC" }}>
+                24/7 AI Calling
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "4px", marginTop: "1px" }}>
+                <span
+                  style={{
+                    width: "5px",
+                    height: "5px",
+                    borderRadius: "50%",
+                    backgroundColor: "#10B981",
+                    boxShadow: "0 0 6px #10B981",
+                  }}
+                />
+                <span style={{ fontSize: "10px", color: "#94A3B8" }}>Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Center: SCROLL TO EXPLORE */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "8px",
+          marginTop: "40px",
+          zIndex: 10,
+        }}
+      >
+        <span
+          style={{
+            fontSize: "11px",
+            fontWeight: 700,
+            letterSpacing: "0.15em",
+            color: "#64748B",
+            textTransform: "uppercase",
+          }}
+        >
+          Scroll to explore
+        </span>
+        <div
+          style={{
+            width: "20px",
+            height: "32px",
+            borderRadius: "12px",
+            border: "2px solid rgba(56, 189, 248, 0.4)",
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "6px",
+            boxShadow: "0 0 10px rgba(56, 189, 248, 0.2)",
+          }}
+        >
+          <div
+            style={{
+              width: "3px",
+              height: "6px",
+              backgroundColor: "#38BDF8",
+              borderRadius: "2px",
+              animation: "pulseDot 1.6s ease-in-out infinite",
+            }}
+          />
         </div>
       </div>
 
       <style jsx>{`
-        @media (max-width: 980px) {
+        @media (min-width: 960px) {
           .hero-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            grid-template-columns: 1.05fr 0.95fr !important;
           }
-          .hero-metrics-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 24px !important;
+        }
+        @media (max-width: 959px) {
+          .hud-top-left, .hud-mid-left, .hud-top-right, .hud-bottom-right {
+            position: static !important;
+            margin: 6px !important;
+            display: inline-flex !important;
           }
         }
       `}</style>
