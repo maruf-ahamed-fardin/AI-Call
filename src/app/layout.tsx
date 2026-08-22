@@ -6,24 +6,23 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#FFFFFF",
+  themeColor: "#020617",
 };
 
 export const metadata: Metadata = {
-  title: "SeloraX AI — AI Calling That Actually Talks Like a Human",
+  title: "Nexus AI — AI Calls That Convert Every Conversation",
   description:
-    "Build AI voice agents that engage, qualify, and convert 24/7 — just like your best human. Automated inbound & outbound phone calls with live transcriptions and real-time CRM execution.",
+    "Automate customer verification, lead qualification, appointment booking, and sales calls with human-like AI voices. The premier dark futuristic AI calling SaaS platform.",
   keywords: [
     "AI voice agent",
     "AI phone calls",
-    "SeloraX AI",
-    "Automated customer frontline",
-    "Voice AI",
-    "Outbound call automation",
-    "COD verification AI",
-    "AI calling",
+    "Nexus AI",
+    "Voice automation",
+    "Lead qualification",
+    "Customer verification",
+    "Appointment booking",
   ],
-  authors: [{ name: "SeloraX AI" }],
+  authors: [{ name: "Nexus AI" }],
   icons: {
     icon: "/favicon.ico",
   },
@@ -37,14 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Ambient Warm Luxury Background Lighting */}
-        <div className="ambient-light-background" aria-hidden="true">
-          <div className="ambient-orb-blue" />
-          <div className="ambient-orb-orange" />
-          <div className="ambient-orb-cyan" />
-        </div>
+        {/* Cyber Space Ambient Grid & Dust Background */}
+        <div className="cyber-bg-overlay" aria-hidden="true" />
+        <div className="cyber-grid-pattern" aria-hidden="true" />
 
-        {/* Lenis 120fps Smooth Scroll Engine */}
+        {/* Lenis Smooth Scroll Engine */}
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

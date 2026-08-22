@@ -2,15 +2,14 @@
 
 import React from "react";
 import Navbar from "@/components/Navbar";
-import ScrollJourneyIndicator from "@/components/ScrollJourneyIndicator";
 import HeroScene from "@/components/scenes/HeroScene";
-import LiveCallScene from "@/components/scenes/LiveCallScene";
-import AudioTunnelScene from "@/components/scenes/AudioTunnelScene";
-import FeaturesScene from "@/components/scenes/FeaturesScene";
-import ProcessScene from "@/components/scenes/ProcessScene";
-import UseCasesScene from "@/components/scenes/UseCasesScene";
-import TestimonialsScene from "@/components/scenes/TestimonialsScene";
-import FinalCTAScene from "@/components/scenes/FinalCTAScene";
+import ProcessSection from "@/components/scenes/ProcessSection";
+import VoiceIntelligenceSection from "@/components/scenes/VoiceIntelligenceSection";
+import IndustriesSection from "@/components/scenes/IndustriesSection";
+import AnalyticsSection from "@/components/scenes/AnalyticsSection";
+import ConversationShowcaseSection from "@/components/scenes/ConversationShowcaseSection";
+import WhyChooseUsSection from "@/components/scenes/WhyChooseUsSection";
+import ContactCTASection from "@/components/scenes/ContactCTASection";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
@@ -20,39 +19,38 @@ export default function HomePage() {
         position: "relative",
         minHeight: "100vh",
         backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+        overflow: "hidden",
       }}
     >
-      {/* Top Navigation */}
+      {/* 01 — Futuristic Navbar */}
       <Navbar />
 
-      {/* Interactive Right-side Scroll Journey Rail */}
-      <ScrollJourneyIndicator />
-
-      {/* 01 — Hero / AI Calling Opening with In-Hero Live Voice Testing */}
+      {/* 02 — Hero Section (AI Calls That Convert Every Conversation + 3D Holographic AI Head & Neural Sphere) */}
       <HeroScene />
 
-      {/* 02 — Live Call Experience (Interactive Call Studio) */}
-      <LiveCallScene />
+      {/* 03 — How It Works (Intelligent Calls. Seamless Workflow. 5-Step Connected Cyber Pipeline) */}
+      <ProcessSection />
 
-      {/* 03 — 3D Audio Landscape & Real-time CRM Assembly */}
-      <AudioTunnelScene />
+      {/* 04 — AI Voice Intelligence (4 Features + 3D Pulsing Sound Energy Orb + Interactive Voice Player) */}
+      <VoiceIntelligenceSection />
 
-      {/* 04 — Features (Scroll-Driven 3D Orbit Showcase) */}
-      <FeaturesScene />
+      {/* 05 — Built For Every Industry (6 Floating 3D Cyber-Glass Cards with 3D Tilt & Carousel) */}
+      <IndustriesSection />
 
-      {/* 05 — How It Works (Continuous 4-Step Pipeline & 3D Cascade) */}
-      <ProcessScene />
+      {/* 06 — Powerful Analytics (Real-Time Insights. Better Decisions. Sparklines + Master Dashboard) */}
+      <AnalyticsSection />
 
-      {/* 06 — Real-World Use Cases (Interactive Solutions Matrix) */}
-      <UseCasesScene />
+      {/* 07 — AI Conversation Showcase (Real Conversations. Real Results. 3D Smartphone Chat + AI Telemetry) */}
+      <ConversationShowcaseSection />
 
-      {/* 07 — Testimonials / Social Proof (Editorial Verified Reviews) */}
-      <TestimonialsScene />
+      {/* 08 — Why Choose Nexus AI (More Calls. More Conversions. More Growth. 5 Value Cards) */}
+      <WhyChooseUsSection />
 
-      {/* 08 — Final CTA (Cinematic Ending) */}
-      <FinalCTAScene />
+      {/* 09 — Contact / Global CTA (Let's Build Smarter Conversations + 3D Wireframe Globe) */}
+      <ContactCTASection />
 
-      {/* Footer */}
+      {/* 10 — Footer */}
       <Footer />
     </main>
   );
