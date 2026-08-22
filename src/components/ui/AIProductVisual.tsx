@@ -1,43 +1,88 @@
 "use client";
 
-import React from "react";
-import AIWaveform from "@/components/ui/AIWaveform";
+import React, { useState, useEffect } from "react";
+import AudioWaveformCanvas from "@/components/ui/AudioWaveformCanvas";
 import {
   Phone,
   Mic,
+  MicOff,
   Volume2,
   CheckCircle2,
   Sparkles,
   Zap,
-  TrendingUp,
   ShieldCheck,
+  Play,
+  RotateCcw,
+  Square,
   MessageSquare,
 } from "lucide-react";
 
 interface AIProductVisualProps {
-  stage?: number; // 1 to 4 for scroll morphing
+  activePrompt?: string;
   className?: string;
-  mouseMoveX?: number;
-  mouseMoveY?: number;
 }
 
 export default function AIProductVisual({
-  stage = 1,
+  activePrompt = "Confirm COD Order #4829",
   className = "",
-  mouseMoveX = 0,
-  mouseMoveY = 0,
 }: AIProductVisualProps) {
+  const [isCalling, setIsCalling] = useState(true);
+  const [callTimer, setCallTimer] = useState(14);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const simulationDialogues = [
+    {
+      ai: "আসসালামু আলাইকুম! Shahi Goods থেকে সেলভ্যাক্স AI বলছি। আপনার #4829 লেদার জ্যাকেটের অর্ডারটি কনফার্ম করতে কল করেছি।",
+      customer: "হ্যাঁ, আমি ধানমন্ডি রোড ২৭ এর ঠিকানায় নিতে চাই। ক্যাশ অন ডেলিভারি কনফার্ম করুন।",
+      action: "Steadfast Courier: Consignment #ST-98214 Created ✓",
+      tag: "COD ORDER CONFIRMATION",
+    },
+    {
+      ai: "ঠিক আছে তানভীর ভাই! আপনার ডেলিভারি এড্রেস আপডেট করা হয়েছে এবং ট্র্যাকিং লিঙ্ক পাঠাচ্ছি।",
+      customer: "ধন্যবাদ! বিকাশের মাধ্যমে অগ্রিম পেমেন্ট করার লিঙ্ক দেওয়া যাবে?",
+      action: "bKash Token Generated & WhatsApp Receipt Dispatched ✓",
+      tag: "PAYMENT LINK GENERATED",
+    },
+  ];
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isCalling) {
+      interval = setInterval(() => {
+        setCallTimer((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isCalling]);
+
+  const toggleCall = () => {
+    if (isCalling) {
+      setIsCalling(false);
+    } else {
+      setIsCalling(true);
+      setCallTimer(1);
+    }
+  };
+
+  const currentDialogue = simulationDialogues[activeStep % simulationDialogues.length];
+
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
+
   return (
     <div
-      className={`relative w-full max-w-[500px] mx-auto perspective-container ${className}`}
+      className={`relative w-full max-w-[500px] mx-auto perspective-container gpu-layer ${className}`}
       style={{
         position: "relative",
         width: "100%",
         maxWidth: "480px",
-        perspective: "1200px",
+        perspective: "1400px",
       }}
     >
-      {/* 3D Depth Layer 1: Ambient Glow Backing */}
+      {/* 3D Depth Layer 1: Ambient Warm Glow */}
       <div
         style={{
           position: "absolute",
@@ -46,35 +91,31 @@ export default function AIProductVisual({
           width: "80%",
           height: "80%",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, rgba(37, 99, 235, 0.15) 50%, transparent 80%)",
-          filter: "blur(50px)",
-          transform: `translate3d(${mouseMoveX * -15}px, ${mouseMoveY * -15}px, -60px)`,
-          transition: "transform 0.2s ease-out",
+          background: "radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, rgba(37, 99, 235, 0.1) 50%, transparent 75%)",
+          filter: "blur(60px)",
           pointerEvents: "none",
           zIndex: 0,
         }}
       />
 
-      {/* 3D Depth Layer 2: Floating Info Card Left (Latency / Speed) */}
+      {/* Floating Holographic Badge Top-Left */}
       <div
         style={{
           position: "absolute",
-          top: "18%",
-          left: "-32px",
-          zIndex: 3,
-          transform: `translate3d(${mouseMoveX * 25}px, ${mouseMoveY * 25}px, 40px)`,
-          transition: "transform 0.2s ease-out",
+          top: "-14px",
+          left: "-24px",
+          zIndex: 5,
         }}
         className="floating-card-left"
       >
         <div
           className="glass-panel-card"
           style={{
-            padding: "10px 14px",
+            padding: "8px 14px",
             display: "flex",
             alignItems: "center",
-            gap: "10px",
-            background: "rgba(255, 255, 255, 0.9)",
+            gap: "8px",
+            background: "rgba(255, 255, 255, 0.95)",
             border: "1px solid rgba(37, 99, 235, 0.2)",
             boxShadow: "0 12px 28px -6px rgba(37, 99, 235, 0.15)",
           }}
@@ -94,38 +135,36 @@ export default function AIProductVisual({
             <Zap size={16} />
           </div>
           <div>
-            <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600, textTransform: "uppercase" }}>
+            <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 700, textTransform: "uppercase" }}>
               Voice Latency
             </div>
-            <div style={{ fontSize: "13px", color: "#0F172A", fontWeight: 800 }}>
-              &lt; 450ms Real-time
+            <div style={{ fontSize: "12px", color: "#0F172A", fontWeight: 800 }}>
+              &lt; 380ms Real-Time
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3D Depth Layer 3: Floating Info Card Right (Action Status) */}
+      {/* Floating Holographic Badge Bottom-Right */}
       <div
         style={{
           position: "absolute",
-          bottom: "22%",
-          right: "-36px",
-          zIndex: 3,
-          transform: `translate3d(${mouseMoveX * -30}px, ${mouseMoveY * -30}px, 50px)`,
-          transition: "transform 0.2s ease-out",
+          bottom: "18px",
+          right: "-26px",
+          zIndex: 5,
         }}
         className="floating-card-right"
       >
         <div
           className="glass-panel-card"
           style={{
-            padding: "10px 14px",
+            padding: "8px 14px",
             display: "flex",
             alignItems: "center",
-            gap: "10px",
-            background: "rgba(255, 255, 255, 0.92)",
+            gap: "8px",
+            background: "rgba(255, 255, 255, 0.95)",
             border: "1px solid rgba(249, 115, 22, 0.25)",
-            boxShadow: "0 14px 32px -6px rgba(249, 115, 22, 0.2)",
+            boxShadow: "0 12px 28px -6px rgba(249, 115, 22, 0.18)",
           }}
         >
           <div
@@ -143,99 +182,107 @@ export default function AIProductVisual({
             <CheckCircle2 size={16} />
           </div>
           <div>
-            <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600, textTransform: "uppercase" }}>
-              Auto Action
+            <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 700, textTransform: "uppercase" }}>
+              Live Action
             </div>
-            <div style={{ fontSize: "13px", color: "#0F172A", fontWeight: 800 }}>
-              bKash & COD Verified ✓
+            <div style={{ fontSize: "12px", color: "#0F172A", fontWeight: 800 }}>
+              Courier API Synced ✓
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3D Depth Layer 4: Main Phone / Calling Interface */}
+      {/* Main Luxury Light 3D Phone Mockup Container */}
       <div
-        id="hero-phone-mockup"
+        id="hero-ai-interface-card"
+        className="gpu-layer"
         style={{
           position: "relative",
           zIndex: 2,
-          background: "linear-gradient(165deg, #FFFFFF 0%, #F8FAFC 100%)",
+          background: "linear-gradient(170deg, #FFFFFF 0%, #F8FAFC 100%)",
           borderRadius: "36px",
-          border: "2px solid rgba(255, 255, 255, 0.8)",
+          border: "2px solid rgba(255, 255, 255, 0.9)",
           boxShadow:
-            "0 30px 70px -15px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(15, 23, 42, 0.06), 0 2px 10px rgba(0,0,0,0.02)",
-          padding: "24px 20px 24px 20px",
+            "0 30px 80px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05), 0 4px 20px rgba(0,0,0,0.02)",
+          padding: "24px 20px",
           overflow: "hidden",
-          transform: `rotateY(${mouseMoveX * 8}deg) rotateX(${mouseMoveY * -8}deg)`,
-          transformStyle: "preserve-3d",
-          transition: "transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
-        {/* Phone Speaker Notch / Status Pill */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" }}>
+        {/* Status Bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22C55E", boxShadow: "0 0 6px #22C55E" }} />
-            <span style={{ fontSize: "11px", fontWeight: 700, color: "#16A34A", textTransform: "uppercase", letterSpacing: "0.04em" }}>
-              Connected
+            <span
+              style={{
+                width: "8px",
+                height: "8px",
+                borderRadius: "50%",
+                backgroundColor: isCalling ? "#22C55E" : "#94A3B8",
+                boxShadow: isCalling ? "0 0 8px #22C55E" : "none",
+              }}
+            />
+            <span style={{ fontSize: "11px", fontWeight: 700, color: isCalling ? "#16A34A" : "#64748B", textTransform: "uppercase" }}>
+              {isCalling ? "AI CALL ACTIVE" : "CALL READY"}
             </span>
           </div>
 
           <div
             style={{
-              padding: "3px 10px",
+              padding: "2px 10px",
               backgroundColor: "rgba(15, 23, 42, 0.05)",
               borderRadius: "9999px",
               fontSize: "11px",
               fontFamily: "var(--font-mono)",
-              fontWeight: 600,
-              color: "#475569",
+              fontWeight: 700,
+              color: "#334155",
             }}
           >
-            02:45
+            {formatTime(callTimer)}
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#64748B", fontSize: "11px" }}>
             <ShieldCheck size={14} color="#2563EB" />
-            <span style={{ fontWeight: 600 }}>SSL Voice</span>
+            <span style={{ fontWeight: 600 }}>24kHz HD</span>
           </div>
         </div>
 
-        {/* AI Avatar Orb Central Visual */}
-        <div style={{ textAlign: "center", padding: "12px 0 16px 0", position: "relative" }}>
-          {/* Animated Glowing Gradient Rings */}
+        {/* Central Animated AI Orb */}
+        <div style={{ textAlign: "center", padding: "8px 0 14px 0", position: "relative" }}>
           <div
             style={{
               position: "relative",
-              width: "110px",
-              height: "110px",
-              margin: "0 auto 16px auto",
+              width: "90px",
+              height: "90px",
+              margin: "0 auto 12px auto",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            {/* Outer Pulse 1 */}
-            <div
-              style={{
-                position: "absolute",
-                inset: "-8px",
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(249, 115, 22, 0.25) 0%, transparent 70%)",
-                animation: "pulseAura 3s infinite ease-in-out",
-              }}
-            />
-            {/* Outer Pulse 2 */}
-            <div
-              style={{
-                position: "absolute",
-                inset: "-18px",
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%)",
-                animation: "pulseAura 4s infinite ease-in-out 1s",
-              }}
-            />
+            {/* Pulsing Aura Rings */}
+            {isCalling && (
+              <>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: "-8px",
+                    borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(249, 115, 22, 0.25) 0%, transparent 70%)",
+                    animation: "pulseAura 3s infinite ease-in-out",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: "-16px",
+                    borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%)",
+                    animation: "pulseAura 4s infinite ease-in-out 1s",
+                  }}
+                />
+              </>
+            )}
 
-            {/* Core Orb Sphere */}
+            {/* Core Neural Sphere */}
             <div
               style={{
                 position: "relative",
@@ -243,7 +290,7 @@ export default function AIProductVisual({
                 height: "100%",
                 borderRadius: "50%",
                 background: "linear-gradient(135deg, #F97316 0%, #EA580C 40%, #2563EB 100%)",
-                boxShadow: "0 12px 30px -4px rgba(249, 115, 22, 0.4), inset 0 2px 6px rgba(255, 255, 255, 0.6)",
+                boxShadow: "0 10px 25px -4px rgba(249, 115, 22, 0.4), inset 0 2px 6px rgba(255, 255, 255, 0.6)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -251,8 +298,8 @@ export default function AIProductVisual({
             >
               <div
                 style={{
-                  width: "84px",
-                  height: "84px",
+                  width: "70px",
+                  height: "70px",
                   borderRadius: "50%",
                   background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%), linear-gradient(145deg, #FB923C, #1D4ED8)",
                   display: "flex",
@@ -260,55 +307,59 @@ export default function AIProductVisual({
                   justifyContent: "center",
                 }}
               >
-                <Sparkles size={34} color="#FFFFFF" />
+                <Sparkles size={28} color="#FFFFFF" />
               </div>
             </div>
           </div>
 
-          <h4 style={{ fontSize: "17px", fontWeight: 800, color: "#0F172A", marginBottom: "2px" }}>
+          <h4 style={{ fontSize: "16px", fontWeight: 800, color: "#0F172A", marginBottom: "1px" }}>
             Selorax Frontline Voice AI
           </h4>
-          <p style={{ fontSize: "12px", color: "#64748B", fontWeight: 500 }}>
-            Inbound Caller: Customer #4829 (Dhanmondi, Dhaka)
+          <p style={{ fontSize: "11px", color: "#64748B", fontWeight: 500 }}>
+            Inbound Caller: Customer #4829 (Dhaka)
           </p>
         </div>
 
-        {/* Dynamic Soundwave Visualizer */}
+        {/* Real-time Waveform Visualizer */}
         <div
           style={{
-            backgroundColor: "rgba(241, 245, 249, 0.7)",
+            backgroundColor: "rgba(241, 245, 249, 0.8)",
             borderRadius: "16px",
-            padding: "12px 16px",
-            marginBottom: "16px",
-            border: "1px solid rgba(15, 23, 42, 0.04)",
+            padding: "10px 14px",
+            marginBottom: "14px",
+            border: "1px solid rgba(15, 23, 42, 0.05)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "8px",
+            gap: "6px",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", fontSize: "11px", color: "#64748B" }}>
-            <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <Volume2 size={13} color="#2563EB" /> AI Speaking
+            <span style={{ display: "flex", alignItems: "center", gap: "4px", color: "#2563EB", fontWeight: 700 }}>
+              <Volume2 size={13} /> {isCalling ? "AI Speaking" : "Call Paused"}
             </span>
-            <span style={{ fontFamily: "var(--font-mono)", color: "#F97316", fontWeight: 600 }}>24.0 kHz HD Voice</span>
+            <span style={{ fontFamily: "var(--font-mono)", color: "#F97316", fontWeight: 600 }}>&lt; 380ms Latency</span>
           </div>
 
-          <AIWaveform active={true} barCount={32} color="mixed" height={32} />
+          <AudioWaveformCanvas active={isCalling} colorTheme="mixed" height={28} barCount={30} speed={1.1} />
         </div>
 
-        {/* Live Conversation Transcript Snippet */}
+        {/* Live Conversation Dialogue Stream */}
         <div
           style={{
             backgroundColor: "#FFFFFF",
-            borderRadius: "14px",
+            borderRadius: "16px",
             padding: "12px 14px",
             border: "1px solid rgba(15, 23, 42, 0.06)",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
-            marginBottom: "16px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
+            marginBottom: "14px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
           }}
         >
-          <div style={{ display: "flex", gap: "10px", alignItems: "flex-start", marginBottom: "8px" }}>
+          {/* AI Dialogue */}
+          <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
             <div
               style={{
                 width: "20px",
@@ -317,21 +368,23 @@ export default function AIProductVisual({
                 backgroundColor: "#EA580C",
                 color: "#FFFFFF",
                 fontSize: "10px",
-                fontWeight: 700,
+                fontWeight: 800,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
+                marginTop: "2px",
               }}
             >
               AI
             </div>
-            <p style={{ fontSize: "12px", color: "#1E293B", lineHeight: 1.45, fontWeight: 500 }}>
-              &ldquo;Assalamu Alaikum! Confirming your order #4829 for Shahi Goods leather jacket. Should we dispatch to Road 27, Dhanmondi?&rdquo;
+            <p style={{ fontSize: "12px", color: "#0F172A", lineHeight: 1.45, fontWeight: 500 }}>
+              &ldquo;{currentDialogue.ai}&rdquo;
             </p>
           </div>
 
-          <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+          {/* Customer Dialogue */}
+          <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
             <div
               style={{
                 width: "20px",
@@ -340,77 +393,83 @@ export default function AIProductVisual({
                 backgroundColor: "#2563EB",
                 color: "#FFFFFF",
                 fontSize: "10px",
-                fontWeight: 700,
+                fontWeight: 800,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
+                marginTop: "2px",
               }}
             >
               C
             </div>
             <p style={{ fontSize: "12px", color: "#475569", lineHeight: 1.45 }}>
-              &ldquo;Yes, that&apos;s correct! Please confirm cash on delivery.&rdquo;
+              &ldquo;{currentDialogue.customer}&rdquo;
             </p>
           </div>
         </div>
 
-        {/* Call Action Keypad Buttons */}
+        {/* Live Action Slip */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "10px",
-            paddingTop: "6px",
+            padding: "8px 12px",
+            borderRadius: "12px",
+            backgroundColor: "rgba(34, 197, 94, 0.08)",
+            border: "1px solid rgba(34, 197, 94, 0.25)",
+            fontSize: "11px",
+            color: "#166534",
+            fontWeight: 700,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "14px",
           }}
         >
-          <div
-            style={{
-              padding: "10px",
-              borderRadius: "14px",
-              backgroundColor: "rgba(15, 23, 42, 0.04)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "4px",
-              cursor: "pointer",
-            }}
-          >
-            <Mic size={16} color="#475569" />
-            <span style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>Mute</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <CheckCircle2 size={14} color="#16A34A" />
+            <span>{currentDialogue.action}</span>
           </div>
+        </div>
 
-          <div
+        {/* Interactive Talk Controller Bar inside Hero */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+          <button
+            onClick={toggleCall}
+            className={isCalling ? "btn btn-primary" : "btn btn-secondary"}
             style={{
-              padding: "10px",
-              borderRadius: "14px",
-              backgroundColor: "rgba(15, 23, 42, 0.04)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "4px",
-              cursor: "pointer",
+              padding: "10px 14px",
+              fontSize: "12px",
+              fontWeight: 700,
+              borderRadius: "12px",
             }}
           >
-            <MessageSquare size={16} color="#475569" />
-            <span style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>WhatsApp</span>
-          </div>
+            {isCalling ? (
+              <>
+                <Square size={13} fill="#FFFFFF" />
+                <span>Pause Call</span>
+              </>
+            ) : (
+              <>
+                <Play size={13} fill="#2563EB" color="#2563EB" />
+                <span>Start Live Call</span>
+              </>
+            )}
+          </button>
 
-          <div
+          <button
+            onClick={() => setActiveStep((prev) => prev + 1)}
+            className="btn btn-secondary"
             style={{
-              padding: "10px",
-              borderRadius: "14px",
-              backgroundColor: "rgba(239, 68, 68, 0.1)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "4px",
-              cursor: "pointer",
+              padding: "10px 14px",
+              fontSize: "12px",
+              fontWeight: 700,
+              borderRadius: "12px",
+              color: "#2563EB",
             }}
           >
-            <Phone size={16} color="#EF4444" style={{ transform: "rotate(135deg)" }} />
-            <span style={{ fontSize: "10px", color: "#EF4444", fontWeight: 700 }}>End</span>
-          </div>
+            <RotateCcw size={13} />
+            <span>Next Scenario</span>
+          </button>
         </div>
       </div>
 

@@ -10,10 +10,9 @@ import {
   MessageCircle,
   Cpu,
   Mic,
-  ArrowUpRight,
-  CheckCircle,
+  CheckCircle2,
 } from "lucide-react";
-import AIWaveform from "@/components/ui/AIWaveform";
+import AudioWaveformCanvas from "@/components/ui/AudioWaveformCanvas";
 
 interface Capability {
   id: string;
@@ -21,7 +20,7 @@ interface Capability {
   tag: string;
   title: string;
   desc: string;
-  accent: "blue" | "orange" | "cyan";
+  accent: "orange" | "blue" | "emerald";
   preview: string;
 }
 
@@ -29,56 +28,56 @@ const capabilities: Capability[] = [
   {
     id: "inbound",
     icon: <PhoneIncoming size={22} />,
-    tag: "INBOUND FRONT DESK",
-    title: "Inbound Phone Answering",
-    desc: "Answers incoming calls on the first ring 24/7. Handles customer queries, order status checks, store policies, and support inquiries with natural human phrasing.",
+    tag: "INBOUND DESK",
+    title: "Inbound Call Answering",
+    desc: "Answers incoming calls on the first ring 24/7. Handles customer queries, order status checks, and support inquiries with natural human phrasing.",
     accent: "blue",
-    preview: "0s wait time • Multi-language & Dialects",
+    preview: "0s wait time • Multi-dialect Bengali",
   },
   {
     id: "outbound",
     icon: <PhoneOutgoing size={22} />,
     tag: "OUTBOUND DISPATCH",
-    title: "Outbound Automated Calling",
-    desc: "Automatically calls customers after checkout to verify COD orders, confirm delivery addresses, reduce RTO (return-to-origin), and recover abandoned carts.",
+    title: "Outbound COD Verification",
+    desc: "Automatically calls customers after checkout to verify delivery addresses, reduce expensive RTO return rates, and recover abandoned carts.",
     accent: "orange",
-    preview: "4.8x higher confirmation • Instant Steadfast push",
+    preview: "4.8x confirmation • Instant courier push",
   },
   {
     id: "voice-support",
     icon: <Headphones size={22} />,
-    tag: "REAL-TIME SPEECH",
+    tag: "VOICE SYNTHESIS",
     title: "24/7 Live Voice Support",
-    desc: "Ultra low-latency speech synthesis (<450ms). Speaks naturally with authentic human pauses, empathetic tones, and zero awkward robot delays.",
-    accent: "cyan",
-    preview: "Emotion detection • Dynamic interruption handling",
+    desc: "Ultra low-latency speech synthesis (<380ms). Speaks naturally with authentic human pauses, empathetic tones, and dynamic interruption handling.",
+    accent: "blue",
+    preview: "Emotion parsing • Sub-380ms latency",
   },
   {
     id: "omnichannel",
     icon: <MessageCircle size={22} />,
-    tag: "OMNICHANNEL SYNC",
-    title: "WhatsApp & SMS Messaging",
-    desc: "Dispatches instant WhatsApp order summaries, bKash payment links, Google Maps locations, and calendar invites directly during or after the phone call.",
-    accent: "blue",
-    preview: "Official WhatsApp Business API integration",
+    tag: "OMNICHANNEL",
+    title: "WhatsApp & SMS Automation",
+    desc: "Dispatches instant WhatsApp order summaries, bKash payment links, and calendar invites directly during or after the live phone call.",
+    accent: "emerald",
+    preview: "Official WhatsApp Business API",
   },
   {
     id: "api-execution",
     icon: <Cpu size={22} />,
     tag: "ACTION ENGINE",
     title: "Direct System & API Execution",
-    desc: "Doesn't just talk — executes real actions. Connects directly to Shopify, WooCommerce, Steadfast Courier, RedX, Pathao, Google Sheets, and REST APIs.",
+    desc: "Doesn't just talk — executes real actions. Connects directly to Shopify, WooCommerce, Steadfast Courier, RedX, Pathao, and REST APIs.",
     accent: "orange",
-    preview: "Real-time DB read/write • Automated payment reconciliation",
+    preview: "Real-time DB sync • Automated dispatch",
   },
   {
     id: "voice-intake",
     icon: <Mic size={22} />,
     tag: "VOICE INTELLIGENCE",
-    title: "Voice Notes & Smart Intake",
-    desc: "Receives voice notes from customers, accurately transcribes colloquial expressions and Bengali/English code-switching, extracting names, addresses, and order items.",
-    accent: "cyan",
-    preview: "Entity extraction • Structured JSON output",
+    title: "Voice Notes & Dialect Parsing",
+    desc: "Transcribes customer voice notes and colloquial expressions accurately, extracting customer names, addresses, and order items into structured data.",
+    accent: "blue",
+    preview: "Entity extraction • Structured JSON",
   },
 ];
 
@@ -96,14 +95,13 @@ export default function CapabilitiesScene() {
     const cards = cardsContainer.querySelectorAll(".capability-card");
 
     const ctx = gsap.context(() => {
-      // Scroll-driven 3D cascade entrance
       gsap.fromTo(
         cards,
         {
           opacity: 0,
-          y: 70,
-          rotateX: 12,
-          scale: 0.94,
+          y: 60,
+          rotateX: 10,
+          scale: 0.95,
         },
         {
           opacity: 1,
@@ -111,12 +109,12 @@ export default function CapabilitiesScene() {
           rotateX: 0,
           scale: 1,
           duration: 0.8,
-          stagger: 0.12,
+          stagger: 0.1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: cardsContainer,
             start: "top 80%",
-            end: "top 30%",
+            end: "top 35%",
             scrub: 0.6,
           },
         }
@@ -139,8 +137,8 @@ export default function CapabilitiesScene() {
     >
       <div className="container" style={{ position: "relative", zIndex: 5 }}>
         {/* Section Header */}
-        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto 64px auto" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto 60px auto" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "14px" }}>
             <span className="badge-eyebrow">
               <span className="badge-dot" />
               INTELLIGENT OMNICHANNEL SUITE
@@ -149,11 +147,11 @@ export default function CapabilitiesScene() {
 
           <h2
             style={{
-              fontSize: "clamp(34px, 4.2vw, 54px)",
+              fontSize: "clamp(34px, 4.2vw, 52px)",
               fontWeight: 800,
               color: "#0F172A",
               lineHeight: 1.12,
-              marginBottom: "18px",
+              marginBottom: "16px",
               letterSpacing: "-0.03em",
             }}
           >
@@ -161,8 +159,6 @@ export default function CapabilitiesScene() {
             <span
               style={{
                 fontStyle: "italic",
-                fontFamily: "var(--font-heading)",
-                fontWeight: 600,
                 color: "#2563EB",
               }}
             >
@@ -170,8 +166,8 @@ export default function CapabilitiesScene() {
             </span>
           </h2>
 
-          <p style={{ fontSize: "17px", color: "#475569", lineHeight: 1.6 }}>
-            One unified conversational AI engine across voice calls, WhatsApp messages, and business workflows — built to understand context, take action, and keep your business running 24/7.
+          <p style={{ fontSize: "16px", color: "#475569", lineHeight: 1.6 }}>
+            One unified conversational AI engine across phone calls, WhatsApp messages, and business workflows — built to understand context and take action 24/7.
           </p>
         </div>
 
@@ -181,34 +177,31 @@ export default function CapabilitiesScene() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: "28px",
+            gap: "26px",
             perspective: "1200px",
           }}
         >
-          {capabilities.map((item, idx) => {
+          {capabilities.map((item) => {
             const isOrange = item.accent === "orange";
-            const isCyan = item.accent === "cyan";
+            const isEmerald = item.accent === "emerald";
             const iconBg = isOrange
               ? "rgba(249, 115, 22, 0.1)"
-              : isCyan
-              ? "rgba(6, 182, 212, 0.1)"
+              : isEmerald
+              ? "rgba(16, 185, 129, 0.1)"
               : "rgba(37, 99, 235, 0.1)";
-            const iconColor = isOrange ? "#EA580C" : isCyan ? "#0891B2" : "#2563EB";
-            const borderHover = isOrange
-              ? "rgba(249, 115, 22, 0.3)"
-              : "rgba(37, 99, 235, 0.3)";
+            const iconColor = isOrange ? "#EA580C" : isEmerald ? "#10B981" : "#2563EB";
 
             return (
               <div
                 key={item.id}
-                className="capability-card glass-panel-card"
+                className="capability-card glass-panel-card gpu-layer"
                 style={{
                   padding: "32px 28px",
                   borderRadius: "24px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
-                  background: "rgba(255, 255, 255, 0.9)",
+                  background: "rgba(255, 255, 255, 0.92)",
                   border: "1px solid rgba(15, 23, 42, 0.08)",
                   boxShadow: "0 10px 30px -5px rgba(15, 23, 42, 0.04)",
                   transformStyle: "preserve-3d",
@@ -217,7 +210,7 @@ export default function CapabilitiesScene() {
               >
                 <div>
                   {/* Top Bar: Icon + Tag */}
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "22px" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
                     <div
                       style={{
                         width: "48px",
@@ -254,9 +247,9 @@ export default function CapabilitiesScene() {
                   <h3
                     style={{
                       fontSize: "21px",
-                      fontWeight: 700,
+                      fontWeight: 800,
                       color: "#0F172A",
-                      marginBottom: "12px",
+                      marginBottom: "10px",
                       lineHeight: 1.3,
                     }}
                   >
@@ -288,11 +281,11 @@ export default function CapabilitiesScene() {
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", color: "#334155", fontWeight: 600 }}>
-                    <CheckCircle size={14} color={iconColor} />
+                    <CheckCircle2 size={14} color={iconColor} />
                     <span>{item.preview}</span>
                   </div>
 
-                  <AIWaveform active={true} barCount={10} color={isOrange ? "orange" : "blue"} height={16} speed="slow" />
+                  <AudioWaveformCanvas active={true} barCount={10} colorTheme={isOrange ? "orange" : "blue"} height={16} speed={0.9} />
                 </div>
               </div>
             );

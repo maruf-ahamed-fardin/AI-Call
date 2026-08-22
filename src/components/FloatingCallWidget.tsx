@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Phone, Sparkles, X, Volume2, ArrowUpRight } from "lucide-react";
-import AIWaveform from "@/components/ui/AIWaveform";
+import { Phone, Sparkles, X, Volume2, ArrowUpRight, Mic, PhoneOff } from "lucide-react";
+import AudioWaveformCanvas from "@/components/ui/AudioWaveformCanvas";
 
 export default function FloatingCallWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,31 +50,31 @@ export default function FloatingCallWidget() {
       {/* Expanded Modal Box */}
       {isOpen && (
         <div
-          className="glass-panel"
+          className="glass-panel-glow gpu-layer"
           style={{
-            marginBottom: "12px",
-            width: "320px",
-            padding: "20px",
-            borderRadius: "22px",
-            background: "rgba(255, 255, 255, 0.94)",
-            border: "1px solid rgba(249, 115, 22, 0.25)",
-            boxShadow: "0 20px 50px -10px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(249, 115, 22, 0.1)",
+            marginBottom: "14px",
+            width: "330px",
+            padding: "22px",
+            borderRadius: "24px",
+            background: "linear-gradient(170deg, rgba(15, 23, 42, 0.95) 0%, rgba(3, 7, 18, 0.98) 100%)",
+            border: "1.5px solid rgba(6, 182, 212, 0.35)",
+            boxShadow: "0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.25)",
             animation: "slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <div
                 style={{
-                  width: "10px",
-                  height: "10px",
+                  width: "9px",
+                  height: "9px",
                   borderRadius: "50%",
-                  backgroundColor: "#22C55E",
-                  boxShadow: "0 0 8px #22C55E",
+                  backgroundColor: "#10B981",
+                  boxShadow: "0 0 10px #10B981",
                 }}
               />
-              <span style={{ fontSize: "12px", fontWeight: 700, color: "#0F172A", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                Live AI Assistant
+              <span style={{ fontSize: "12px", fontWeight: 800, color: "#F8FAFC", textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-mono)" }}>
+                Live Voice Assistant
               </span>
             </div>
             <button
@@ -96,18 +96,18 @@ export default function FloatingCallWidget() {
 
           {!isCalling ? (
             <div>
-              <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.5, marginBottom: "16px" }}>
-                Experience Selorax AI live on your browser or connect with our sales team instantly.
+              <p style={{ fontSize: "13px", color: "#94A3B8", lineHeight: 1.55, marginBottom: "18px" }}>
+                Experience Selorax Frontline Voice AI in real time or connect with our enterprise specialist.
               </p>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <button
                   onClick={startTestCall}
                   className="btn btn-primary"
-                  style={{ width: "100%", padding: "10px 16px", fontSize: "13px" }}
+                  style={{ width: "100%", padding: "12px 18px", fontSize: "13px", fontWeight: 700 }}
                 >
-                  <Sparkles size={15} />
-                  <span>Start Interactive Voice Test</span>
+                  <Sparkles size={16} />
+                  <span>Start Live Voice Simulation</span>
                 </button>
 
                 <a
@@ -115,10 +115,10 @@ export default function FloatingCallWidget() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-secondary"
-                  style={{ width: "100%", padding: "10px 16px", fontSize: "13px" }}
+                  style={{ width: "100%", padding: "12px 18px", fontSize: "13px" }}
                 >
-                  <span>Chat on WhatsApp</span>
-                  <ArrowUpRight size={14} />
+                  <span>Chat with Sales on WhatsApp</span>
+                  <ArrowUpRight size={15} />
                 </a>
               </div>
             </div>
@@ -126,51 +126,57 @@ export default function FloatingCallWidget() {
             <div style={{ textAlign: "center", padding: "10px 0" }}>
               <div
                 style={{
-                  width: "60px",
-                  height: "60px",
+                  width: "64px",
+                  height: "64px",
                   borderRadius: "50%",
                   margin: "0 auto 12px auto",
-                  background: "linear-gradient(135deg, #F97316 0%, #2563EB 100%)",
+                  background: "linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #8B5CF6 100%)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 0 20px rgba(249, 115, 22, 0.4)",
+                  boxShadow: "0 0 25px rgba(6, 182, 212, 0.6)",
                   animation: "pulseRing 2s infinite ease-in-out",
                 }}
               >
-                <Volume2 color="#FFFFFF" size={24} />
+                <Volume2 color="#FFFFFF" size={26} />
               </div>
 
-              <div style={{ fontSize: "13px", fontWeight: 600, color: "#0F172A", marginBottom: "4px" }}>
-                Selorax Voice Agent (Online)
+              <div style={{ fontSize: "14px", fontWeight: 800, color: "#F8FAFC", marginBottom: "3px" }}>
+                Selorax Agent (Connected)
               </div>
-              <div style={{ fontSize: "11px", fontFamily: "var(--font-mono)", color: "#EA580C", marginBottom: "14px" }}>
+              <div style={{ fontSize: "12px", fontFamily: "var(--font-mono)", color: "#22D3EE", marginBottom: "14px" }}>
                 {formatTime(callTimer)}
               </div>
 
-              <div style={{ marginBottom: "16px" }}>
-                <AIWaveform active={true} barCount={20} color="mixed" height={28} />
+              <div style={{ marginBottom: "16px", padding: "10px", backgroundColor: "rgba(11, 15, 25, 0.8)", borderRadius: "14px" }}>
+                <AudioWaveformCanvas active={true} barCount={20} colorTheme="cyan" height={28} speed={1.2} />
               </div>
 
-              <p style={{ fontSize: "12px", color: "#64748B", fontStyle: "italic", marginBottom: "14px" }}>
-                &ldquo;Hello! I&apos;m Selorax AI. How may I assist your business today?&rdquo;
+              <p style={{ fontSize: "12px", color: "#94A3B8", fontStyle: "italic", marginBottom: "16px", lineHeight: 1.4 }}>
+                &ldquo;Hello! I&apos;m Selorax AI. How can I assist your team today?&rdquo;
               </p>
 
               <button
                 onClick={endTestCall}
                 style={{
-                  backgroundColor: "#EF4444",
-                  color: "#FFFFFF",
-                  border: "none",
+                  backgroundColor: "rgba(239, 68, 68, 0.2)",
+                  color: "#EF4444",
+                  border: "1px solid rgba(239, 68, 68, 0.4)",
                   borderRadius: "9999px",
-                  padding: "8px 20px",
-                  fontSize: "12px",
-                  fontWeight: 600,
+                  padding: "10px 20px",
+                  fontSize: "13px",
+                  fontWeight: 700,
                   cursor: "pointer",
                   width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  transition: "all 0.2s ease",
                 }}
               >
-                End Call
+                <PhoneOff size={15} />
+                <span>Disconnect Call</span>
               </button>
             </div>
           )}
@@ -184,50 +190,50 @@ export default function FloatingCallWidget() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "10px",
-          padding: "8px 16px 8px 10px",
-          backgroundColor: "#0F172A",
+          gap: "12px",
+          padding: "10px 18px 10px 12px",
+          backgroundColor: "rgba(15, 23, 42, 0.95)",
           color: "#FFFFFF",
-          border: "1px solid rgba(255, 255, 255, 0.15)",
+          border: "1.5px solid rgba(6, 182, 212, 0.4)",
           borderRadius: "9999px",
-          boxShadow: "0 10px 30px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(249, 115, 22, 0.3)",
+          boxShadow: "0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(6, 182, 212, 0.35)",
           cursor: "pointer",
           transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
           outline: "none",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-2px) scale(1.03)";
-          e.currentTarget.style.boxShadow = "0 14px 35px rgba(15, 23, 42, 0.35), 0 0 15px rgba(249, 115, 22, 0.5)";
+          e.currentTarget.style.transform = "translateY(-3px) scale(1.03)";
+          e.currentTarget.style.boxShadow = "0 15px 40px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.6)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0) scale(1)";
-          e.currentTarget.style.boxShadow = "0 10px 30px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(249, 115, 22, 0.3)";
+          e.currentTarget.style.boxShadow = "0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(6, 182, 212, 0.35)";
         }}
       >
         {/* Pulsing AI Orb */}
         <div
           style={{
             position: "relative",
-            width: "28px",
-            height: "28px",
+            width: "32px",
+            height: "32px",
             borderRadius: "50%",
-            background: "linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #F97316 100%)",
+            background: "linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #8B5CF6 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "0 0 10px rgba(6, 182, 212, 0.6)",
+            boxShadow: "0 0 15px rgba(6, 182, 212, 0.7)",
           }}
         >
-          <Sparkles size={14} color="#FFFFFF" />
+          <Sparkles size={16} color="#FFFFFF" />
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left" }}>
-          <span style={{ fontSize: "10px", color: "#94A3B8", lineHeight: 1, fontWeight: 500 }}>
-            সাহায্য দরকার? / Need Help?
+          <span style={{ fontSize: "10px", color: "#94A3B8", lineHeight: 1, fontFamily: "var(--font-mono)" }}>
+            সাহায্য দরকার? / Quick Test
           </span>
-          <span style={{ fontSize: "13px", fontWeight: 700, color: "#FFFFFF", lineHeight: 1.3, display: "flex", alignItems: "center", gap: "4px" }}>
-            <Phone size={12} color="#F97316" />
-            কল শুরু করুন / Test Call
+          <span style={{ fontSize: "13px", fontWeight: 800, color: "#F8FAFC", lineHeight: 1.3, display: "flex", alignItems: "center", gap: "6px" }}>
+            <Phone size={13} color="#22D3EE" />
+            লাইভ ভয়েস টেস্ট / Start Call
           </span>
         </div>
       </button>
@@ -236,7 +242,7 @@ export default function FloatingCallWidget() {
         @keyframes slideUp {
           from {
             opacity: 0;
-            transform: translateY(12px) scale(0.96);
+            transform: translateY(14px) scale(0.96);
           }
           to {
             opacity: 1;
@@ -246,11 +252,11 @@ export default function FloatingCallWidget() {
         @keyframes pulseRing {
           0%, 100% {
             transform: scale(1);
-            box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
           }
           50% {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(249, 115, 22, 0.7);
+            transform: scale(1.06);
+            box-shadow: 0 0 35px rgba(6, 182, 212, 0.8);
           }
         }
       `}</style>

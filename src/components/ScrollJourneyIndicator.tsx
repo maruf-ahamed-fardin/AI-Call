@@ -10,13 +10,15 @@ interface Step {
 
 const steps: Step[] = [
   { id: "hero", num: "01", label: "Hero" },
-  { id: "capabilities", num: "02", label: "Channels" },
+  { id: "capabilities", num: "02", label: "Capabilities" },
   { id: "features", num: "03", label: "Features" },
   { id: "how-it-works", num: "04", label: "Action Engine" },
-  { id: "live-call", num: "05", label: "Live Call" },
-  { id: "use-cases", num: "06", label: "Use Cases" },
-  { id: "testimonials", num: "07", label: "Reviews" },
-  { id: "cta", num: "08", label: "Get Started" },
+  { id: "voice-matrix", num: "05", label: "Voice Matrix" },
+  { id: "roi-calculator", num: "06", label: "ROI Calc" },
+  { id: "live-call", num: "07", label: "Live Call" },
+  { id: "use-cases", num: "08", label: "Use Cases" },
+  { id: "testimonials", num: "09", label: "Reviews" },
+  { id: "cta", num: "10", label: "Get Started" },
 ];
 
 export default function ScrollJourneyIndicator() {
@@ -69,7 +71,7 @@ export default function ScrollJourneyIndicator() {
           right: 0,
           height: "3px",
           zIndex: 60,
-          background: "rgba(15, 23, 42, 0.05)",
+          background: "rgba(255, 255, 255, 0.05)",
           pointerEvents: "none",
         }}
       >
@@ -77,13 +79,14 @@ export default function ScrollJourneyIndicator() {
           style={{
             height: "100%",
             width: `${scrollProgress}%`,
-            background: "linear-gradient(to right, #2563EB, #F97316)",
+            background: "linear-gradient(to right, #06B6D4, #3B82F6, #8B5CF6, #FF6B00)",
             transition: "width 0.1s linear",
+            boxShadow: "0 0 10px #06B6D4",
           }}
         />
       </div>
 
-      {/* Desktop Vertical Journey Rail */}
+      {/* Desktop Vertical Cyber Journey Rail */}
       <nav
         aria-label="Page scroll navigation"
         className="desktop-journey-rail"
@@ -96,7 +99,7 @@ export default function ScrollJourneyIndicator() {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          gap: "12px",
+          gap: "10px",
           pointerEvents: "auto",
         }}
       >
@@ -108,7 +111,7 @@ export default function ScrollJourneyIndicator() {
             top: "8px",
             bottom: "8px",
             width: "1px",
-            background: "rgba(15, 23, 42, 0.08)",
+            background: "rgba(255, 255, 255, 0.1)",
             zIndex: -1,
           }}
         />
@@ -128,7 +131,7 @@ export default function ScrollJourneyIndicator() {
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                padding: "4px 0",
+                padding: "3px 0",
                 outline: "none",
               }}
               className="journey-step-btn relative"
@@ -136,25 +139,25 @@ export default function ScrollJourneyIndicator() {
               {/* Tooltip text label */}
               <span
                 style={{
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-mono)",
                   fontSize: "11px",
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? "#0F172A" : "#94A3B8",
+                  color: isActive ? "#F8FAFC" : "#64748B",
                   opacity: isActive ? 1 : 0,
                   transform: isActive ? "translateX(0)" : "translateX(6px)",
                   transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  backdropFilter: "blur(8px)",
-                  padding: "3px 8px",
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                  backdropFilter: "blur(12px)",
+                  padding: "3px 10px",
                   borderRadius: "6px",
-                  border: isActive ? "1px solid rgba(249, 115, 22, 0.25)" : "1px solid rgba(15, 23, 42, 0.06)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                  border: isActive ? "1px solid rgba(6, 182, 212, 0.4)" : "1px solid rgba(255, 255, 255, 0.08)",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
                   pointerEvents: "none",
                   whiteSpace: "nowrap",
                 }}
                 className="step-label"
               >
-                <span style={{ color: isActive ? "#F97316" : "#94A3B8", marginRight: "4px" }}>
+                <span style={{ color: isActive ? "#22D3EE" : "#64748B", marginRight: "6px" }}>
                   {step.num}
                 </span>
                 {step.label}
@@ -163,7 +166,7 @@ export default function ScrollJourneyIndicator() {
               {/* Indicator Dot */}
               <div
                 style={{
-                  width: isActive ? "15px" : "15px",
+                  width: "15px",
                   height: "15px",
                   display: "flex",
                   alignItems: "center",
@@ -175,8 +178,8 @@ export default function ScrollJourneyIndicator() {
                     width: isActive ? "9px" : "5px",
                     height: isActive ? "9px" : "5px",
                     borderRadius: "50%",
-                    backgroundColor: isActive ? "#F97316" : "rgba(148, 163, 184, 0.6)",
-                    boxShadow: isActive ? "0 0 10px rgba(249, 115, 22, 0.6)" : "none",
+                    backgroundColor: isActive ? "#06B6D4" : "rgba(255, 255, 255, 0.25)",
+                    boxShadow: isActive ? "0 0 12px #06B6D4, 0 0 20px #06B6D4" : "none",
                     transform: isActive ? "scale(1.2)" : "scale(1)",
                     transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
@@ -194,7 +197,7 @@ export default function ScrollJourneyIndicator() {
         .desktop-journey-rail {
           display: none;
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 1080px) {
           .desktop-journey-rail {
             display: flex !important;
           }

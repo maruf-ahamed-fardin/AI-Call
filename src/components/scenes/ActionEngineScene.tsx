@@ -28,7 +28,7 @@ const steps: StepItem[] = [
   {
     num: "01",
     icon: <MessageSquare size={22} />,
-    title: "Customer Asks",
+    title: "Customer Inquires",
     sub: '"I want to confirm my COD order #4829 for Shahi Goods"',
     badge: "Inbound / Outbound",
   },
@@ -36,7 +36,7 @@ const steps: StepItem[] = [
     num: "02",
     icon: <Brain size={22} />,
     title: "Selorax AI Understands",
-    sub: "Extracts Intent, Name, Address, Product SKU & Phone",
+    sub: "Extracts Intent, Customer Name, Address, SKU & Phone",
     badge: "NLP & Entity Parsing",
   },
   {
@@ -49,7 +49,7 @@ const steps: StepItem[] = [
   {
     num: "04",
     icon: <CheckCircle size={22} />,
-    title: "Task Completed",
+    title: "Task Resolved",
     sub: "Order Confirmed, Tagged in CRM & PDF Receipt Sent ✓",
     badge: "100% Automated",
   },
@@ -58,25 +58,25 @@ const steps: StepItem[] = [
 const actionCards = [
   {
     title: "COD Order Verification",
-    desc: "Outbound calls customers instantly after checkout to verify delivery address, phone number, and reduce costly RTO return rates.",
+    desc: "Outbound calls customers instantly after checkout to verify shipping address, mobile number, and reduce expensive RTO return rates.",
     tag: "E-Commerce",
     icon: <PackageCheck size={20} color="#EA580C" />,
   },
   {
     title: "bKash & Nagad Payment Links",
-    desc: "Generates instant payment links and auto-verifies transaction IDs and payment proofs on WhatsApp within seconds.",
+    desc: "Generates instant payment links and auto-verifies transaction IDs and payment proof screenshots on WhatsApp within seconds.",
     tag: "Fintech",
     icon: <CreditCard size={20} color="#2563EB" />,
   },
   {
-    title: "Book Appointments",
-    desc: "Checks calendar availability, resolves schedule conflicts, and holds confirmed doctor or consultation serial slots in real-time.",
+    title: "Book Appointments & Serials",
+    desc: "Checks calendar availability in real time, resolves schedule conflicts, and holds confirmed appointment serials on the live call.",
     tag: "Healthcare",
     icon: <CalendarCheck size={20} color="#0891B2" />,
   },
   {
-    title: "Send WhatsApp Confirmations",
-    desc: "Dispatches instant WhatsApp & SMS confirmation receipts, tracking URLs, and PDF statements right as the call ends.",
+    title: "Instant WhatsApp Confirmations",
+    desc: "Dispatches instant WhatsApp & SMS confirmation slips, live courier tracking URLs, and PDF statements right as the call finishes.",
     tag: "Messaging",
     icon: <Send size={20} color="#16A34A" />,
   },
@@ -95,7 +95,6 @@ export default function ActionEngineScene() {
     if (!section || !timeline) return;
 
     const ctx = gsap.context(() => {
-      // Step timeline highlight scrubber
       ScrollTrigger.create({
         trigger: timeline,
         start: "top 70%",
@@ -118,14 +117,14 @@ export default function ActionEngineScene() {
       style={{
         position: "relative",
         padding: "120px 0 100px 0",
-        backgroundColor: "rgba(248, 250, 252, 0.7)",
+        backgroundColor: "rgba(248, 250, 252, 0.8)",
         overflow: "hidden",
       }}
     >
       <div className="container" style={{ position: "relative", zIndex: 5 }}>
         {/* Header */}
-        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto 64px auto" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto 60px auto" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "14px" }}>
             <span className="badge-eyebrow">
               <span className="badge-dot" />
               ACTION ENGINE WORKFLOW
@@ -134,28 +133,22 @@ export default function ActionEngineScene() {
 
           <h2
             style={{
-              fontSize: "clamp(34px, 4.2vw, 54px)",
+              fontSize: "clamp(34px, 4.2vw, 52px)",
               fontWeight: 800,
               color: "#0F172A",
               lineHeight: 1.12,
-              marginBottom: "18px",
+              marginBottom: "16px",
               letterSpacing: "-0.03em",
             }}
           >
             It doesn&apos;t just answer.{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
+            <span className="text-gradient-orange">
               It gets things done.
             </span>
           </h2>
 
-          <p style={{ fontSize: "17px", color: "#475569", lineHeight: 1.6 }}>
-            Selorax AI connects directly to your business databases, payment gateways, and logistics tools to resolve customer tasks completely without human intervention.
+          <p style={{ fontSize: "16px", color: "#475569", lineHeight: 1.6 }}>
+            Selorax AI connects directly to your databases, payment gateways, and courier tools to resolve customer tasks completely without human intervention.
           </p>
         </div>
 
@@ -166,7 +159,7 @@ export default function ActionEngineScene() {
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
             gap: "20px",
-            marginBottom: "64px",
+            marginBottom: "60px",
             position: "relative",
           }}
           className="timeline-grid"
@@ -178,14 +171,14 @@ export default function ActionEngineScene() {
             return (
               <div
                 key={step.num}
-                className="glass-panel-card"
+                className="glass-panel-card gpu-layer"
                 style={{
                   padding: "28px 22px",
                   borderRadius: "22px",
                   backgroundColor: isCurrent
                     ? "rgba(255, 255, 255, 0.98)"
                     : isPassed
-                    ? "rgba(255, 255, 255, 0.85)"
+                    ? "rgba(255, 255, 255, 0.88)"
                     : "rgba(255, 255, 255, 0.6)",
                   border: isCurrent
                     ? "1.5px solid rgba(249, 115, 22, 0.5)"
@@ -280,7 +273,7 @@ export default function ActionEngineScene() {
           {actionCards.map((card, i) => (
             <div
               key={i}
-              className="glass-panel-card"
+              className="glass-panel-card gpu-layer"
               style={{
                 padding: "24px",
                 borderRadius: "20px",

@@ -4,7 +4,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AIProductVisual from "@/components/ui/AIProductVisual";
-import { ArrowRight, PhoneCall, Check, Sparkles, Activity, ShieldCheck, Clock } from "lucide-react";
+import {
+  ArrowRight,
+  PhoneCall,
+  Sparkles,
+  Zap,
+  ShieldCheck,
+  Activity,
+  Bot,
+  Terminal,
+  Play,
+} from "lucide-react";
 
 export default function HeroScene() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -12,8 +22,14 @@ export default function HeroScene() {
   const rightVisualRef = useRef<HTMLDivElement>(null);
   const trustBarRef = useRef<HTMLDivElement>(null);
 
-  // Mouse parallax state
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [activePrompt, setActivePrompt] = useState("Confirm COD Order");
+
+  const samplePrompts = [
+    { label: "Confirm COD Order", id: "cod" },
+    { label: "Change Address", id: "address" },
+    { label: "Generate bKash Link", id: "bkash" },
+    { label: "Doctor Serial", id: "doctor" },
+  ];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -31,20 +47,19 @@ export default function HeroScene() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=120%",
+          end: "+=100%",
           pin: true,
           scrub: 0.8,
           anticipatePin: 1,
         },
       });
 
-      // Stage 1 -> Stage 2: Left text translates up & fades slightly, Right visual scales and centers
       tl.to(
         leftContent,
         {
-          y: -80,
-          opacity: 0.2,
-          scale: 0.95,
+          y: -60,
+          opacity: 0.25,
+          scale: 0.96,
           ease: "power2.out",
         },
         0
@@ -52,10 +67,10 @@ export default function HeroScene() {
         .to(
           rightVisual,
           {
-            x: "-25%",
-            scale: 1.15,
-            rotationY: -10,
-            rotationX: 8,
+            x: "-20%",
+            scale: 1.1,
+            rotationY: -8,
+            rotationX: 6,
             ease: "power2.out",
           },
           0
@@ -63,41 +78,49 @@ export default function HeroScene() {
         .to(
           trustBar,
           {
-            y: 40,
+            y: 30,
             opacity: 0,
             ease: "power1.out",
           },
           0
         )
-        // Stage 3 -> Stage 4: Visual smoothly transforms and zooms for the next scene
         .to(
           rightVisual,
           {
-            scale: 1.25,
+            scale: 1.18,
             rotationY: 0,
             rotationX: 0,
             x: "0%",
-            y: -30,
+            y: -20,
             ease: "power1.inOut",
           },
-          0.6
+          0.5
         );
     }, sectionRef);
 
-    // Mouse movement listener for subtle 3D parallax on desktop
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const normX = (e.clientX / innerWidth - 0.5) * 2; // -1 to 1
-      const normY = (e.clientY / innerHeight - 0.5) * 2; // -1 to 1
-      setMousePos({ x: normX, y: normY });
-    };
+    // Hardware-accelerated 120fps Mouse Parallax with ZERO React re-renders!
+    const targetElement = rightVisual.querySelector("#hero-ai-interface-card");
+    if (targetElement) {
+      const setX = gsap.quickTo(targetElement, "rotationY", { duration: 0.5, ease: "power2.out" });
+      const setY = gsap.quickTo(targetElement, "rotationX", { duration: 0.5, ease: "power2.out" });
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      const handleMouseMove = (e: MouseEvent) => {
+        const { innerWidth, innerHeight } = window;
+        const normX = (e.clientX / innerWidth - 0.5) * 14;
+        const normY = (e.clientY / innerHeight - 0.5) * -14;
+        setX(normX);
+        setY(normY);
+      };
 
-    return () => {
-      ctx.revert();
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+      return () => {
+        ctx.revert();
+        window.removeEventListener("mousemove", handleMouseMove);
+      };
+    }
+
+    return () => ctx.revert();
   }, []);
 
   const clientLogos = [
@@ -122,7 +145,7 @@ export default function HeroScene() {
         flexDirection: "column",
         justifyContent: "center",
         paddingTop: "90px",
-        paddingBottom: "40px",
+        paddingBottom: "30px",
         overflow: "hidden",
       }}
     >
@@ -138,8 +161,8 @@ export default function HeroScene() {
           }}
           className="hero-grid"
         >
-          {/* Left Column: Headline & Story */}
-          <div ref={leftContentRef} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          {/* Left Column: Clean, Minimal Story & Actions */}
+          <div ref={leftContentRef} style={{ display: "flex", flexDirection: "column", gap: "20px" }} className="gpu-layer">
             {/* Eyebrow Badge */}
             <div>
               <span className="badge-eyebrow">
@@ -148,11 +171,11 @@ export default function HeroScene() {
               </span>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Minimal Headline */}
             <h1
               style={{
-                fontSize: "clamp(38px, 5.2vw, 64px)",
-                fontWeight: 800,
+                fontSize: "clamp(38px, 4.8vw, 62px)",
+                fontWeight: 900,
                 lineHeight: 1.08,
                 letterSpacing: "-0.035em",
                 color: "#0F172A",
@@ -170,17 +193,47 @@ export default function HeroScene() {
               </span>
             </h1>
 
-            {/* Supporting Copy */}
+            {/* Supporting Minimal Copy */}
             <p
               style={{
-                fontSize: "clamp(16px, 1.25vw, 18px)",
+                fontSize: "clamp(16px, 1.2vw, 18px)",
                 color: "#475569",
-                lineHeight: 1.65,
-                maxWidth: "580px",
+                lineHeight: 1.6,
+                maxWidth: "540px",
               }}
             >
-              Selorax AI answers incoming phone calls, conducts outbound calls, provides live voice support, and handles customer messaging — verifying orders, booking appointments, processing payments, and executing end-to-end business workflows automatically 24/7.
+              Selorax AI answers incoming calls, conducts outbound verifications, handles WhatsApp messaging, and executes end-to-end business workflows automatically 24/7.
             </p>
+
+            {/* Quick Interactive Prompt Chips */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", paddingTop: "4px" }}>
+              {samplePrompts.map((p) => {
+                const isSelected = activePrompt === p.label;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => setActivePrompt(p.label)}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "9999px",
+                      backgroundColor: isSelected ? "rgba(249, 115, 22, 0.12)" : "rgba(15, 23, 42, 0.04)",
+                      border: isSelected ? "1px solid rgba(249, 115, 22, 0.4)" : "1px solid rgba(15, 23, 42, 0.08)",
+                      color: isSelected ? "#EA580C" : "#475569",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    <Sparkles size={12} color={isSelected ? "#EA580C" : "#94A3B8"} />
+                    <span>{p.label}</span>
+                  </button>
+                );
+              })}
+            </div>
 
             {/* CTAs */}
             <div
@@ -220,21 +273,21 @@ export default function HeroScene() {
               </a>
             </div>
 
-            {/* Key Performance Metrics Bar */}
+            {/* Minimal Metrics Bar */}
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(3, 1fr)",
                 gap: "16px",
-                paddingTop: "18px",
+                paddingTop: "16px",
                 borderTop: "1px solid var(--border-subtle)",
-                maxWidth: "540px",
+                maxWidth: "500px",
               }}
               className="hero-metrics"
             >
               <div>
                 <div style={{ fontSize: "20px", fontWeight: 800, color: "#0F172A", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <span>&lt;450</span>
+                  <span>&lt;380</span>
                   <span style={{ color: "#2563EB", fontSize: "14px" }}>ms</span>
                 </div>
                 <div style={{ fontSize: "12px", color: "#64748B", fontWeight: 500 }}>Voice Latency</div>
@@ -258,7 +311,7 @@ export default function HeroScene() {
             </div>
           </div>
 
-          {/* Right Column: 3D Product Mockup Visual */}
+          {/* Right Column: Interactive 3D Call Simulator in Hero */}
           <div
             ref={rightVisualRef}
             style={{
@@ -267,23 +320,25 @@ export default function HeroScene() {
               alignItems: "center",
               transformStyle: "preserve-3d",
             }}
+            className="gpu-layer"
           >
-            <AIProductVisual mouseMoveX={mousePos.x} mouseMoveY={mousePos.y} />
+            <AIProductVisual activePrompt={activePrompt} />
           </div>
         </div>
 
-        {/* Social Proof Marquee Banner */}
+        {/* Minimal Social Proof Marquee Banner */}
         <div
           ref={trustBarRef}
           style={{
-            marginTop: "48px",
-            paddingTop: "24px",
+            marginTop: "44px",
+            paddingTop: "20px",
             textAlign: "center",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "14px",
+            gap: "12px",
           }}
+          className="gpu-layer"
         >
           <div
             style={{
@@ -303,7 +358,7 @@ export default function HeroScene() {
               flexWrap: "wrap",
               justifyContent: "center",
               alignItems: "center",
-              gap: "12px",
+              gap: "10px",
               width: "100%",
             }}
           >
@@ -311,9 +366,9 @@ export default function HeroScene() {
               <div
                 key={client.name}
                 style={{
-                  padding: "8px 16px",
+                  padding: "7px 16px",
                   borderRadius: "12px",
-                  background: "rgba(255, 255, 255, 0.75)",
+                  background: "rgba(255, 255, 255, 0.85)",
                   border: "1px solid rgba(15, 23, 42, 0.06)",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
                   display: "flex",
@@ -322,16 +377,15 @@ export default function HeroScene() {
                   fontSize: "13px",
                   fontWeight: 700,
                   color: "#334155",
-                  transition: "transform 0.2s ease, border-color 0.2s ease",
+                  transition: "transform 0.2s ease",
                 }}
               >
                 <div
                   style={{
                     width: "8px",
                     height: "8px",
-                    borderRadius: "2px",
+                    borderRadius: "50%",
                     backgroundColor: "#2563EB",
-                    opacity: 0.6,
                   }}
                 />
                 <span>{client.name}</span>

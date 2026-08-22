@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AIWaveform from "@/components/ui/AIWaveform";
+import AudioWaveformCanvas from "@/components/ui/AudioWaveformCanvas";
 import {
   MessageSquare,
   Bot,
@@ -35,8 +35,8 @@ const featuresList: FeatureStory[] = [
     step: "01",
     badge: "HUMAN-LIKE CONVERSATION",
     title: "Ultra-Realistic Conversational Voice",
-    desc: "Speaks with sub-450ms latency, handles speech interruptions seamlessly, adjusts emotional tone, and understands natural dialect variations without awkward pauses.",
-    stats: "Sub-450ms latency • Dialect & accent parsing",
+    desc: "Speaks with sub-380ms latency, handles interruptions seamlessly, adjusts emotional tone, and understands natural dialect variations without awkward pauses.",
+    stats: "Sub-380ms latency • Regional dialect & accent parsing",
   },
   {
     id: "f2",
@@ -51,7 +51,7 @@ const featuresList: FeatureStory[] = [
     step: "03",
     badge: "ENTITY EXTRACTION",
     title: "Real-time Transcription & Smart Extraction",
-    desc: "Transcribes the call in real time while extracting customer names, phone numbers, delivery addresses, order modifications, and purchase intents into structured data.",
+    desc: "Transcribes calls in real time while extracting customer names, phone numbers, delivery addresses, order modifications, and purchase intents into structured data.",
     stats: "99.4% intent accuracy • Automatic address parsing",
   },
   {
@@ -77,15 +77,14 @@ export default function FeaturesScene() {
     if (!section || !trigger) return;
 
     const ctx = gsap.context(() => {
-      // Pinned scroll-scrubbed feature sequence
       ScrollTrigger.create({
         trigger: trigger,
         start: "top top",
-        end: "+=260%",
+        end: "+=220%",
         pin: true,
         scrub: 0.5,
+        anticipatePin: 1,
         onUpdate: (self) => {
-          // Progress from 0 to 1 mapped to 4 features (0, 1, 2, 3)
           const p = self.progress;
           const idx = Math.min(3, Math.floor(p * 4));
           setActiveFeature(idx);
@@ -118,7 +117,7 @@ export default function FeaturesScene() {
       >
         <div className="container">
           {/* Header */}
-          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 48px auto" }}>
+          <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto 48px auto" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "12px" }}>
               <span className="badge-eyebrow">
                 <span className="badge-dot" />
@@ -161,10 +160,11 @@ export default function FeaturesScene() {
                   <div
                     key={item.id}
                     onClick={() => setActiveFeature(idx)}
+                    className="gpu-layer"
                     style={{
                       padding: "20px 24px",
                       borderRadius: "20px",
-                      backgroundColor: isActive ? "rgba(239, 246, 255, 0.75)" : "transparent",
+                      backgroundColor: isActive ? "rgba(239, 246, 255, 0.85)" : "transparent",
                       border: isActive
                         ? "1.5px solid rgba(37, 99, 235, 0.35)"
                         : "1px solid rgba(15, 23, 42, 0.05)",
@@ -246,6 +246,7 @@ export default function FeaturesScene() {
                 perspective: "1200px",
                 position: "relative",
               }}
+              className="gpu-layer"
             >
               <div
                 className="glass-panel"
@@ -254,7 +255,7 @@ export default function FeaturesScene() {
                   borderRadius: "28px",
                   background: "linear-gradient(170deg, #FFFFFF 0%, #F8FAFC 100%)",
                   border: "1px solid rgba(37, 99, 235, 0.2)",
-                  boxShadow: "0 25px 60px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.08)",
+                  boxShadow: "0 25px 60px -12px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(37, 99, 235, 0.08)",
                   minHeight: "440px",
                   display: "flex",
                   flexDirection: "column",
@@ -322,12 +323,12 @@ export default function FeaturesScene() {
                         <div style={{ fontSize: "12px", color: "#64748B", fontWeight: 600, marginBottom: "8px" }}>
                           AI REAL-TIME SPEECH SYNTHESIS
                         </div>
-                        <AIWaveform active={true} barCount={36} color="blue" height={44} speed="fast" />
+                        <AudioWaveformCanvas active={true} barCount={36} colorTheme="blue" height={42} speed={1.2} />
                       </div>
 
                       <div style={{ backgroundColor: "#F8FAFC", borderRadius: "16px", padding: "16px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
                         <div style={{ fontSize: "11px", color: "#2563EB", fontWeight: 700, textTransform: "uppercase", marginBottom: "4px" }}>
-                          Spoken Output (&lt; 420ms):
+                          Spoken Output (&lt; 380ms):
                         </div>
                         <div style={{ fontSize: "14px", color: "#0F172A", fontWeight: 500 }}>
                           &ldquo;ধন্যবাদ আপনার অর্ডারের জন্য! আপনার Shahi Goods জ্যাকেটটি আগামীকাল ঢাকার ঠিকানায় পৌঁছাবে।&rdquo;
@@ -399,7 +400,7 @@ export default function FeaturesScene() {
                         </div>
                         <div style={{ padding: "12px", backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid rgba(15, 23, 42, 0.06)" }}>
                           <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>SENTIMENT SCORE</div>
-                          <div style={{ fontSize: "13px", fontWeight: 700, color: "#2563EB" }}>98% Positive (Confident)</div>
+                          <div style={{ fontSize: "13px", fontWeight: 700, color: "#2563EB" }}>99% Positive (Confident)</div>
                         </div>
                       </div>
                     </div>
@@ -442,7 +443,7 @@ export default function FeaturesScene() {
                   <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                     <Zap size={13} color="#F97316" /> Auto-sync enabled
                   </span>
-                  <span style={{ fontFamily: "var(--font-mono)" }}>Latency: 38ms API roundtrip</span>
+                  <span style={{ fontFamily: "var(--font-mono)" }}>Latency: 32ms API roundtrip</span>
                 </div>
               </div>
             </div>

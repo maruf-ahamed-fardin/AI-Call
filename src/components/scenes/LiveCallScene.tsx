@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AIWaveform from "@/components/ui/AIWaveform";
+import AudioWaveformCanvas from "@/components/ui/AudioWaveformCanvas";
 import {
   Phone,
   PhoneCall,
@@ -23,7 +23,6 @@ export default function LiveCallScene() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
 
-  // Scroll phase: 0 (Connecting), 1 (Greeting), 2 (Customer query), 3 (AI response & API action), 4 (Summary)
   const [callPhase, setCallPhase] = useState(1);
   const [interactiveMode, setInteractiveMode] = useState(false);
 
@@ -38,9 +37,10 @@ export default function LiveCallScene() {
       ScrollTrigger.create({
         trigger: pin,
         start: "top top",
-        end: "+=220%",
+        end: "+=200%",
         pin: true,
         scrub: 0.6,
+        anticipatePin: 1,
         onUpdate: (self) => {
           if (!interactiveMode) {
             const p = self.progress;
@@ -60,24 +60,24 @@ export default function LiveCallScene() {
   const conversationSteps = [
     {
       speaker: "ai",
-      name: "Selorax AI Agent",
+      name: "Selorax Frontline Agent",
       time: "00:04",
-      text: "Assalamu Alaikum! This is Selorax AI from Shahi Goods. Am I speaking with Mr. Tanvir regarding order #4829?",
+      text: "আসসালামু আলাইকুম! Shahi Goods থেকে সেলভ্যাক্স AI বলছি। আমি কি জনাব তানভীরের সাথে #4829 লেদার জ্যাকেট অর্ডার নিয়ে কথা বলছি?",
       tag: "Agent Greeting",
     },
     {
       speaker: "customer",
       name: "Customer (Tanvir)",
       time: "00:12",
-      text: "Yes, that's me! I ordered a leather jacket yesterday. Can you change the delivery address to Uttara Sector 4?",
-      tag: "Address Modification Request",
+      text: "হ্যাঁ আমি বলছি! আমি ডেলিভারি এড্রেসটা উত্তরা সেক্টর ৪ এ চেঞ্জ করতে চাচ্ছি, পসিবল?",
+      tag: "Address Modification Query",
     },
     {
       speaker: "ai",
-      name: "Selorax AI Agent",
+      name: "Selorax Frontline Agent",
       time: "00:22",
-      text: "Certainly! I have updated your delivery address to House 12, Road 5, Sector 4, Uttara, Dhaka. Your revised order is confirmed and dispatched via Steadfast Courier.",
-      tag: "Live DB Update & Confirmation",
+      text: "অবশ্যই! আপনার ডেলিভারি ঠিকানা 'বাড়ি ১২, রোড ৫, সেক্টর ৪, উত্তরা, ঢাকা' হিসেবে আপডেট করে দিয়েছি। আপনার অর্ডারটি কনফার্ম হয়েছে এবং Steadfast কুরিয়ারে বুকিং সম্পন্ন হয়েছে।",
+      tag: "Live DB Sync & Confirmation",
     },
   ];
 
@@ -123,12 +123,13 @@ export default function LiveCallScene() {
               Watch a Real AI Phone Call in Action
             </h2>
             <p style={{ fontSize: "16px", color: "#64748B", marginTop: "8px" }}>
-              Scroll down to step through the live phone conversation, intent parsing, and automated logistics execution.
+              Scroll down or click the timeline steps to watch real-time voice synthesis and automated courier booking.
             </p>
           </div>
 
           {/* Central Call Interface Card */}
           <div
+            className="gpu-layer"
             style={{
               maxWidth: "840px",
               margin: "0 auto",
@@ -234,10 +235,10 @@ export default function LiveCallScene() {
                 </span>
               </div>
 
-              <AIWaveform
+              <AudioWaveformCanvas
                 active={callPhase > 0 && callPhase < 4}
                 barCount={28}
-                color={callPhase === 2 ? "blue" : "mixed"}
+                colorTheme={callPhase === 2 ? "blue" : "orange"}
                 height={26}
               />
             </div>
@@ -254,7 +255,6 @@ export default function LiveCallScene() {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: isAi ? "flex-start" : "flex-end",
-                      animation: "fadeInUp 0.3s ease-out",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", fontSize: "11px", color: "#64748B" }}>
@@ -299,7 +299,7 @@ export default function LiveCallScene() {
               {callPhase === 0 && (
                 <div style={{ textAlign: "center", padding: "30px 0", color: "#64748B", fontSize: "14px" }}>
                   <div style={{ marginBottom: "8px" }}>📞 Connecting to customer +880 1711-XXXXXX...</div>
-                  <div style={{ fontSize: "12px", color: "#94A3B8" }}>Scroll down to start the conversation</div>
+                  <div style={{ fontSize: "12px", color: "#94A3B8" }}>Scroll down to step through the dialogue</div>
                 </div>
               )}
             </div>
@@ -313,7 +313,6 @@ export default function LiveCallScene() {
                   backgroundColor: "rgba(240, 253, 244, 0.9)",
                   border: "1px solid rgba(34, 197, 94, 0.3)",
                   marginBottom: "20px",
-                  animation: "fadeInUp 0.4s ease-out",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
