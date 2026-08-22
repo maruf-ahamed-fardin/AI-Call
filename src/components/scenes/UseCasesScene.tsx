@@ -9,11 +9,7 @@ import {
   Plane,
   Headset,
   ArrowRight,
-  CheckCircle2,
-  Calendar,
-  CreditCard,
-  PhoneCall,
-  UserCheck,
+  CheckCircle,
 } from "lucide-react";
 
 interface UseCase {
@@ -35,11 +31,11 @@ const useCases: UseCase[] = [
   {
     id: "ecommerce",
     icon: <ShoppingBag size={20} />,
-    label: "E-Commerce & Retail",
+    label: "E-Commerce",
     title: "COD Verification & Return Prevention",
-    desc: "Autonomously calls customers right after checkout to verify delivery address and phone number, slashing expensive RTO returns by up to 65%.",
+    desc: "Automatically calls customers right after checkout to verify delivery address and phone number, slashing expensive RTO returns by up to 65%.",
     badge: "E-COMMERCE",
-    metrics: "65% lower RTO • 4.8x confirmation speed",
+    metrics: "65% lower RTO • 4.8x confirmation",
     mockUI: {
       title: "Automated COD Verification Engine",
       fields: [
@@ -54,9 +50,9 @@ const useCases: UseCase[] = [
   {
     id: "healthcare",
     icon: <Stethoscope size={20} />,
-    label: "Healthcare & Clinics",
-    title: "Patient Serial & Appointment Triage",
-    desc: "Answers patient inquiries 24/7, schedules doctor serial appointments, sends SMS reminder links, and coordinates follow-up consultations.",
+    label: "Healthcare",
+    title: "Doctor Appointment & Serial Booking",
+    desc: "Answers patient inquiries 24/7, handles doctor serial appointments, sends SMS reminder links, and coordinates follow-up consultations.",
     badge: "HEALTHCARE",
     metrics: "0 missed patient calls • Real-time calendar sync",
     mockUI: {
@@ -73,11 +69,11 @@ const useCases: UseCase[] = [
   {
     id: "finance",
     icon: <Landmark size={20} />,
-    label: "Financial Services",
+    label: "Fintech & Banking",
     title: "Payment Verification & KYC Intake",
     desc: "Proactively verifies loan documentation, executes payment reminder calls, auto-checks bKash/Nagad transactions, and routes sensitive cases to senior officers.",
     badge: "FINTECH & BANKING",
-    metrics: "99.8% KYC compliance • Bank-grade data encryption",
+    metrics: "99.8% KYC compliance • Bank-grade encryption",
     mockUI: {
       title: "Automated Payment & KYC Assistant",
       fields: [
@@ -92,8 +88,8 @@ const useCases: UseCase[] = [
   {
     id: "realestate",
     icon: <Building2 size={20} />,
-    label: "Real Estate & Property",
-    title: "Lead Qualification & Site Tours",
+    label: "Real Estate",
+    title: "Lead Qualification & Site Visits",
     desc: "Screens high-intent buyers, gathers budget requirements, schedules site visits directly onto real estate agents' calendars, and logs transcripts into CRM.",
     badge: "REAL ESTATE",
     metrics: "3.2x faster lead response • Instant tour bookings",
@@ -111,8 +107,8 @@ const useCases: UseCase[] = [
   {
     id: "travel",
     icon: <Plane size={20} />,
-    label: "Travel & Hospitality",
-    title: "Booking Concierge & Itinerary Support",
+    label: "Travel",
+    title: "Booking Assistance & Itinerary Support",
     desc: "Handles hotel reservations, flight ticket inquiries, visa documentation checklists, and itinerary adjustments round the clock.",
     badge: "HOSPITALITY",
     metrics: "24/7 multilingual support • 90%+ resolution rate",
@@ -127,25 +123,6 @@ const useCases: UseCase[] = [
       action: "Reservation Confirmed",
     },
   },
-  {
-    id: "telecom",
-    icon: <Headset size={20} />,
-    label: "Telecom & Support",
-    title: "Automated Diagnostics & Ticket Routing",
-    desc: "Diagnoses internet connectivity issues, executes automated router resets via API, and creates Jira/Zendesk tickets for field technician dispatch.",
-    badge: "TELECOM / ISP",
-    metrics: "78% tickets resolved without human intervention",
-    mockUI: {
-      title: "ISP Automated Support Agent",
-      fields: [
-        { label: "Customer ID", value: "User #ISP-84920 (Dhanmondi)" },
-        { label: "Issue Reported", value: "Optical Loss / Red Light on Router" },
-        { label: "Diagnosis", value: "Fiber Break at Distribution Box" },
-        { label: "Field Ticket", value: "Assigned to Tech Team (ETA 45m)" },
-      ],
-      action: "Field Ticket #8291 Created",
-    },
-  },
 ];
 
 export default function UseCasesScene() {
@@ -157,15 +134,15 @@ export default function UseCasesScene() {
       id="use-cases"
       style={{
         position: "relative",
-        padding: "130px 0 110px 0",
-        backgroundColor: "#030712",
+        padding: "120px 0 100px 0",
+        backgroundColor: "#FFFFFF",
         overflow: "hidden",
       }}
     >
       <div className="container" style={{ position: "relative", zIndex: 5 }}>
         {/* Header */}
-        <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto 64px auto" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto 60px auto" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "14px" }}>
             <span className="badge-eyebrow">
               <span className="badge-dot" />
               TAILORED INDUSTRY SOLUTIONS
@@ -174,18 +151,18 @@ export default function UseCasesScene() {
 
           <h2
             style={{
-              fontSize: "clamp(34px, 4.2vw, 54px)",
-              fontWeight: 900,
-              color: "#F8FAFC",
+              fontSize: "clamp(34px, 4.2vw, 52px)",
+              fontWeight: 800,
+              color: "#0F172A",
               lineHeight: 1.12,
-              marginBottom: "18px",
+              marginBottom: "16px",
               letterSpacing: "-0.03em",
             }}
           >
-            Engineered for Every High-Volume Industry
+            Built for Every Industry That Talks to Customers
           </h2>
 
-          <p style={{ fontSize: "17px", color: "#94A3B8", lineHeight: 1.65 }}>
+          <p style={{ fontSize: "16px", color: "#475569", lineHeight: 1.6 }}>
             Select an industry below to see how Selorax AI customizes voice workflows, entity extraction, and automated actions for specific business models.
           </p>
         </div>
@@ -198,7 +175,7 @@ export default function UseCasesScene() {
             justifyContent: "center",
             flexWrap: "wrap",
             gap: "10px",
-            marginBottom: "48px",
+            marginBottom: "44px",
           }}
         >
           {useCases.map((item) => {
@@ -212,20 +189,20 @@ export default function UseCasesScene() {
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
-                  padding: "12px 22px",
+                  padding: "12px 20px",
                   borderRadius: "9999px",
-                  backgroundColor: isSelected ? "rgba(6, 182, 212, 0.2)" : "rgba(15, 23, 42, 0.6)",
-                  color: isSelected ? "#22D3EE" : "#94A3B8",
-                  border: isSelected ? "1px solid #06B6D4" : "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: isSelected ? "0 0 20px rgba(6, 182, 212, 0.3)" : "none",
+                  backgroundColor: isSelected ? "#0F172A" : "rgba(241, 245, 249, 0.8)",
+                  color: isSelected ? "#FFFFFF" : "#475569",
+                  border: isSelected ? "1px solid #0F172A" : "1px solid rgba(15, 23, 42, 0.06)",
+                  boxShadow: isSelected ? "0 8px 20px -4px rgba(15, 23, 42, 0.2)" : "none",
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 600,
-                  transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                  transition: "all 0.25s ease",
                   outline: "none",
                 }}
               >
-                <span style={{ color: isSelected ? "#22D3EE" : "inherit" }}>
+                <span style={{ color: isSelected ? "#F97316" : "inherit" }}>
                   {item.icon}
                 </span>
                 <span>{item.label}</span>
@@ -239,57 +216,56 @@ export default function UseCasesScene() {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1.15fr",
-            gap: "44px",
+            gap: "40px",
             alignItems: "center",
-            backgroundColor: "rgba(15, 23, 42, 0.75)",
+            backgroundColor: "rgba(248, 250, 252, 0.85)",
             borderRadius: "32px",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            padding: "50px 42px",
-            boxShadow: "0 30px 80px -15px rgba(0, 0, 0, 0.8)",
+            border: "1px solid rgba(15, 23, 42, 0.08)",
+            padding: "48px 40px",
+            boxShadow: "0 20px 60px -15px rgba(15, 23, 42, 0.06)",
           }}
           className="use-case-card-grid gpu-layer"
         >
           {/* Left Column: Details */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             <span
               style={{
                 fontSize: "11px",
                 fontFamily: "var(--font-mono)",
                 fontWeight: 700,
-                color: "#22D3EE",
-                backgroundColor: "rgba(6, 182, 212, 0.15)",
-                padding: "4px 12px",
-                borderRadius: "9999px",
-                border: "1px solid rgba(6, 182, 212, 0.3)",
+                color: "#EA580C",
+                backgroundColor: "rgba(249, 115, 22, 0.1)",
+                padding: "4px 10px",
+                borderRadius: "6px",
                 alignSelf: "flex-start",
               }}
             >
               {current.badge}
             </span>
 
-            <h3 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 900, color: "#F8FAFC", lineHeight: 1.2 }}>
+            <h3 style={{ fontSize: "clamp(26px, 3vw, 36px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.2 }}>
               {current.title}
             </h3>
 
-            <p style={{ fontSize: "16px", color: "#94A3B8", lineHeight: 1.65 }}>
+            <p style={{ fontSize: "16px", color: "#475569", lineHeight: 1.65 }}>
               {current.desc}
             </p>
 
             <div
               style={{
-                padding: "14px 20px",
-                borderRadius: "16px",
-                backgroundColor: "rgba(6, 182, 212, 0.1)",
-                border: "1px solid rgba(6, 182, 212, 0.3)",
-                color: "#22D3EE",
+                padding: "12px 18px",
+                borderRadius: "14px",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid rgba(37, 99, 235, 0.2)",
+                color: "#2563EB",
                 fontSize: "13px",
                 fontWeight: 700,
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
+                gap: "8px",
               }}
             >
-              <CheckCircle2 size={18} />
+              <CheckCircle size={16} />
               <span>{current.metrics}</span>
             </div>
 
@@ -299,33 +275,33 @@ export default function UseCasesScene() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ padding: "14px 28px", fontSize: "15px" }}
+                style={{ padding: "12px 24px", fontSize: "14px" }}
               >
                 <span>Deploy for {current.label}</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={15} />
               </a>
             </div>
           </div>
 
           {/* Right Column: Dynamic Terminal / Workflow Card */}
           <div
-            className="glass-panel-glow"
+            className="glass-panel"
             style={{
-              padding: "30px",
-              borderRadius: "26px",
-              background: "linear-gradient(170deg, rgba(11, 15, 25, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              boxShadow: "0 20px 50px -8px rgba(0, 0, 0, 0.8)",
+              padding: "28px",
+              borderRadius: "24px",
+              background: "#FFFFFF",
+              border: "1px solid rgba(15, 23, 42, 0.08)",
+              boxShadow: "0 16px 40px -8px rgba(15, 23, 42, 0.08)",
             }}
           >
             {/* Terminal Header */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "22px", paddingBottom: "16px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)" }}>
-              <div style={{ fontSize: "15px", fontWeight: 800, color: "#F8FAFC", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#10B981", boxShadow: "0 0 8px #10B981" }} />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px", paddingBottom: "14px", borderBottom: "1px solid rgba(15, 23, 42, 0.06)" }}>
+              <div style={{ fontSize: "14px", fontWeight: 700, color: "#0F172A", display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22C55E" }} />
                 {current.mockUI.title}
               </div>
 
-              <span style={{ fontSize: "11px", fontFamily: "var(--font-mono)", color: "#94A3B8" }}>
+              <span style={{ fontSize: "11px", fontFamily: "var(--font-mono)", color: "#64748B" }}>
                 Active Workflow
               </span>
             </div>
@@ -339,16 +315,16 @@ export default function UseCasesScene() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "12px 16px",
-                    borderRadius: "14px",
-                    backgroundColor: "rgba(15, 23, 42, 0.7)",
-                    border: "1px solid rgba(255, 255, 255, 0.05)",
+                    padding: "10px 14px",
+                    borderRadius: "12px",
+                    backgroundColor: "rgba(248, 250, 252, 0.8)",
+                    border: "1px solid rgba(15, 23, 42, 0.04)",
                   }}
                 >
-                  <span style={{ fontSize: "12px", color: "#94A3B8", fontWeight: 600 }}>
+                  <span style={{ fontSize: "12px", color: "#64748B", fontWeight: 600 }}>
                     {field.label}:
                   </span>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#F8FAFC" }}>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#0F172A" }}>
                     {field.value}
                   </span>
                 </div>
@@ -358,22 +334,22 @@ export default function UseCasesScene() {
             {/* Action Resolution Pill */}
             <div
               style={{
-                padding: "14px 18px",
-                borderRadius: "14px",
-                backgroundColor: "rgba(16, 185, 129, 0.12)",
-                border: "1px solid rgba(16, 185, 129, 0.3)",
+                padding: "12px 16px",
+                borderRadius: "12px",
+                backgroundColor: "rgba(34, 197, 94, 0.1)",
+                border: "1px solid rgba(34, 197, 94, 0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#34D399", fontWeight: 700 }}>
-                <CheckCircle2 size={17} color="#10B981" />
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#166534", fontWeight: 700 }}>
+                <CheckCircle size={16} color="#16A34A" />
                 <span>Next Action: {current.mockUI.action}</span>
               </div>
 
-              <span style={{ fontSize: "11px", fontFamily: "var(--font-mono)", color: "#10B981", fontWeight: 700 }}>
-                STATUS: 200 OK
+              <span style={{ fontSize: "11px", fontFamily: "var(--font-mono)", color: "#16A34A", fontWeight: 600 }}>
+                SUCCESS (200 OK)
               </span>
             </div>
           </div>

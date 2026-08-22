@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, Sparkles, Phone, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import AudioWaveformCanvas from "@/components/ui/AudioWaveformCanvas";
 
 export default function FinalCTAScene() {
@@ -18,7 +18,6 @@ export default function FinalCTAScene() {
     if (!section || !visual) return;
 
     const ctx = gsap.context(() => {
-      // 3D cyber portal rising smoothly with GPU acceleration
       gsap.fromTo(
         visual,
         {
@@ -53,23 +52,23 @@ export default function FinalCTAScene() {
       ref={sectionRef}
       style={{
         position: "relative",
-        padding: "150px 0 130px 0",
-        backgroundColor: "#030712",
+        padding: "140px 0 120px 0",
+        backgroundColor: "#FFFFFF",
         overflow: "hidden",
       }}
     >
-      {/* Background Cyber Glow */}
+      {/* Background Radial Glow */}
       <div
         style={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "900px",
-          height: "700px",
+          width: "800px",
+          height: "600px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, rgba(139, 92, 246, 0.12) 40%, transparent 70%)",
-          filter: "blur(90px)",
+          background: "radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%)",
+          filter: "blur(80px)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -77,52 +76,52 @@ export default function FinalCTAScene() {
 
       <div className="container" style={{ position: "relative", zIndex: 5 }}>
         <div
-          className="glass-panel-glow gpu-layer cta-inner-grid"
+          className="glass-panel gpu-layer cta-inner-grid"
           style={{
-            maxWidth: "1100px",
+            maxWidth: "1080px",
             margin: "0 auto",
-            backgroundColor: "rgba(15, 23, 42, 0.9)",
+            backgroundColor: "rgba(255, 255, 255, 0.94)",
             borderRadius: "36px",
-            border: "1.5px solid rgba(6, 182, 212, 0.35)",
-            boxShadow: "0 35px 100px -20px rgba(0, 0, 0, 0.9), 0 0 50px -10px rgba(6, 182, 212, 0.25)",
-            padding: "68px 52px",
+            border: "1.5px solid rgba(249, 115, 22, 0.25)",
+            boxShadow: "0 30px 90px -20px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(249, 115, 22, 0.1)",
+            padding: "64px 48px",
             display: "grid",
             gridTemplateColumns: "1.2fr 0.8fr",
-            gap: "52px",
+            gap: "48px",
             alignItems: "center",
           }}
         >
           {/* Left Column */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "26px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
             <div>
               <span className="badge-eyebrow">
                 <span className="badge-dot" />
-                START YOUR 14-DAY FREE PILOT TODAY
+                START YOUR 14-DAY FREE PILOT
               </span>
             </div>
 
             <h2
               style={{
-                fontSize: "clamp(34px, 4.4vw, 56px)",
-                fontWeight: 900,
-                color: "#F8FAFC",
+                fontSize: "clamp(34px, 4.4vw, 54px)",
+                fontWeight: 800,
+                color: "#0F172A",
                 lineHeight: 1.1,
                 letterSpacing: "-0.035em",
               }}
             >
-              Ready to automate your frontline conversations?
+              Ready to automate your customer conversations?
             </h2>
 
-            <p style={{ fontSize: "17px", color: "#94A3B8", lineHeight: 1.65 }}>
-              Give your business an AI agent that speaks, understands, and gets real work done across Voice, WhatsApp, and Web Chat 24/7.
+            <p style={{ fontSize: "16px", color: "#475569", lineHeight: 1.65 }}>
+              Give your business an AI assistant that talks, understands, and gets real work done across Voice, WhatsApp, and Web Chat 24/7.
             </p>
 
-            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "16px", paddingTop: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "14px", paddingTop: "6px" }}>
               <a
                 href="#live-call"
                 className="btn btn-primary"
                 style={{
-                  padding: "16px 34px",
+                  padding: "15px 32px",
                   fontSize: "16px",
                   fontWeight: 700,
                 }}
@@ -137,33 +136,33 @@ export default function FinalCTAScene() {
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
                 style={{
-                  padding: "16px 30px",
+                  padding: "15px 28px",
                   fontSize: "16px",
                   fontWeight: 600,
                 }}
               >
-                Book Enterprise Demo
+                Book a demo
               </a>
             </div>
 
             {/* Micro guarantees */}
-            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "20px", paddingTop: "14px", fontSize: "13px", color: "#94A3B8" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <CheckCircle2 size={16} color="#10B981" />
+            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "18px", paddingTop: "10px", fontSize: "13px", color: "#64748B" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <CheckCircle2 size={15} color="#22C55E" />
                 <span>Zero setup fees</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <CheckCircle2 size={16} color="#10B981" />
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <CheckCircle2 size={15} color="#22C55E" />
                 <span>Same-day onboarding</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <CheckCircle2 size={16} color="#10B981" />
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <CheckCircle2 size={15} color="#22C55E" />
                 <span>Full courier & API sync</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Floating 3D Cyber Card Visual */}
+          {/* Right Column: Floating 3D Card Visual */}
           <div
             ref={visualRef}
             style={{
@@ -177,50 +176,50 @@ export default function FinalCTAScene() {
               className="glass-panel"
               style={{
                 width: "100%",
-                maxWidth: "360px",
-                borderRadius: "30px",
-                backgroundColor: "rgba(11, 15, 25, 0.95)",
-                border: "1.5px solid rgba(6, 182, 212, 0.35)",
-                boxShadow: "0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.25)",
-                padding: "32px 26px",
+                maxWidth: "340px",
+                borderRadius: "28px",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid rgba(37, 99, 235, 0.2)",
+                boxShadow: "0 20px 50px -10px rgba(37, 99, 235, 0.15)",
+                padding: "28px 24px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 textAlign: "center",
-                gap: "18px",
+                gap: "16px",
               }}
             >
               <div
                 style={{
-                  width: "74px",
-                  height: "74px",
+                  width: "70px",
+                  height: "70px",
                   borderRadius: "50%",
-                  background: "linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #8B5CF6 100%)",
+                  background: "linear-gradient(135deg, #F97316 0%, #2563EB 100%)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 0 30px rgba(6, 182, 212, 0.6)",
+                  boxShadow: "0 0 25px rgba(249, 115, 22, 0.5)",
                 }}
               >
-                <Sparkles size={34} color="#FFFFFF" />
+                <Sparkles size={32} color="#FFFFFF" />
               </div>
 
               <div>
-                <div style={{ fontSize: "18px", fontWeight: 900, color: "#F8FAFC" }}>
+                <div style={{ fontSize: "17px", fontWeight: 800, color: "#0F172A" }}>
                   Selorax Live AI Assistant
                 </div>
-                <div style={{ fontSize: "12px", color: "#94A3B8", fontFamily: "var(--font-mono)", marginTop: "2px" }}>
+                <div style={{ fontSize: "12px", color: "#64748B" }}>
                   Ready to deploy in &lt; 15 minutes
                 </div>
               </div>
 
-              <div style={{ width: "100%", padding: "12px", backgroundColor: "rgba(3, 7, 18, 0.8)", borderRadius: "16px", border: "1px solid rgba(255, 255, 255, 0.06)" }}>
-                <AudioWaveformCanvas active={true} barCount={24} colorTheme="cyan" height={26} speed={1.1} />
+              <div style={{ width: "100%", padding: "10px", backgroundColor: "rgba(241, 245, 249, 0.7)", borderRadius: "14px" }}>
+                <AudioWaveformCanvas active={true} barCount={22} colorTheme="mixed" height={24} />
               </div>
 
-              <div style={{ fontSize: "11px", color: "#10B981", fontFamily: "var(--font-mono)", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
-                <span style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#10B981", boxShadow: "0 0 8px #10B981" }} />
-                AI AGENT READY TO RECEIVE LIVE CALLS
+              <div style={{ fontSize: "11px", color: "#16A34A", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#22C55E" }} />
+                AI AGENT NODE READY TO RECEIVE CALLS
               </div>
             </div>
           </div>
@@ -231,8 +230,8 @@ export default function FinalCTAScene() {
         @media (max-width: 900px) {
           .cta-inner-grid {
             grid-template-columns: 1fr !important;
-            padding: 44px 28px !important;
-            gap: 40px !important;
+            padding: 40px 24px !important;
+            gap: 36px !important;
           }
         }
       `}</style>

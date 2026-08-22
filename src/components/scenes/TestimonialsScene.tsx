@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2, TrendingUp, Sparkles } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2, TrendingUp } from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -18,35 +18,35 @@ const reviews: Testimonial[] = [
   {
     id: "shahin",
     quote:
-      "Selorax AI completely transformed our COD operations. Our order confirmation rate increased by 4.8x, and we slashed our return-to-origin (RTO) rate by 62% in the first 30 days.",
+      "Selorax AI completely transformed our COD delivery operations. Our order confirmation rates increased by 4.8x, and we slashed our return-to-origin (RTO) rate by 62% within the very first month.",
     author: "Shahinur Islam",
     role: "Founder & CEO",
     company: "Shahin E Mart (120k+ Customers)",
-    avatarBg: "linear-gradient(135deg, #FF6B00 0%, #EA580C 100%)",
+    avatarBg: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)",
     metrics: "62% Lower RTO Rate",
     highlight: "4.8x Confirmation Speed",
   },
   {
     id: "shahi",
     quote:
-      "The sub-second latency and natural Bengali dialect understanding is astonishing. Customers genuinely believe they're conversing with our top senior support representative 24/7.",
+      "The sub-second latency and natural dialect understanding is incredible. Customers don't even realize they're talking to an AI caller. It feels like having our best support agent working 24/7.",
     author: "Mahfuzur Rahman",
     role: "Head of Operations",
     company: "Shahi Goods Leather & Fashion",
-    avatarBg: "linear-gradient(135deg, #06B6D4 0%, #2563EB 100%)",
+    avatarBg: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
     metrics: "99.4% Call Resolution",
     highlight: "Sub-380ms Voice Latency",
   },
   {
     id: "dayrio",
     quote:
-      "We used to maintain a large floor of call center staff dialing phone numbers manually. Now Selorax autonomously handles over 3,500 calls daily and auto-syncs with Steadfast Courier.",
+      "We used to have a full team of staff manually dialing numbers all day. Now Selorax handles over 3,500 daily calls automatically, updates addresses, and syncs directly to our courier dashboard.",
     author: "Sadia Ahmed",
     role: "E-Commerce Director",
     company: "DayRio Apparel & Lifestyle",
-    avatarBg: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
-    metrics: "68% Support Payroll Saved",
-    highlight: "3,500+ Daily Automated Calls",
+    avatarBg: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)",
+    metrics: "68% Support Cost Saved",
+    highlight: "3,500+ Automated Calls / Day",
   },
 ];
 
@@ -68,66 +68,66 @@ export default function TestimonialsScene() {
       id="testimonials"
       style={{
         position: "relative",
-        padding: "130px 0 110px 0",
-        backgroundColor: "rgba(11, 15, 25, 0.7)",
+        padding: "120px 0 100px 0",
+        backgroundColor: "rgba(248, 250, 252, 0.7)",
         overflow: "hidden",
       }}
     >
       <div className="container" style={{ position: "relative", zIndex: 5 }}>
         {/* Header */}
-        <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto 64px auto" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto 60px auto" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "14px" }}>
             <span className="badge-eyebrow">
               <span className="badge-dot" />
-              VERIFIED ENTERPRISE RESULTS
+              PROVEN BUSINESS IMPACT
             </span>
           </div>
 
           <h2
             style={{
-              fontSize: "clamp(34px, 4.2vw, 54px)",
-              fontWeight: 900,
-              color: "#F8FAFC",
+              fontSize: "clamp(34px, 4.2vw, 52px)",
+              fontWeight: 800,
+              color: "#0F172A",
               lineHeight: 1.12,
-              marginBottom: "18px",
+              marginBottom: "16px",
               letterSpacing: "-0.03em",
             }}
           >
-            Trusted by Brands Powering Millions in Revenue
+            Trusted by Leaders Powering Millions in Revenue
           </h2>
 
-          <p style={{ fontSize: "17px", color: "#94A3B8", lineHeight: 1.65 }}>
+          <p style={{ fontSize: "16px", color: "#475569", lineHeight: 1.6 }}>
             Discover how fast-growing retail and enterprise companies automate their customer communications with Selorax AI.
           </p>
         </div>
 
         {/* Big Editorial Featured Testimonial Card */}
         <div
-          className="glass-panel-glow gpu-layer"
+          className="glass-panel-card gpu-layer"
           style={{
             maxWidth: "960px",
             margin: "0 auto 48px auto",
             borderRadius: "32px",
-            background: "linear-gradient(170deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.98) 100%)",
-            border: "1px solid rgba(255, 255, 255, 0.12)",
-            boxShadow: "0 30px 80px -15px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(6, 182, 212, 0.2)",
-            padding: "52px 48px",
+            backgroundColor: "#FFFFFF",
+            border: "1px solid rgba(15, 23, 42, 0.08)",
+            boxShadow: "0 25px 60px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(37, 99, 235, 0.05)",
+            padding: "48px 44px",
             position: "relative",
             transition: "all 0.3s ease",
           }}
         >
           {/* Top Rating & Quote Icon */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "30px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={18} fill="#FF6B00" color="#FF6B00" />
+                <Star key={i} size={18} fill="#F97316" color="#F97316" />
               ))}
-              <span style={{ fontSize: "13px", fontWeight: 700, color: "#F8FAFC", marginLeft: "8px", fontFamily: "var(--font-mono)" }}>
-                5.0 VERIFIED CASE STUDY
+              <span style={{ fontSize: "13px", fontWeight: 700, color: "#0F172A", marginLeft: "6px" }}>
+                5.0 Verified Review
               </span>
             </div>
 
-            <Quote size={38} color="rgba(6, 182, 212, 0.4)" />
+            <Quote size={36} color="rgba(37, 99, 235, 0.2)" />
           </div>
 
           {/* Quote Text */}
@@ -135,9 +135,9 @@ export default function TestimonialsScene() {
             style={{
               fontSize: "clamp(20px, 2.3vw, 28px)",
               fontWeight: 600,
-              color: "#F8FAFC",
+              color: "#0F172A",
               lineHeight: 1.45,
-              marginBottom: "38px",
+              marginBottom: "36px",
               letterSpacing: "-0.02em",
             }}
           >
@@ -152,75 +152,71 @@ export default function TestimonialsScene() {
               justifyContent: "space-between",
               flexWrap: "wrap",
               gap: "20px",
-              paddingTop: "26px",
-              borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+              paddingTop: "24px",
+              borderTop: "1px solid rgba(15, 23, 42, 0.06)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <div
                 style={{
-                  width: "54px",
-                  height: "54px",
+                  width: "52px",
+                  height: "52px",
                   borderRadius: "50%",
                   background: current.avatarBg,
                   color: "#FFFFFF",
-                  fontSize: "19px",
-                  fontWeight: 900,
+                  fontSize: "18px",
+                  fontWeight: 800,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 0 20px rgba(6, 182, 212, 0.4)",
+                  boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
                 }}
               >
                 {current.author.charAt(0)}
               </div>
 
               <div>
-                <div style={{ fontSize: "18px", fontWeight: 800, color: "#F8FAFC" }}>
+                <div style={{ fontSize: "17px", fontWeight: 800, color: "#0F172A" }}>
                   {current.author}
                 </div>
-                <div style={{ fontSize: "13px", color: "#94A3B8" }}>
-                  {current.role} • <span style={{ color: "#22D3EE", fontWeight: 600 }}>{current.company}</span>
+                <div style={{ fontSize: "13px", color: "#64748B" }}>
+                  {current.role} • <span style={{ color: "#2563EB", fontWeight: 600 }}>{current.company}</span>
                 </div>
               </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <span
                 style={{
-                  padding: "8px 16px",
+                  padding: "6px 14px",
                   borderRadius: "9999px",
-                  backgroundColor: "rgba(16, 185, 129, 0.15)",
-                  color: "#34D399",
+                  backgroundColor: "rgba(34, 197, 94, 0.1)",
+                  color: "#16A34A",
                   fontSize: "12px",
-                  fontFamily: "var(--font-mono)",
                   fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
-                  gap: "6px",
-                  border: "1px solid rgba(16, 185, 129, 0.3)",
+                  gap: "4px",
                 }}
               >
-                <CheckCircle2 size={15} />
+                <CheckCircle2 size={14} />
                 {current.metrics}
               </span>
 
               <span
                 style={{
-                  padding: "8px 16px",
+                  padding: "6px 14px",
                   borderRadius: "9999px",
-                  backgroundColor: "rgba(255, 107, 0, 0.15)",
-                  color: "#FB923C",
+                  backgroundColor: "rgba(249, 115, 22, 0.1)",
+                  color: "#EA580C",
                   fontSize: "12px",
-                  fontFamily: "var(--font-mono)",
                   fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
-                  gap: "6px",
-                  border: "1px solid rgba(255, 107, 0, 0.3)",
+                  gap: "4px",
                 }}
               >
-                <TrendingUp size={15} />
+                <TrendingUp size={14} />
                 {current.highlight}
               </span>
             </div>
@@ -233,20 +229,20 @@ export default function TestimonialsScene() {
             onClick={prev}
             aria-label="Previous review"
             style={{
-              width: "46px",
-              height: "46px",
+              width: "44px",
+              height: "44px",
               borderRadius: "50%",
-              backgroundColor: "rgba(15, 23, 42, 0.8)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
+              backgroundColor: "#FFFFFF",
+              border: "1px solid var(--border-subtle)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
+              boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",
             }}
           >
-            <ChevronLeft size={20} color="#F8FAFC" />
+            <ChevronLeft size={20} color="#0F172A" />
           </button>
 
           <div style={{ display: "flex", gap: "8px" }}>
@@ -256,11 +252,10 @@ export default function TestimonialsScene() {
                 onClick={() => setCurrentIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
                 style={{
-                  width: currentIndex === i ? "28px" : "8px",
+                  width: currentIndex === i ? "24px" : "8px",
                   height: "8px",
                   borderRadius: "4px",
-                  backgroundColor: currentIndex === i ? "#06B6D4" : "rgba(255, 255, 255, 0.2)",
-                  boxShadow: currentIndex === i ? "0 0 10px #06B6D4" : "none",
+                  backgroundColor: currentIndex === i ? "#F97316" : "#CBD5E1",
                   border: "none",
                   cursor: "pointer",
                   transition: "all 0.3s ease",
@@ -273,28 +268,28 @@ export default function TestimonialsScene() {
             onClick={next}
             aria-label="Next review"
             style={{
-              width: "46px",
-              height: "46px",
+              width: "44px",
+              height: "44px",
               borderRadius: "50%",
-              backgroundColor: "rgba(15, 23, 42, 0.8)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
+              backgroundColor: "#FFFFFF",
+              border: "1px solid var(--border-subtle)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
+              boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",
             }}
           >
-            <ChevronRight size={20} color="#F8FAFC" />
+            <ChevronRight size={20} color="#0F172A" />
           </button>
         </div>
       </div>
 
       <style jsx>{`
         @media (max-width: 640px) {
-          .glass-panel-glow {
-            padding: 30px 22px !important;
+          .glass-panel-card {
+            padding: 28px 20px !important;
           }
         }
       `}</style>

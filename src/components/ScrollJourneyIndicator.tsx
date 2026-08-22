@@ -27,13 +27,11 @@ export default function ScrollJourneyIndicator() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate overall page scroll progress (0 to 100%)
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         setScrollProgress((window.scrollY / totalScroll) * 100);
       }
 
-      // Check which section is in view
       const scrollPos = window.scrollY + window.innerHeight * 0.4;
       for (let i = steps.length - 1; i >= 0; i--) {
         const el = document.getElementById(steps[i].id);
@@ -71,7 +69,7 @@ export default function ScrollJourneyIndicator() {
           right: 0,
           height: "3px",
           zIndex: 60,
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(15, 23, 42, 0.05)",
           pointerEvents: "none",
         }}
       >
@@ -79,14 +77,13 @@ export default function ScrollJourneyIndicator() {
           style={{
             height: "100%",
             width: `${scrollProgress}%`,
-            background: "linear-gradient(to right, #06B6D4, #3B82F6, #8B5CF6, #FF6B00)",
+            background: "linear-gradient(to right, #2563EB, #F97316)",
             transition: "width 0.1s linear",
-            boxShadow: "0 0 10px #06B6D4",
           }}
         />
       </div>
 
-      {/* Desktop Vertical Cyber Journey Rail */}
+      {/* Desktop Vertical Journey Rail */}
       <nav
         aria-label="Page scroll navigation"
         className="desktop-journey-rail"
@@ -111,7 +108,7 @@ export default function ScrollJourneyIndicator() {
             top: "8px",
             bottom: "8px",
             width: "1px",
-            background: "rgba(255, 255, 255, 0.1)",
+            background: "rgba(15, 23, 42, 0.08)",
             zIndex: -1,
           }}
         />
@@ -139,25 +136,25 @@ export default function ScrollJourneyIndicator() {
               {/* Tooltip text label */}
               <span
                 style={{
-                  fontFamily: "var(--font-mono)",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "11px",
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? "#F8FAFC" : "#64748B",
+                  color: isActive ? "#0F172A" : "#94A3B8",
                   opacity: isActive ? 1 : 0,
                   transform: isActive ? "translateX(0)" : "translateX(6px)",
                   transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                  backgroundColor: "rgba(15, 23, 42, 0.9)",
-                  backdropFilter: "blur(12px)",
-                  padding: "3px 10px",
+                  backgroundColor: "rgba(255, 255, 255, 0.95)",
+                  backdropFilter: "blur(8px)",
+                  padding: "3px 8px",
                   borderRadius: "6px",
-                  border: isActive ? "1px solid rgba(6, 182, 212, 0.4)" : "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
+                  border: isActive ? "1px solid rgba(249, 115, 22, 0.3)" : "1px solid rgba(15, 23, 42, 0.06)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                   pointerEvents: "none",
                   whiteSpace: "nowrap",
                 }}
                 className="step-label"
               >
-                <span style={{ color: isActive ? "#22D3EE" : "#64748B", marginRight: "6px" }}>
+                <span style={{ color: isActive ? "#F97316" : "#94A3B8", marginRight: "4px" }}>
                   {step.num}
                 </span>
                 {step.label}
@@ -178,8 +175,8 @@ export default function ScrollJourneyIndicator() {
                     width: isActive ? "9px" : "5px",
                     height: isActive ? "9px" : "5px",
                     borderRadius: "50%",
-                    backgroundColor: isActive ? "#06B6D4" : "rgba(255, 255, 255, 0.25)",
-                    boxShadow: isActive ? "0 0 12px #06B6D4, 0 0 20px #06B6D4" : "none",
+                    backgroundColor: isActive ? "#F97316" : "rgba(148, 163, 184, 0.6)",
+                    boxShadow: isActive ? "0 0 10px rgba(249, 115, 22, 0.6)" : "none",
                     transform: isActive ? "scale(1.2)" : "scale(1)",
                     transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
