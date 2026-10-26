@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import VoiceOrbCanvas from "@/components/ui/VoiceOrbCanvas";
+import dynamic from "next/dynamic";
 import InteractiveVoicePlayer from "@/components/ui/InteractiveVoicePlayer";
 import { Mic, Globe, Clock, Brain } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const VoiceOrbCanvas = dynamic(() => import("@/components/ui/VoiceOrbCanvas"), { ssr: false });
 
 export default function VoiceIntelligenceSection() {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
