@@ -17,12 +17,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "#hero" },
-    { label: "Product", href: "#how-it-works" },
-    { label: "Solutions", href: "#voice-intelligence" },
-    { label: "Resources", href: "#industries" },
-    { label: "Pricing", href: "#analytics" },
-    { label: "Company", href: "#contact" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Voices", href: "#voice-intelligence" },
+    { label: "Industries", href: "#industries" },
+    { label: "Integrations", href: "#integrations" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "FAQ", href: "#faq" },
   ];
 
   return (
@@ -83,24 +83,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Action Buttons: Log In + Book Demo */}
+        {/* Action Button: Book Demo */}
         <div style={{ display: "none", alignItems: "center", gap: "18px" }} className="desktop-actions">
-          <a
-            href="#contact"
-            style={{
-              fontSize: "14px",
-              fontWeight: 600,
-              color: "#F8FAFC",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-              padding: "8px 12px",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#38BDF8")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#F8FAFC")}
-          >
-            Log In
-          </a>
-
           <a
             href="#contact"
             className="btn btn-primary"
@@ -119,6 +103,7 @@ export default function Navbar() {
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
           className="mobile-toggle"
           style={{
             display: "flex",
@@ -177,19 +162,6 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              style={{
-                textAlign: "center",
-                color: "#94A3B8",
-                fontSize: "15px",
-                padding: "8px",
-                textDecoration: "none",
-              }}
-            >
-              Log In
-            </a>
-            <a
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
               className="btn btn-primary"
               style={{ width: "100%", textAlign: "center" }}
             >
@@ -200,7 +172,7 @@ export default function Navbar() {
       )}
 
       <style jsx>{`
-        @media (min-width: 900px) {
+        @media (min-width: 1080px) {
           .desktop-nav {
             display: flex !important;
           }

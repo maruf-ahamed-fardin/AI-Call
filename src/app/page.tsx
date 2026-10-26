@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import HeroScene from "@/components/scenes/HeroScene";
@@ -8,7 +6,12 @@ import VoiceIntelligenceSection from "@/components/scenes/VoiceIntelligenceSecti
 import IndustriesSection from "@/components/scenes/IndustriesSection";
 import AnalyticsSection from "@/components/scenes/AnalyticsSection";
 import ConversationShowcaseSection from "@/components/scenes/ConversationShowcaseSection";
+import TestimonialsSection from "@/components/scenes/TestimonialsSection";
 import WhyChooseUsSection from "@/components/scenes/WhyChooseUsSection";
+import ROICalculatorSection from "@/components/scenes/ROICalculatorSection";
+import IntegrationsSection from "@/components/scenes/IntegrationsSection";
+import PricingSection from "@/components/scenes/PricingSection";
+import FAQSection from "@/components/scenes/FAQSection";
 import ContactCTASection from "@/components/scenes/ContactCTASection";
 import Footer from "@/components/Footer";
 
@@ -44,13 +47,28 @@ export default function HomePage() {
       {/* 07 — AI Conversation Showcase (Real Conversations. Real Results. 3D Smartphone Chat + AI Telemetry) */}
       <ConversationShowcaseSection />
 
-      {/* 08 — Why Choose Nexus AI (More Calls. More Conversions. More Growth. 5 Value Cards) */}
+      {/* 08 — Customer Stories (4 Testimonial Cards) */}
+      <TestimonialsSection />
+
+      {/* 09 — Why Choose Nexus AI (More Calls. More Conversions. More Growth. 5 Value Cards) */}
       <WhyChooseUsSection />
 
-      {/* 09 — Contact / Global CTA (Let's Build Smarter Conversations + 3D Wireframe Globe) */}
+      {/* 10 — ROI Calculator (Human Agents vs Nexus AI Monthly Cost) */}
+      <ROICalculatorSection />
+
+      {/* 11 — Integrations (6 Tool Categories) */}
+      <IntegrationsSection />
+
+      {/* 12 — Pricing (3 Plans + Monthly/Yearly Toggle) */}
+      <PricingSection />
+
+      {/* 13 — FAQ (Accordion + FAQPage JSON-LD) */}
+      <FAQSection />
+
+      {/* 14 — Contact / Demo Request (Form + 3D Wireframe Globe) */}
       <ContactCTASection />
 
-      {/* 10 — Footer */}
+      {/* 15 — Footer */}
       <Footer />
     </main>
   );

@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import HeroCanvas3D from "@/components/ui/HeroCanvas3D";
-import { ArrowRight, Star, Mic, Activity, Zap, PhoneCall } from "lucide-react";
+import dynamic from "next/dynamic";
+import { ArrowRight, Star, Mic, Activity, Zap, PhoneCall, Volume2 } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const HeroCanvas3D = dynamic(() => import("@/components/ui/HeroCanvas3D"), { ssr: false });
 
 export default function HeroScene() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -189,7 +191,8 @@ export default function HeroScene() {
                 fontWeight: 600,
               }}
             >
-              <span>Book Demo</span>
+              <Volume2 size={18} />
+              <span>Hear the AI Voices</span>
             </a>
           </div>
 
@@ -205,24 +208,30 @@ export default function HeroScene() {
           >
             <div style={{ display: "flex", alignItems: "center" }}>
               {[
-                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces",
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
-                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces",
-                "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces",
-              ].map((src, i) => (
-                <img
+                { icon: PhoneCall, color: "#38BDF8" },
+                { icon: Mic, color: "#3B82F6" },
+                { icon: Activity, color: "#60A5FA" },
+                { icon: Zap, color: "#F59E0B" },
+              ].map(({ icon: Icon, color }, i) => (
+                <div
                   key={i}
-                  src={src}
-                  alt="Customer"
+                  aria-hidden="true"
                   style={{
                     width: "36px",
                     height: "36px",
                     borderRadius: "50%",
                     border: "2px solid #020617",
                     marginLeft: i === 0 ? "0" : "-10px",
-                    objectFit: "cover",
+                    backgroundColor: "#0B132B",
+                    boxShadow: `inset 0 0 0 1px ${color}60`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color,
                   }}
-                />
+                >
+                  <Icon size={15} />
+                </div>
               ))}
             </div>
 
